@@ -146,7 +146,7 @@ new Chart(document.getElementById('modelChart'), {
             'Logistic Reg.',
             'Decision Tree',
             'Random Forest',
-            'Gradient Boosting'
+            'Histogram Gradient Boosting'
         ],
 
         datasets: [
@@ -155,10 +155,10 @@ new Chart(document.getElementById('modelChart'), {
 
                 data: [
                     49.93,
-                    76.18,
-                    66.70,
-                    77.28,
-                    78.03
+                    77.62,
+                    68.01,
+                    77.39,
+                    77.82
                 ],
 
                 backgroundColor: green,
@@ -169,11 +169,11 @@ new Chart(document.getElementById('modelChart'), {
                 label: 'Weighted F1 %',
 
                 data: [
-                    33.26,
-                    74.42,
-                    66.98,
-                    75.68,
-                    77.05
+                    33.25,
+                    76.38,
+                    68.29,
+                    75.30,
+                    76.97
                 ],
 
                 backgroundColor: '#b9e86b',
