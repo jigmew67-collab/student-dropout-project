@@ -314,7 +314,7 @@ function renderPreprocessingComparison(comparison, classes) {
         const withdrawn = classes.includes('Withdrawn')
             ? holdout.classification_report.Withdrawn.recall
             : null;
-        return `<tr><th>${labels[name] || name}</th><td>${result.selected_model}</td><td>${percent(cv.weighted_f1[0])}</td><td>${percent(holdout.accuracy)}</td><td>${percent(holdout.weighted_f1)}</td><td>${percent(holdout.macro_f1)}</td><td>${withdrawn == null ? 'N/A' : percent(withdrawn)}</td></tr>`;
+        return `<tr><th>${labels[name] || name}</th><td>${result.selected_model}</td><td>${percent(cv.weighted_f1[0])}</td><td>${percent(holdout.accuracy)}</td><td>${percent(holdout.weighted_f1)}</td><td>${percent(holdout.macro_f1)}</td><td>${holdout.roc_auc_ovr_macro == null ? 'N/A' : percent(holdout.roc_auc_ovr_macro)}</td><td>${withdrawn == null ? 'N/A' : percent(withdrawn)}</td></tr>`;
     }).join('');
     const selected = labels[comparison.selected_variant] || comparison.selected_variant;
     if (selection) selection.textContent = `Selected using training-only CV weighted F1: ${selected}. Holdout metrics were not used for selection.`;
@@ -384,7 +384,7 @@ function renderOulad(exp, preprocessingComparison) {
     renderClusters('ouladClusterChart', 'ouladClusterText', data.clustering);
 }
 
-fetch('results/analysis.json')
+fetch('results/analysis.json', { cache: 'no-cache' })
     .then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
     .then(results => {
         const uci = results.experiments.uci;
