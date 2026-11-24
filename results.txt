@@ -1,18 +1,74 @@
 STUDENT DROPOUT PREDICTION — REPRODUCIBLE RESULTS
-Generated: 2026-11-24
+Generated: 2026-11-25
 Environment: Python 3.11.9, pandas 3.1.1, NumPy 2.4.6, scikit-learn 1.9.1
 
-UCI PORTUGAL — FINAL OUTCOME MULTICLASS CLASSIFICATION
-Rows: 4424; input features: 36; holdout: 885
-Selected model: Histogram Gradient Boosting
-Holdout accuracy: 0.7537; weighted F1: 0.7475; macro F1: 0.6861; macro OvR ROC-AUC: 0.8794
-Top permutation features: Tuition fees up to date, Curricular units 2nd sem (approved), Curricular units 2nd sem (grade), Curricular units 1st sem (approved), Curricular units 2nd sem (evaluations)
-Clustering: k=3, silhouette=0.2306
+UCI PORTUGAL — PREPROCESSING COMPARISON
 
-OULAD UNITED KINGDOM — DAY-28 WITHDRAWAL CLASSIFICATION
-Registrations: 27515; unique students: 24826; features: 31; grouped holdout: 5503
-Selected model: Histogram Gradient Boosting
-Holdout accuracy: 0.8168; weighted F1: 0.7503; macro F1: 0.4998; ROC-AUC: 0.7094
-Student overlap between train/test: 0
-Top permutation features: early_assessment_mean_score, module_presentation_length, clicks_quiz, clicks_forumng, clicks_url
-Clustering: k=2, silhouette=0.3650
+A_existing — selected model: Histogram Gradient Boosting
+Training CV: accuracy 0.7782 ± 0.0116; weighted F1 0.7697 ± 0.0128; macro F1 0.7110 ± 0.0168; ROC-AUC 0.8891 ± 0.0109
+Holdout: accuracy 0.7537; weighted F1 0.7475; macro F1 0.6861; ROC-AUC 0.8794
+Per-class (precision, recall, F1, support):
+  Dropout: 0.7707, 0.7218, 0.7455, 284
+  Enrolled: 0.5000, 0.4277, 0.4610, 159
+  Graduate: 0.8157, 0.8914, 0.8519, 442
+Confusion matrix (class order ['Dropout', 'Enrolled', 'Graduate']): [[205, 40, 39], [41, 68, 50], [20, 28, 394]]
+
+B_fold_unknown — selected model: Histogram Gradient Boosting
+Training CV: accuracy 0.7782 ± 0.0116; weighted F1 0.7697 ± 0.0128; macro F1 0.7110 ± 0.0168; ROC-AUC 0.8891 ± 0.0109
+Holdout: accuracy 0.7537; weighted F1 0.7475; macro F1 0.6861; ROC-AUC 0.8794
+Per-class (precision, recall, F1, support):
+  Dropout: 0.7707, 0.7218, 0.7455, 284
+  Enrolled: 0.5000, 0.4277, 0.4610, 159
+  Graduate: 0.8157, 0.8914, 0.8519, 442
+Confusion matrix (class order ['Dropout', 'Enrolled', 'Graduate']): [[205, 40, 39], [41, 68, 50], [20, 28, 394]]
+
+C_fold_unknown_indicator — selected model: Histogram Gradient Boosting
+Training CV: accuracy 0.7782 ± 0.0116; weighted F1 0.7697 ± 0.0128; macro F1 0.7110 ± 0.0168; ROC-AUC 0.8891 ± 0.0109
+Holdout: accuracy 0.7537; weighted F1 0.7475; macro F1 0.6861; ROC-AUC 0.8794
+Per-class (precision, recall, F1, support):
+  Dropout: 0.7707, 0.7218, 0.7455, 284
+  Enrolled: 0.5000, 0.4277, 0.4610, 159
+  Graduate: 0.8157, 0.8914, 0.8519, 442
+Confusion matrix (class order ['Dropout', 'Enrolled', 'Graduate']): [[205, 40, 39], [41, 68, 50], [20, 28, 394]]
+Selected preprocessing variant by training-only CV weighted F1: A_existing
+
+OULAD UNITED KINGDOM — PREPROCESSING COMPARISON
+
+A_existing — selected model: Histogram Gradient Boosting
+Training CV: accuracy 0.8176 ± 0.0012; weighted F1 0.7560 ± 0.0022; macro F1 0.5151 ± 0.0059; ROC-AUC 0.6960 ± 0.0098
+Holdout: accuracy 0.8168; weighted F1 0.7503; macro F1 0.4998; ROC-AUC 0.7094
+Per-class (precision, recall, F1, support):
+  Not withdrawn: 0.8215, 0.9902, 0.8980, 4482
+  Withdrawn: 0.5644, 0.0558, 0.1016, 1021
+Confusion matrix (class order ['Not withdrawn', 'Withdrawn']): [[4438, 44], [964, 57]]
+
+B_fold_unknown — selected model: Histogram Gradient Boosting
+Training CV: accuracy 0.8176 ± 0.0012; weighted F1 0.7560 ± 0.0022; macro F1 0.5151 ± 0.0059; ROC-AUC 0.6960 ± 0.0098
+Holdout: accuracy 0.8168; weighted F1 0.7503; macro F1 0.4998; ROC-AUC 0.7094
+Per-class (precision, recall, F1, support):
+  Not withdrawn: 0.8215, 0.9902, 0.8980, 4482
+  Withdrawn: 0.5644, 0.0558, 0.1016, 1021
+Confusion matrix (class order ['Not withdrawn', 'Withdrawn']): [[4438, 44], [964, 57]]
+
+C_fold_unknown_indicator — selected model: Histogram Gradient Boosting
+Training CV: accuracy 0.8176 ± 0.0012; weighted F1 0.7560 ± 0.0022; macro F1 0.5151 ± 0.0059; ROC-AUC 0.6960 ± 0.0098
+Holdout: accuracy 0.8168; weighted F1 0.7503; macro F1 0.4998; ROC-AUC 0.7094
+Per-class (precision, recall, F1, support):
+  Not withdrawn: 0.8215, 0.9902, 0.8980, 4482
+  Withdrawn: 0.5644, 0.0558, 0.1016, 1021
+Confusion matrix (class order ['Not withdrawn', 'Withdrawn']): [[4438, 44], [964, 57]]
+Selected preprocessing variant by training-only CV weighted F1: A_existing
+
+FINAL SELECTED PIPELINE RESULTS
+UCI holdout selected model: Histogram Gradient Boosting; weighted F1 0.7475; macro F1 0.6861; ROC-AUC 0.8794
+UCI missingness: 4424 rows × 37 columns; 0 missing cells (0.0000%).
+UCI top permutation features: Curricular units 2nd sem (approved), Tuition fees up to date, Curricular units 1st sem (approved), Curricular units 2nd sem (evaluations), Curricular units 2nd sem (grade)
+UCI clustering: k=3, silhouette=0.2306
+OULAD registrations: 27515; unique students: 24826; features: 31; grouped holdout: 5503
+OULAD selected model: Histogram Gradient Boosting; weighted F1 0.7503; macro F1 0.4998; ROC-AUC 0.7094
+OULAD student overlap between train/test: 0
+OULAD missingness: 27515 rows × 32 columns; 8633 missing cells (0.9805%).
+OULAD source tables: 34347 missing of 65394807 source cells (0.0525%).
+OULAD early assessment mean: 7600 missing because no qualifying submission; 6 had a submission with a missing score.
+OULAD top permutation features: early_assessment_mean_score, module_presentation_length, clicks_quiz, clicks_forumng, clicks_url
+OULAD clustering: k=2, silhouette=0.3650
