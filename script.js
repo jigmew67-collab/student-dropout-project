@@ -12,8 +12,10 @@ const muted = '#dbe4dd';
 // CHART DEFAULT SETTINGS
 // =========================================================
 
-Chart.defaults.font.family = 'Manrope';
-Chart.defaults.color = '#66766f';
+if (typeof Chart !== 'undefined') {
+    Chart.defaults.font.family = 'Manrope';
+    Chart.defaults.color = '#66766f';
+}
 
 const makeChart = (canvasId, config) => {
     const canvas = document.getElementById(canvasId);
@@ -405,6 +407,11 @@ fetch('results/analysis.json', { cache: 'no-cache' })
             renderOulad(results.experiments.oulad, results.preprocessing_comparison?.oulad);
         } else {
             showError('oulad-result-status', 'OULAD results are missing from the generated JSON.');
+        }
+        if (typeof Chart === 'undefined') {
+            const message = 'Chart.js did not load, so charts are unavailable. Generated result tables are still available.';
+            setText('uci-result-status', message);
+            setText('oulad-result-status', message);
         }
     })
     .catch(error => {
