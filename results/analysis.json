@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24",
+  "generated_at": "2026-11-25",
   "environment": {
     "python": "3.11.9",
     "pandas": "3.1.1",
@@ -18,6 +18,7 @@
         "Enrolled",
         "Graduate"
       ],
+      "preprocessing_variant": "A_existing",
       "class_distribution": {
         "Graduate": 2209,
         "Dropout": 1421,
@@ -171,81 +172,282 @@
           }
         }
       },
+      "missingness": {
+        "rows": 4424,
+        "predictor_columns": 36,
+        "columns_including_target": 37,
+        "predictor_cells": 159264,
+        "cells_including_target": 163688,
+        "missing_cells": 0,
+        "total_missing_cells": 0,
+        "predictor_missing_percent": 0.0,
+        "overall_missing_percent": 0.0,
+        "by_feature": [
+          {
+            "feature": "Marital status",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Application mode",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Application order",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Course",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Daytime/evening attendance",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Previous qualification",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Previous qualification (grade)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Nacionality",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Mother's qualification",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Father's qualification",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Mother's occupation",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Father's occupation",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Admission grade",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Displaced",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Educational special needs",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Debtor",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Tuition fees up to date",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Gender",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Scholarship holder",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Age at enrollment",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "International",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 1st sem (credited)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 1st sem (enrolled)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 1st sem (evaluations)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 1st sem (approved)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 1st sem (grade)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 1st sem (without evaluations)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 2nd sem (credited)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 2nd sem (enrolled)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 2nd sem (evaluations)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 2nd sem (approved)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 2nd sem (grade)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Curricular units 2nd sem (without evaluations)",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Unemployment rate",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Inflation rate",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "GDP",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          },
+          {
+            "feature": "Target",
+            "missing_cells": 0,
+            "missing_percent": 0.0
+          }
+        ],
+        "interpretation": [
+          "No missing values were found in the included UCI CSV; no imputation or missingness indicator was needed."
+        ]
+      },
       "feature_importance": [
         {
-          "feature": "Tuition fees up to date",
-          "importance": 0.04232458896252726,
-          "std": 0.003568882897568776
-        },
-        {
           "feature": "Curricular units 2nd sem (approved)",
-          "importance": 0.04200984588223784,
-          "std": 0.008213412104901799
+          "importance": 0.050258191468661326,
+          "std": 0.00437628979777822
         },
         {
-          "feature": "Curricular units 2nd sem (grade)",
-          "importance": 0.011215888247395788,
-          "std": 0.006446716495596293
+          "feature": "Tuition fees up to date",
+          "importance": 0.043123748227947,
+          "std": 0.005642367255780722
         },
         {
           "feature": "Curricular units 1st sem (approved)",
-          "importance": 0.009849801931114266,
-          "std": 0.006171167994044967
+          "importance": 0.015463601956593109,
+          "std": 0.0036044910191987594
         },
         {
           "feature": "Curricular units 2nd sem (evaluations)",
-          "importance": 0.007470398791920241,
-          "std": 0.003520599812742084
+          "importance": 0.011910642372923252,
+          "std": 0.004533173869847983
         },
         {
-          "feature": "Age at enrollment",
-          "importance": 0.005443792414911175,
-          "std": 0.004890025041423876
+          "feature": "Curricular units 2nd sem (grade)",
+          "importance": 0.011832190309396728,
+          "std": 0.006203121857788811
         },
         {
           "feature": "Application mode",
-          "importance": 0.004659620253764629,
-          "std": 0.002386790102874672
+          "importance": 0.004153229291828509,
+          "std": 0.005336924963708421
         },
         {
-          "feature": "Curricular units 1st sem (evaluations)",
-          "importance": 0.0044481187928937516,
-          "std": 0.003937113648444001
+          "feature": "Age at enrollment",
+          "importance": 0.004047876096759673,
+          "std": 0.0043702267452448
         },
         {
           "feature": "Previous qualification",
-          "importance": 0.003269334592041351,
-          "std": 0.0015213559556848692
+          "importance": 0.0027151672510270287,
+          "std": 0.0014980893795221082
         },
         {
-          "feature": "Displaced",
-          "importance": 0.0022815758742503077,
-          "std": 0.0043650053117386045
+          "feature": "Previous qualification (grade)",
+          "importance": 0.0019168843199522945,
+          "std": 0.004214000844789341
         },
         {
-          "feature": "Debtor",
-          "importance": 0.002193970631839015,
-          "std": 0.0024272533530695314
-        },
-        {
-          "feature": "Curricular units 2nd sem (credited)",
-          "importance": 0.0011852562488515518,
-          "std": 0.0007391718336338283
-        },
-        {
-          "feature": "Gender",
-          "importance": 0.0009130021315421732,
-          "std": 0.0066431280522880895
+          "feature": "Unemployment rate",
+          "importance": 0.0017061407058826862,
+          "std": 0.0032898181336437175
         },
         {
           "feature": "Daytime/evening attendance",
-          "importance": 0.0004956408137536172,
-          "std": 0.0026575663486588037
+          "importance": 0.001458785121501127,
+          "std": 0.0013512512218138333
+        },
+        {
+          "feature": "Admission grade",
+          "importance": 0.0011097056641807823,
+          "std": 0.0032387599697098366
+        },
+        {
+          "feature": "Curricular units 1st sem (evaluations)",
+          "importance": 0.0010048735393145547,
+          "std": 0.0016123334775603427
         },
         {
           "feature": "Educational special needs",
-          "importance": 0.00039505944989604025,
-          "std": 0.0004838470351549577
+          "importance": 0.0009084342343698149,
+          "std": 0.0005459088755669577
+        },
+        {
+          "feature": "Curricular units 1st sem (credited)",
+          "importance": 0.000660996225037902,
+          "std": 0.0015774633284295987
         }
       ],
       "clustering": {
@@ -12358,11 +12560,12 @@
         "Not withdrawn",
         "Withdrawn"
       ],
+      "preprocessing_variant": "A_existing",
       "class_distribution": {
         "Not withdrawn": 22410,
         "Withdrawn": 5105
       },
-      "missing_cells": 7606,
+      "missing_cells": 8633,
       "duplicate_feature_rows": 7,
       "split": {
         "train_records": 22012,
@@ -12511,7 +12714,710 @@
           "vle": 6364,
           "studentVle": 10655280
         },
-        "missing_feature_cells": 7606,
+        "missing_feature_cells": 8633,
+        "missingness": {
+          "rows": 27515,
+          "predictor_columns": 31,
+          "columns_including_target": 32,
+          "predictor_cells": 852965,
+          "cells_including_target": 880480,
+          "missing_cells": 8633,
+          "total_missing_cells": 8633,
+          "predictor_missing_percent": 1.0121165581237215,
+          "overall_missing_percent": 0.9804879156823552,
+          "by_feature": [
+            {
+              "feature": "gender",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "region",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "highest_education",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "imd_band",
+              "missing_cells": 1027,
+              "missing_percent": 3.7325095402507724
+            },
+            {
+              "feature": "age_band",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "num_of_prev_attempts",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "studied_credits",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "disability",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "date_registration",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "module_presentation_length",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "early_assessments_submitted",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "early_assessment_mean_score",
+              "missing_cells": 7606,
+              "missing_percent": 27.64310376158459
+            },
+            {
+              "feature": "clicks_dataplus",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_dualpane",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_externalquiz",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_forumng",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_glossary",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_homepage",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_htmlactivity",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_oucollaborate",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_oucontent",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_ouelluminate",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_ouwiki",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_page",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_questionnaire",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_quiz",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_resource",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_sharedsubpage",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_subpage",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "clicks_url",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            },
+            {
+              "feature": "total_clicks_by_day_28",
+              "missing_cells": 0,
+              "missing_percent": 0.0
+            }
+          ],
+          "categorical_unknowns": {
+            "imd_band": 1027
+          },
+          "early_assessment_mean_missing_by_outcome": {
+            "Not withdrawn": {
+              "rows": 22410,
+              "missing_rows": 5990,
+              "missing_percent": 26.729138777331546
+            },
+            "Withdrawn": {
+              "rows": 5105,
+              "missing_rows": 1616,
+              "missing_percent": 31.655239960822723
+            }
+          },
+          "early_assessment_mean_missing_by_group": {
+            "code_module": [
+              {
+                "group": "AAA",
+                "rows": 717,
+                "missing_rows": 68,
+                "missing_percent": 9.483960948396094
+              },
+              {
+                "group": "BBB",
+                "rows": 6428,
+                "missing_rows": 725,
+                "missing_percent": 11.27878033602987
+              },
+              {
+                "group": "CCC",
+                "rows": 3516,
+                "missing_rows": 437,
+                "missing_percent": 12.428896473265073
+              },
+              {
+                "group": "DDD",
+                "rows": 5276,
+                "missing_rows": 834,
+                "missing_percent": 15.807429871114481
+              },
+              {
+                "group": "EEE",
+                "rows": 2551,
+                "missing_rows": 2319,
+                "missing_percent": 90.90552724421795
+              },
+              {
+                "group": "FFF",
+                "rows": 6590,
+                "missing_rows": 816,
+                "missing_percent": 12.382397572078908
+              },
+              {
+                "group": "GGG",
+                "rows": 2437,
+                "missing_rows": 2407,
+                "missing_percent": 98.76897825194911
+              }
+            ],
+            "code_presentation": [
+              {
+                "group": "2013B",
+                "rows": 4118,
+                "missing_rows": 494,
+                "missing_percent": 11.996114618746963
+              },
+              {
+                "group": "2013J",
+                "rows": 7679,
+                "missing_rows": 2579,
+                "missing_percent": 33.585102226852456
+              },
+              {
+                "group": "2014B",
+                "rows": 6508,
+                "missing_rows": 2077,
+                "missing_percent": 31.914566687154274
+              },
+              {
+                "group": "2014J",
+                "rows": 9210,
+                "missing_rows": 2456,
+                "missing_percent": 26.666666666666668
+              }
+            ],
+            "age_band": [
+              {
+                "group": "0-35",
+                "rows": 19166,
+                "missing_rows": 5294,
+                "missing_percent": 27.621830324533025
+              },
+              {
+                "group": "35-55",
+                "rows": 8156,
+                "missing_rows": 2280,
+                "missing_percent": 27.954879843060326
+              },
+              {
+                "group": "55<=",
+                "rows": 193,
+                "missing_rows": 32,
+                "missing_percent": 16.580310880829018
+              }
+            ],
+            "highest_education": [
+              {
+                "group": "A Level or Equivalent",
+                "rows": 12033,
+                "missing_rows": 2936,
+                "missing_percent": 24.39956785506524
+              },
+              {
+                "group": "HE Qualification",
+                "rows": 4145,
+                "missing_rows": 880,
+                "missing_percent": 21.23039806996381
+              },
+              {
+                "group": "Lower Than A Level",
+                "rows": 10789,
+                "missing_rows": 3619,
+                "missing_percent": 33.543423857632774
+              },
+              {
+                "group": "No Formal quals",
+                "rows": 260,
+                "missing_rows": 102,
+                "missing_percent": 39.23076923076923
+              },
+              {
+                "group": "Post Graduate Qualification",
+                "rows": 288,
+                "missing_rows": 69,
+                "missing_percent": 23.958333333333336
+              }
+            ]
+          },
+          "missing_by_feature_and_group": {
+            "imd_band": {
+              "outcome": [
+                {
+                  "group": "Not withdrawn",
+                  "rows": 22410,
+                  "missing_rows": 874,
+                  "missing_percent": 3.900044622936189
+                },
+                {
+                  "group": "Withdrawn",
+                  "rows": 5105,
+                  "missing_rows": 153,
+                  "missing_percent": 2.9970617042115575
+                }
+              ],
+              "code_module": [
+                {
+                  "group": "AAA",
+                  "rows": 717,
+                  "missing_rows": 23,
+                  "missing_percent": 3.2078103207810322
+                },
+                {
+                  "group": "BBB",
+                  "rows": 6428,
+                  "missing_rows": 56,
+                  "missing_percent": 0.8711885500933417
+                },
+                {
+                  "group": "CCC",
+                  "rows": 3516,
+                  "missing_rows": 226,
+                  "missing_percent": 6.427758816837315
+                },
+                {
+                  "group": "DDD",
+                  "rows": 5276,
+                  "missing_rows": 258,
+                  "missing_percent": 4.890068233510235
+                },
+                {
+                  "group": "EEE",
+                  "rows": 2551,
+                  "missing_rows": 112,
+                  "missing_percent": 4.390435123480988
+                },
+                {
+                  "group": "FFF",
+                  "rows": 6590,
+                  "missing_rows": 345,
+                  "missing_percent": 5.235204855842185
+                },
+                {
+                  "group": "GGG",
+                  "rows": 2437,
+                  "missing_rows": 7,
+                  "missing_percent": 0.28723840787853916
+                }
+              ],
+              "code_presentation": [
+                {
+                  "group": "2013B",
+                  "rows": 4118,
+                  "missing_rows": 167,
+                  "missing_percent": 4.055366682855755
+                },
+                {
+                  "group": "2013J",
+                  "rows": 7679,
+                  "missing_rows": 250,
+                  "missing_percent": 3.2556322437817427
+                },
+                {
+                  "group": "2014B",
+                  "rows": 6508,
+                  "missing_rows": 244,
+                  "missing_percent": 3.7492317148125385
+                },
+                {
+                  "group": "2014J",
+                  "rows": 9210,
+                  "missing_rows": 366,
+                  "missing_percent": 3.973941368078176
+                }
+              ],
+              "age_band": [
+                {
+                  "group": "0-35",
+                  "rows": 19166,
+                  "missing_rows": 627,
+                  "missing_percent": 3.271418136283001
+                },
+                {
+                  "group": "35-55",
+                  "rows": 8156,
+                  "missing_rows": 387,
+                  "missing_percent": 4.744973025993134
+                },
+                {
+                  "group": "55<=",
+                  "rows": 193,
+                  "missing_rows": 13,
+                  "missing_percent": 6.7357512953367875
+                }
+              ],
+              "highest_education": [
+                {
+                  "group": "A Level or Equivalent",
+                  "rows": 12033,
+                  "missing_rows": 267,
+                  "missing_percent": 2.218898030416355
+                },
+                {
+                  "group": "HE Qualification",
+                  "rows": 4145,
+                  "missing_rows": 271,
+                  "missing_percent": 6.537997587454765
+                },
+                {
+                  "group": "Lower Than A Level",
+                  "rows": 10789,
+                  "missing_rows": 353,
+                  "missing_percent": 3.2718509593104086
+                },
+                {
+                  "group": "No Formal quals",
+                  "rows": 260,
+                  "missing_rows": 19,
+                  "missing_percent": 7.307692307692308
+                },
+                {
+                  "group": "Post Graduate Qualification",
+                  "rows": 288,
+                  "missing_rows": 117,
+                  "missing_percent": 40.625
+                }
+              ]
+            },
+            "early_assessment_mean_score": {
+              "outcome": [
+                {
+                  "group": "Not withdrawn",
+                  "rows": 22410,
+                  "missing_rows": 5990,
+                  "missing_percent": 26.729138777331546
+                },
+                {
+                  "group": "Withdrawn",
+                  "rows": 5105,
+                  "missing_rows": 1616,
+                  "missing_percent": 31.655239960822723
+                }
+              ],
+              "code_module": [
+                {
+                  "group": "AAA",
+                  "rows": 717,
+                  "missing_rows": 68,
+                  "missing_percent": 9.483960948396094
+                },
+                {
+                  "group": "BBB",
+                  "rows": 6428,
+                  "missing_rows": 725,
+                  "missing_percent": 11.27878033602987
+                },
+                {
+                  "group": "CCC",
+                  "rows": 3516,
+                  "missing_rows": 437,
+                  "missing_percent": 12.428896473265073
+                },
+                {
+                  "group": "DDD",
+                  "rows": 5276,
+                  "missing_rows": 834,
+                  "missing_percent": 15.807429871114481
+                },
+                {
+                  "group": "EEE",
+                  "rows": 2551,
+                  "missing_rows": 2319,
+                  "missing_percent": 90.90552724421795
+                },
+                {
+                  "group": "FFF",
+                  "rows": 6590,
+                  "missing_rows": 816,
+                  "missing_percent": 12.382397572078908
+                },
+                {
+                  "group": "GGG",
+                  "rows": 2437,
+                  "missing_rows": 2407,
+                  "missing_percent": 98.76897825194911
+                }
+              ],
+              "code_presentation": [
+                {
+                  "group": "2013B",
+                  "rows": 4118,
+                  "missing_rows": 494,
+                  "missing_percent": 11.996114618746963
+                },
+                {
+                  "group": "2013J",
+                  "rows": 7679,
+                  "missing_rows": 2579,
+                  "missing_percent": 33.585102226852456
+                },
+                {
+                  "group": "2014B",
+                  "rows": 6508,
+                  "missing_rows": 2077,
+                  "missing_percent": 31.914566687154274
+                },
+                {
+                  "group": "2014J",
+                  "rows": 9210,
+                  "missing_rows": 2456,
+                  "missing_percent": 26.666666666666668
+                }
+              ],
+              "age_band": [
+                {
+                  "group": "0-35",
+                  "rows": 19166,
+                  "missing_rows": 5294,
+                  "missing_percent": 27.621830324533025
+                },
+                {
+                  "group": "35-55",
+                  "rows": 8156,
+                  "missing_rows": 2280,
+                  "missing_percent": 27.954879843060326
+                },
+                {
+                  "group": "55<=",
+                  "rows": 193,
+                  "missing_rows": 32,
+                  "missing_percent": 16.580310880829018
+                }
+              ],
+              "highest_education": [
+                {
+                  "group": "A Level or Equivalent",
+                  "rows": 12033,
+                  "missing_rows": 2936,
+                  "missing_percent": 24.39956785506524
+                },
+                {
+                  "group": "HE Qualification",
+                  "rows": 4145,
+                  "missing_rows": 880,
+                  "missing_percent": 21.23039806996381
+                },
+                {
+                  "group": "Lower Than A Level",
+                  "rows": 10789,
+                  "missing_rows": 3619,
+                  "missing_percent": 33.543423857632774
+                },
+                {
+                  "group": "No Formal quals",
+                  "rows": 260,
+                  "missing_rows": 102,
+                  "missing_percent": 39.23076923076923
+                },
+                {
+                  "group": "Post Graduate Qualification",
+                  "rows": 288,
+                  "missing_rows": 69,
+                  "missing_percent": 23.958333333333336
+                }
+              ]
+            }
+          },
+          "students_with_any_missing_early_mean": {
+            "students": 24826,
+            "students_with_missing": 7299,
+            "percent": 29.400628373479414
+          },
+          "early_assessment_count_zero_rows": 7606,
+          "early_mean_missing_and_count_zero_rows": 7606,
+          "early_mean_missing_without_qualifying_submission_rows": 7600,
+          "early_mean_missing_with_submission_but_missing_score_rows": 6,
+          "qualifying_early_submissions_with_missing_score": 8,
+          "raw_source_total_cells": 65394807,
+          "raw_source_total_missing_cells": 34347,
+          "raw_source_overall_missing_percent": 0.05252251910461331,
+          "source_tables": [
+            {
+              "table": "studentInfo",
+              "rows": 32593,
+              "columns": 12,
+              "missing_cells": 1111,
+              "overall_missing_percent": 0.2840589492631342,
+              "missing_features": [
+                {
+                  "feature": "imd_band",
+                  "missing_cells": 1111,
+                  "missing_percent": 3.408707391157611
+                }
+              ]
+            },
+            {
+              "table": "studentRegistration",
+              "rows": 32593,
+              "columns": 5,
+              "missing_cells": 22566,
+              "overall_missing_percent": 13.847145092504526,
+              "missing_features": [
+                {
+                  "feature": "date_registration",
+                  "missing_cells": 45,
+                  "missing_percent": 0.13806645598748196
+                },
+                {
+                  "feature": "date_unregistration",
+                  "missing_cells": 22521,
+                  "missing_percent": 69.09765900653515
+                }
+              ]
+            },
+            {
+              "table": "courses",
+              "rows": 22,
+              "columns": 3,
+              "missing_cells": 0,
+              "overall_missing_percent": 0.0,
+              "missing_features": []
+            },
+            {
+              "table": "assessments",
+              "rows": 206,
+              "columns": 6,
+              "missing_cells": 11,
+              "overall_missing_percent": 0.889967637540453,
+              "missing_features": [
+                {
+                  "feature": "date",
+                  "missing_cells": 11,
+                  "missing_percent": 5.339805825242718
+                }
+              ]
+            },
+            {
+              "table": "studentAssessment",
+              "rows": 173912,
+              "columns": 5,
+              "missing_cells": 173,
+              "overall_missing_percent": 0.019895119370716224,
+              "missing_features": [
+                {
+                  "feature": "score",
+                  "missing_cells": 173,
+                  "missing_percent": 0.09947559685358112
+                }
+              ]
+            },
+            {
+              "table": "vle",
+              "rows": 6364,
+              "columns": 6,
+              "missing_cells": 10486,
+              "overall_missing_percent": 27.461764089671064,
+              "missing_features": [
+                {
+                  "feature": "week_from",
+                  "missing_cells": 5243,
+                  "missing_percent": 82.3852922690132
+                },
+                {
+                  "feature": "week_to",
+                  "missing_cells": 5243,
+                  "missing_percent": 82.3852922690132
+                }
+              ]
+            },
+            {
+              "table": "studentVle",
+              "rows": 10655280,
+              "columns": 6,
+              "missing_cells": 0,
+              "overall_missing_percent": 0.0,
+              "missing_features": []
+            }
+          ],
+          "interpretation": [
+            "Missing early mean scores are unavailable measurements, not scores of zero: 7,600 eligible registrations had no qualifying early submission record, while 6 had a submission whose score was missing.",
+            "The existing early_assessments_submitted feature counts non-missing scores, so its zero value includes both no qualifying submission and the six cases with an unscored submission.",
+            "Missing imd_band values are retained as an explicit Unknown category; the source data does not specify their individual cause.",
+            "Missing date_unregistration values denote no recorded unregistration date and are used only for risk-set eligibility, not as predictors.",
+            "Zero early assessment counts mean no non-missing early scores; six eligible registrations had a submission record with a missing score. Zero VLE click aggregates mean no qualifying recorded clicks; neither count is a replacement of a missing score with zero."
+          ]
+        },
         "duplicate_feature_rows": 7,
         "duplicate_registration_keys": 0,
         "target_counts": {
@@ -24678,6 +25584,848 @@
           }
         ]
       }
+    }
+  },
+  "preprocessing_comparison": {
+    "uci": {
+      "selection_rule": "Choose the preprocessing variant with the best model's mean training-only CV weighted F1; holdout metrics are not used to select it.",
+      "variants": {
+        "A_existing": {
+          "selected_model": "Histogram Gradient Boosting",
+          "classes": [
+            "Dropout",
+            "Enrolled",
+            "Graduate"
+          ],
+          "cv": {
+            "Baseline (Most Frequent)": {
+              "accuracy": [
+                0.4992935855328874,
+                0.0006316577471323342
+              ],
+              "weighted_f1": [
+                0.3325489609993252,
+                0.0007013128333433266
+              ],
+              "macro_f1": [
+                0.22201273668881658,
+                0.00018733422779423448
+              ],
+              "roc_auc": [
+                0.5,
+                0.0
+              ]
+            },
+            "Logistic Regression": {
+              "accuracy": [
+                0.7759219747640623,
+                0.008020135511235463
+              ],
+              "weighted_f1": [
+                0.7635047049779582,
+                0.009018562319692867
+              ],
+              "macro_f1": [
+                0.7014250309250206,
+                0.014425526824188758
+              ],
+              "roc_auc": [
+                0.8884132088041647,
+                0.008784870634956657
+              ]
+            },
+            "Decision Tree": {
+              "accuracy": [
+                0.6801376868921759,
+                0.006438639981014653
+              ],
+              "weighted_f1": [
+                0.6829153911737836,
+                0.010775414993929658
+              ],
+              "macro_f1": [
+                0.6183024108379856,
+                0.014266622628847349
+              ],
+              "roc_auc": [
+                0.72773403331014,
+                0.010444687503893598
+              ]
+            },
+            "Random Forest": {
+              "accuracy": [
+                0.7739469709682834,
+                0.006758941139264841
+              ],
+              "weighted_f1": [
+                0.7530166392245325,
+                0.010192827089309818
+              ],
+              "macro_f1": [
+                0.6819486518807485,
+                0.01565429678538607
+              ],
+              "roc_auc": [
+                0.8865586104780843,
+                0.008293332835360108
+              ]
+            },
+            "Histogram Gradient Boosting": {
+              "accuracy": [
+                0.7781854577709588,
+                0.011552375734436059
+              ],
+              "weighted_f1": [
+                0.7697138766324828,
+                0.012817073117785622
+              ],
+              "macro_f1": [
+                0.7109870241520431,
+                0.01680382070385006
+              ],
+              "roc_auc": [
+                0.889065618738621,
+                0.010860186471594986
+              ]
+            }
+          },
+          "holdout": {
+            "accuracy": 0.7536723163841808,
+            "precision_weighted": 0.7445503343226648,
+            "recall_weighted": 0.7536723163841808,
+            "weighted_f1": 0.7475107367689958,
+            "macro_f1": 0.6861211288329931,
+            "roc_auc_ovr_macro": 0.8794191886207393,
+            "confusion_matrix": [
+              [
+                205,
+                40,
+                39
+              ],
+              [
+                41,
+                68,
+                50
+              ],
+              [
+                20,
+                28,
+                394
+              ]
+            ],
+            "classification_report": {
+              "Dropout": {
+                "precision": 0.7706766917293233,
+                "recall": 0.721830985915493,
+                "f1-score": 0.7454545454545455,
+                "support": 284.0
+              },
+              "Enrolled": {
+                "precision": 0.5,
+                "recall": 0.4276729559748428,
+                "f1-score": 0.4610169491525424,
+                "support": 159.0
+              },
+              "Graduate": {
+                "precision": 0.8157349896480331,
+                "recall": 0.8914027149321267,
+                "f1-score": 0.8518918918918919,
+                "support": 442.0
+              }
+            }
+          }
+        },
+        "B_fold_unknown": {
+          "selected_model": "Histogram Gradient Boosting",
+          "classes": [
+            "Dropout",
+            "Enrolled",
+            "Graduate"
+          ],
+          "cv": {
+            "Baseline (Most Frequent)": {
+              "accuracy": [
+                0.4992935855328874,
+                0.0006316577471323342
+              ],
+              "weighted_f1": [
+                0.3325489609993252,
+                0.0007013128333433266
+              ],
+              "macro_f1": [
+                0.22201273668881658,
+                0.00018733422779423448
+              ],
+              "roc_auc": [
+                0.5,
+                0.0
+              ]
+            },
+            "Logistic Regression": {
+              "accuracy": [
+                0.7759219747640623,
+                0.008020135511235463
+              ],
+              "weighted_f1": [
+                0.7635047049779582,
+                0.009018562319692867
+              ],
+              "macro_f1": [
+                0.7014250309250206,
+                0.014425526824188758
+              ],
+              "roc_auc": [
+                0.8884132088041647,
+                0.008784870634956657
+              ]
+            },
+            "Decision Tree": {
+              "accuracy": [
+                0.6801376868921759,
+                0.006438639981014653
+              ],
+              "weighted_f1": [
+                0.6829153911737836,
+                0.010775414993929658
+              ],
+              "macro_f1": [
+                0.6183024108379856,
+                0.014266622628847349
+              ],
+              "roc_auc": [
+                0.72773403331014,
+                0.010444687503893598
+              ]
+            },
+            "Random Forest": {
+              "accuracy": [
+                0.7739469709682834,
+                0.006758941139264841
+              ],
+              "weighted_f1": [
+                0.7530166392245325,
+                0.010192827089309818
+              ],
+              "macro_f1": [
+                0.6819486518807485,
+                0.01565429678538607
+              ],
+              "roc_auc": [
+                0.8865586104780843,
+                0.008293332835360108
+              ]
+            },
+            "Histogram Gradient Boosting": {
+              "accuracy": [
+                0.7781854577709588,
+                0.011552375734436059
+              ],
+              "weighted_f1": [
+                0.7697138766324828,
+                0.012817073117785622
+              ],
+              "macro_f1": [
+                0.7109870241520431,
+                0.01680382070385006
+              ],
+              "roc_auc": [
+                0.889065618738621,
+                0.010860186471594986
+              ]
+            }
+          },
+          "holdout": {
+            "accuracy": 0.7536723163841808,
+            "precision_weighted": 0.7445503343226648,
+            "recall_weighted": 0.7536723163841808,
+            "weighted_f1": 0.7475107367689958,
+            "macro_f1": 0.6861211288329931,
+            "roc_auc_ovr_macro": 0.8794191886207393,
+            "confusion_matrix": [
+              [
+                205,
+                40,
+                39
+              ],
+              [
+                41,
+                68,
+                50
+              ],
+              [
+                20,
+                28,
+                394
+              ]
+            ],
+            "classification_report": {
+              "Dropout": {
+                "precision": 0.7706766917293233,
+                "recall": 0.721830985915493,
+                "f1-score": 0.7454545454545455,
+                "support": 284.0
+              },
+              "Enrolled": {
+                "precision": 0.5,
+                "recall": 0.4276729559748428,
+                "f1-score": 0.4610169491525424,
+                "support": 159.0
+              },
+              "Graduate": {
+                "precision": 0.8157349896480331,
+                "recall": 0.8914027149321267,
+                "f1-score": 0.8518918918918919,
+                "support": 442.0
+              }
+            }
+          }
+        },
+        "C_fold_unknown_indicator": {
+          "selected_model": "Histogram Gradient Boosting",
+          "classes": [
+            "Dropout",
+            "Enrolled",
+            "Graduate"
+          ],
+          "cv": {
+            "Baseline (Most Frequent)": {
+              "accuracy": [
+                0.4992935855328874,
+                0.0006316577471323342
+              ],
+              "weighted_f1": [
+                0.3325489609993252,
+                0.0007013128333433266
+              ],
+              "macro_f1": [
+                0.22201273668881658,
+                0.00018733422779423448
+              ],
+              "roc_auc": [
+                0.5,
+                0.0
+              ]
+            },
+            "Logistic Regression": {
+              "accuracy": [
+                0.7759219747640623,
+                0.008020135511235463
+              ],
+              "weighted_f1": [
+                0.7635047049779582,
+                0.009018562319692867
+              ],
+              "macro_f1": [
+                0.7014250309250206,
+                0.014425526824188758
+              ],
+              "roc_auc": [
+                0.8883964595648148,
+                0.008776989199171546
+              ]
+            },
+            "Decision Tree": {
+              "accuracy": [
+                0.6801376868921759,
+                0.006438639981014653
+              ],
+              "weighted_f1": [
+                0.6829153911737836,
+                0.010775414993929658
+              ],
+              "macro_f1": [
+                0.6183024108379856,
+                0.014266622628847349
+              ],
+              "roc_auc": [
+                0.72773403331014,
+                0.010444687503893598
+              ]
+            },
+            "Random Forest": {
+              "accuracy": [
+                0.7739469709682834,
+                0.006758941139264841
+              ],
+              "weighted_f1": [
+                0.7530166392245325,
+                0.010192827089309818
+              ],
+              "macro_f1": [
+                0.6819486518807485,
+                0.01565429678538607
+              ],
+              "roc_auc": [
+                0.8865586104780843,
+                0.008293332835360108
+              ]
+            },
+            "Histogram Gradient Boosting": {
+              "accuracy": [
+                0.7781854577709588,
+                0.011552375734436059
+              ],
+              "weighted_f1": [
+                0.7697138766324828,
+                0.012817073117785622
+              ],
+              "macro_f1": [
+                0.7109870241520431,
+                0.01680382070385006
+              ],
+              "roc_auc": [
+                0.889065618738621,
+                0.010860186471594986
+              ]
+            }
+          },
+          "holdout": {
+            "accuracy": 0.7536723163841808,
+            "precision_weighted": 0.7445503343226648,
+            "recall_weighted": 0.7536723163841808,
+            "weighted_f1": 0.7475107367689958,
+            "macro_f1": 0.6861211288329931,
+            "roc_auc_ovr_macro": 0.8794191886207393,
+            "confusion_matrix": [
+              [
+                205,
+                40,
+                39
+              ],
+              [
+                41,
+                68,
+                50
+              ],
+              [
+                20,
+                28,
+                394
+              ]
+            ],
+            "classification_report": {
+              "Dropout": {
+                "precision": 0.7706766917293233,
+                "recall": 0.721830985915493,
+                "f1-score": 0.7454545454545455,
+                "support": 284.0
+              },
+              "Enrolled": {
+                "precision": 0.5,
+                "recall": 0.4276729559748428,
+                "f1-score": 0.4610169491525424,
+                "support": 159.0
+              },
+              "Graduate": {
+                "precision": 0.8157349896480331,
+                "recall": 0.8914027149321267,
+                "f1-score": 0.8518918918918919,
+                "support": 442.0
+              }
+            }
+          }
+        }
+      },
+      "selected_variant": "A_existing"
+    },
+    "oulad": {
+      "selection_rule": "Choose the preprocessing variant with the best model's mean training-only CV weighted F1; holdout metrics are not used to select it.",
+      "variants": {
+        "A_existing": {
+          "selected_model": "Histogram Gradient Boosting",
+          "classes": [
+            "Not withdrawn",
+            "Withdrawn"
+          ],
+          "cv": {
+            "Baseline (Most Frequent)": {
+              "accuracy": [
+                0.8144648391915676,
+                8.456519973752855e-05
+              ],
+              "weighted_f1": [
+                0.7311830597355649,
+                0.0001177617784627025
+              ],
+              "macro_f1": [
+                0.4488733093237853,
+                2.568431051722393e-05
+              ],
+              "roc_auc": [
+                0.5,
+                0.0
+              ]
+            },
+            "Logistic Regression": {
+              "accuracy": [
+                0.8146465025343611,
+                0.001005093028550839
+              ],
+              "weighted_f1": [
+                0.738568188359789,
+                0.002161386236641325
+              ],
+              "macro_f1": [
+                0.4693523908576635,
+                0.005210011461913657
+              ],
+              "roc_auc": [
+                0.6645060184367508,
+                0.012171589046322462
+              ]
+            },
+            "Decision Tree": {
+              "accuracy": [
+                0.7117484536946279,
+                0.004227854070119331
+              ],
+              "weighted_f1": [
+                0.7173810141590693,
+                0.0027669788435873343
+              ],
+              "macro_f1": [
+                0.5421260544590859,
+                0.005071294632511407
+              ],
+              "roc_auc": [
+                0.5443390593568137,
+                0.006014681854350292
+              ]
+            },
+            "Random Forest": {
+              "accuracy": [
+                0.8152825976836453,
+                0.001354858406954125
+              ],
+              "weighted_f1": [
+                0.7407061501670176,
+                0.0023980016151315176
+              ],
+              "macro_f1": [
+                0.4746591025528222,
+                0.0060786117205484025
+              ],
+              "roc_auc": [
+                0.6887079407491667,
+                0.006097030971370123
+              ]
+            },
+            "Histogram Gradient Boosting": {
+              "accuracy": [
+                0.8176449744159608,
+                0.001188308168043175
+              ],
+              "weighted_f1": [
+                0.7560026164022784,
+                0.002249387571693731
+              ],
+              "macro_f1": [
+                0.5151333532903436,
+                0.005891366716149047
+              ],
+              "roc_auc": [
+                0.6959905950422173,
+                0.009840354737634428
+              ]
+            }
+          },
+          "holdout": {
+            "accuracy": 0.8168271851717245,
+            "precision_weighted": 0.7738295751076912,
+            "recall_weighted": 0.8168271851717245,
+            "weighted_f1": 0.7502544338029357,
+            "macro_f1": 0.49981063762100253,
+            "roc_auc_ovr_macro": 0.7093882112408716,
+            "confusion_matrix": [
+              [
+                4438,
+                44
+              ],
+              [
+                964,
+                57
+              ]
+            ],
+            "classification_report": {
+              "Not withdrawn": {
+                "precision": 0.8215475749722325,
+                "recall": 0.9901829540383758,
+                "f1-score": 0.8980169971671388,
+                "support": 4482.0
+              },
+              "Withdrawn": {
+                "precision": 0.5643564356435643,
+                "recall": 0.05582761998041136,
+                "f1-score": 0.10160427807486631,
+                "support": 1021.0
+              }
+            }
+          }
+        },
+        "B_fold_unknown": {
+          "selected_model": "Histogram Gradient Boosting",
+          "classes": [
+            "Not withdrawn",
+            "Withdrawn"
+          ],
+          "cv": {
+            "Baseline (Most Frequent)": {
+              "accuracy": [
+                0.8144648391915676,
+                8.456519973752855e-05
+              ],
+              "weighted_f1": [
+                0.7311830597355649,
+                0.0001177617784627025
+              ],
+              "macro_f1": [
+                0.4488733093237853,
+                2.568431051722393e-05
+              ],
+              "roc_auc": [
+                0.5,
+                0.0
+              ]
+            },
+            "Logistic Regression": {
+              "accuracy": [
+                0.8146465025343611,
+                0.001005093028550839
+              ],
+              "weighted_f1": [
+                0.738568188359789,
+                0.002161386236641325
+              ],
+              "macro_f1": [
+                0.4693523908576635,
+                0.005210011461913657
+              ],
+              "roc_auc": [
+                0.6645060184367508,
+                0.012171589046322462
+              ]
+            },
+            "Decision Tree": {
+              "accuracy": [
+                0.7117484536946279,
+                0.004227854070119331
+              ],
+              "weighted_f1": [
+                0.7173810141590693,
+                0.0027669788435873343
+              ],
+              "macro_f1": [
+                0.5421260544590859,
+                0.005071294632511407
+              ],
+              "roc_auc": [
+                0.5443390593568137,
+                0.006014681854350292
+              ]
+            },
+            "Random Forest": {
+              "accuracy": [
+                0.8152825976836453,
+                0.001354858406954125
+              ],
+              "weighted_f1": [
+                0.7407061501670176,
+                0.0023980016151315176
+              ],
+              "macro_f1": [
+                0.4746591025528222,
+                0.0060786117205484025
+              ],
+              "roc_auc": [
+                0.6887079407491667,
+                0.006097030971370123
+              ]
+            },
+            "Histogram Gradient Boosting": {
+              "accuracy": [
+                0.8176449744159608,
+                0.001188308168043175
+              ],
+              "weighted_f1": [
+                0.7560026164022784,
+                0.002249387571693731
+              ],
+              "macro_f1": [
+                0.5151333532903436,
+                0.005891366716149047
+              ],
+              "roc_auc": [
+                0.6959905950422173,
+                0.009840354737634428
+              ]
+            }
+          },
+          "holdout": {
+            "accuracy": 0.8168271851717245,
+            "precision_weighted": 0.7738295751076912,
+            "recall_weighted": 0.8168271851717245,
+            "weighted_f1": 0.7502544338029357,
+            "macro_f1": 0.49981063762100253,
+            "roc_auc_ovr_macro": 0.7093882112408716,
+            "confusion_matrix": [
+              [
+                4438,
+                44
+              ],
+              [
+                964,
+                57
+              ]
+            ],
+            "classification_report": {
+              "Not withdrawn": {
+                "precision": 0.8215475749722325,
+                "recall": 0.9901829540383758,
+                "f1-score": 0.8980169971671388,
+                "support": 4482.0
+              },
+              "Withdrawn": {
+                "precision": 0.5643564356435643,
+                "recall": 0.05582761998041136,
+                "f1-score": 0.10160427807486631,
+                "support": 1021.0
+              }
+            }
+          }
+        },
+        "C_fold_unknown_indicator": {
+          "selected_model": "Histogram Gradient Boosting",
+          "classes": [
+            "Not withdrawn",
+            "Withdrawn"
+          ],
+          "cv": {
+            "Baseline (Most Frequent)": {
+              "accuracy": [
+                0.8144648391915676,
+                8.456519973752855e-05
+              ],
+              "weighted_f1": [
+                0.7311830597355649,
+                0.0001177617784627025
+              ],
+              "macro_f1": [
+                0.4488733093237853,
+                2.568431051722393e-05
+              ],
+              "roc_auc": [
+                0.5,
+                0.0
+              ]
+            },
+            "Logistic Regression": {
+              "accuracy": [
+                0.8146010686406763,
+                0.0009788091479717984
+              ],
+              "weighted_f1": [
+                0.7385433716916646,
+                0.002138322228841146
+              ],
+              "macro_f1": [
+                0.46933253453105905,
+                0.0051904329533097975
+              ],
+              "roc_auc": [
+                0.6646320318459382,
+                0.012221488700318538
+              ]
+            },
+            "Decision Tree": {
+              "accuracy": [
+                0.7128839708335659,
+                0.005306946044405139
+              ],
+              "weighted_f1": [
+                0.7176135976411231,
+                0.004384435515431236
+              ],
+              "macro_f1": [
+                0.5409129114194932,
+                0.007473420139518452
+              ],
+              "roc_auc": [
+                0.5426729917219848,
+                0.008134914978665237
+              ]
+            },
+            "Random Forest": {
+              "accuracy": [
+                0.8152825976836453,
+                0.0011577776240267663
+              ],
+              "weighted_f1": [
+                0.7413371938939978,
+                0.0014936916591252948
+              ],
+              "macro_f1": [
+                0.4764297507197048,
+                0.003951252711673653
+              ],
+              "roc_auc": [
+                0.6925715544783778,
+                0.0067850806494500916
+              ]
+            },
+            "Histogram Gradient Boosting": {
+              "accuracy": [
+                0.8176449744159608,
+                0.001188308168043175
+              ],
+              "weighted_f1": [
+                0.7560026164022784,
+                0.002249387571693731
+              ],
+              "macro_f1": [
+                0.5151333532903436,
+                0.005891366716149047
+              ],
+              "roc_auc": [
+                0.6959905950422173,
+                0.009840354737634428
+              ]
+            }
+          },
+          "holdout": {
+            "accuracy": 0.8168271851717245,
+            "precision_weighted": 0.7738295751076912,
+            "recall_weighted": 0.8168271851717245,
+            "weighted_f1": 0.7502544338029357,
+            "macro_f1": 0.49981063762100253,
+            "roc_auc_ovr_macro": 0.7093882112408716,
+            "confusion_matrix": [
+              [
+                4438,
+                44
+              ],
+              [
+                964,
+                57
+              ]
+            ],
+            "classification_report": {
+              "Not withdrawn": {
+                "precision": 0.8215475749722325,
+                "recall": 0.9901829540383758,
+                "f1-score": 0.8980169971671388,
+                "support": 4482.0
+              },
+              "Withdrawn": {
+                "precision": 0.5643564356435643,
+                "recall": 0.05582761998041136,
+                "f1-score": 0.10160427807486631,
+                "support": 1021.0
+              }
+            }
+          }
+        }
+      },
+      "selected_variant": "A_existing"
     }
   }
 }

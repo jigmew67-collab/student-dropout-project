@@ -18,7 +18,7 @@ The work compares a consistent set of classification algorithms within each data
 
 ## 3. Objectives and research questions
 
-The objectives are to (1) reproduce the UCI multiclass experiment, (2) construct a day-28 OULAD withdrawal experiment from the original relational tables, (3) compare five classifiers within each task, (4) rank predictive features without causal claims, and (5) examine target-excluded clusters and their outcome composition.
+The objectives are to (1) reproduce the UCI multiclass experiment, (2) construct a day-28 OULAD withdrawal experiment from the original relational tables, (3) compare five model configurations—four classifiers and one majority-class baseline—within each task, (4) rank predictive features without causal claims, and (5) examine target-excluded clusters and their outcome composition.
 
 The research questions are:
 
