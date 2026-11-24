@@ -251,7 +251,76 @@ function renderClusters(canvasId, textId, clustering) {
     }).join(' · ')}</p>`;
 }
 
-function renderOulad(exp) {
+function renderMissingnessChart(audit) {
+    const canvas = document.getElementById('ouladMissingnessChart');
+    const caption = document.getElementById('oulad-missingness-caption');
+    if (!canvas) return;
+    const missingFeatures = audit?.by_feature?.filter(item => item.missing_cells > 0) || [];
+    if (!missingFeatures.length) {
+        if (caption) caption.textContent = 'No missing predictor values were reported for OULAD.';
+        return;
+    }
+    const displayNames = {
+        imd_band: 'IMD band',
+        early_assessment_mean_score: 'Early assessment mean'
+    };
+    makeChart('ouladMissingnessChart', {
+        type: 'bar',
+        data: {
+            labels: missingFeatures.map(item => displayNames[item.feature] || item.feature),
+            datasets: [{
+                label: 'Records missing (%)',
+                data: missingFeatures.map(item => item.missing_percent),
+                missingCells: missingFeatures.map(item => item.missing_cells),
+                backgroundColor: [green, lime],
+                borderRadius: 5
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: {
+                    title: items => missingFeatures[items[0].dataIndex].feature,
+                    label: item =>
+                        `${item.parsed.x.toFixed(2)}% missing (${item.dataset.missingCells[item.dataIndex].toLocaleString()} records)`
+                } }
+            },
+            scales: {
+                x: { beginAtZero: true, title: { display: true, text: 'Eligible registrations missing (%)' } },
+                y: { grid: { display: false } }
+            }
+        }
+    });
+    if (caption) caption.textContent = 'Only predictors with missing cells are shown. Hover for the missing-record count; all other model predictors are complete.';
+}
+
+function renderPreprocessingComparison(comparison, classes) {
+    const table = document.querySelector('#ouladImputationTable tbody');
+    const selection = document.getElementById('oulad-imputation-selection');
+    if (!table || !comparison?.variants) {
+        if (selection) selection.textContent = 'Generated preprocessing comparison is unavailable.';
+        return;
+    }
+    const labels = {
+        A_existing: 'A · Existing handling',
+        B_fold_unknown: 'B · Fold-fitted imputation',
+        C_fold_unknown_indicator: 'C · Imputation + indicators'
+    };
+    table.innerHTML = Object.entries(comparison.variants).map(([name, result]) => {
+        const cv = result.cv[result.selected_model];
+        const holdout = result.holdout;
+        const withdrawn = classes.includes('Withdrawn')
+            ? holdout.classification_report.Withdrawn.recall
+            : null;
+        return `<tr><th>${labels[name] || name}</th><td>${result.selected_model}</td><td>${percent(cv.weighted_f1[0])}</td><td>${percent(holdout.accuracy)}</td><td>${percent(holdout.weighted_f1)}</td><td>${percent(holdout.macro_f1)}</td><td>${withdrawn == null ? 'N/A' : percent(withdrawn)}</td></tr>`;
+    }).join('');
+    const selected = labels[comparison.selected_variant] || comparison.selected_variant;
+    if (selection) selection.textContent = `Selected using training-only CV weighted F1: ${selected}. Holdout metrics were not used for selection.`;
+}
+
+function renderOulad(exp, preprocessingComparison) {
     const status = document.getElementById('oulad-result-status');
     if (!exp || exp.status === 'not_run') {
         if (status) status.textContent = 'OULAD experiment has no generated results in this build.';
@@ -268,6 +337,25 @@ function renderOulad(exp) {
     if (status) status.textContent = `${quality.registrations.toLocaleString()} eligible registrations from ${quality.unique_students.toLocaleString()} unique students; ${quality.excluded_not_registered_or_already_unregistered_by_day_28.toLocaleString()} registrations excluded because they were not in the day-28 risk set.`;
     setText('oulad-record-count', `${quality.registrations.toLocaleString()} eligible registrations`);
     setText('oulad-student-count', `${quality.unique_students.toLocaleString()} distinct students`);
+    const missingness = quality.missingness;
+    if (missingness?.rows != null && missingness.total_missing_cells != null && Array.isArray(missingness.source_tables)) {
+        const moduleMissingness = missingness.early_assessment_mean_missing_by_group?.code_module || [];
+        const highestMissingModules = [...moduleMissingness]
+            .sort((left, right) => right.missing_percent - left.missing_percent)
+            .slice(0, 2)
+            .map(item => `${item.group} (${item.missing_percent.toFixed(2)}%)`)
+            .join(' and ');
+        const outcomeMissingness = missingness.early_assessment_mean_missing_by_outcome || {};
+        const outcomeSummary = Object.entries(outcomeMissingness)
+            .map(([label, item]) => `${label} ${item.missing_percent.toFixed(2)}%`)
+            .join('; ');
+        setText('oulad-data-quality-summary',
+            `The day-28 analytical table has ${missingness.rows.toLocaleString()} registrations, ${missingness.predictor_columns} predictors and one target. It contains ${missingness.total_missing_cells.toLocaleString()} missing predictor cells (${missingness.predictor_missing_percent.toFixed(2)}% of predictor cells; ${missingness.overall_missing_percent.toFixed(2)}% of all cells). The seven raw source tables contain ${missingness.raw_source_total_missing_cells.toLocaleString()} nulls among ${missingness.raw_source_total_cells.toLocaleString()} cells (${missingness.raw_source_overall_missing_percent.toFixed(4)}%); many are structural or outside the model predictors. Early-score missingness is highest in modules ${highestMissingModules}; by outcome it is ${outcomeSummary}. These are descriptive associations, not causes.`);
+        renderMissingnessChart(missingness);
+    } else {
+        showError('oulad-data-quality-summary', 'Generated missing-value audit is unavailable.');
+    }
+    renderPreprocessingComparison(preprocessingComparison, data.classes);
     const targetCanvas = document.getElementById('ouladTargetChart');
     if (targetCanvas) {
         const targetLabels = Object.keys(quality.target_counts);
@@ -301,6 +389,12 @@ fetch('results/analysis.json')
     .then(results => {
         const uci = results.experiments.uci;
         if (!uci) throw new Error('UCI experiment data is missing');
+        if (results.generated_at) {
+            const date = new Date(`${results.generated_at}T00:00:00Z`);
+            setText('latest-analysis-date', date.toLocaleDateString('en-GB', {
+                day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'
+            }));
+        }
         renderHeroDistribution(uci);
         renderDistribution(uci);
         renderModelComparison('modelChart', uci.cv);
@@ -308,7 +402,7 @@ fetch('results/analysis.json')
         renderImportance('uciImportanceChart', uci.feature_importance);
         renderClusters('uciClusterChart', 'uciClusterText', uci.clustering);
         if (results.experiments.oulad) {
-            renderOulad(results.experiments.oulad);
+            renderOulad(results.experiments.oulad, results.preprocessing_comparison?.oulad);
         } else {
             showError('oulad-result-status', 'OULAD results are missing from the generated JSON.');
         }
