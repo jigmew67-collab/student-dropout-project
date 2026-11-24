@@ -1,0 +1,4 @@
+data/raw/anonymisedData.zip
+__pycache__/
+*.py[cod]
+.pytest_cache/

@@ -135,6 +135,34 @@ body {
     color: var(--green);
 }
 
+/* Added multi-dataset research sections */
+.dataset-card, .pipeline-grid, .chart-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.dataset-card { padding: clamp(22px, 4vw, 38px); margin-top: 24px; }
+.dataset-card h3, .pipeline-grid h3 { margin: 8px 0 12px; }
+.dataset-card .facts { margin: 22px 0; }
+.dataset-note, .dataset-compare { background: #f2f5ed; border-left: 3px solid var(--green); border-radius: 10px; padding: 20px 24px; margin: 22px 0; }
+.dataset-note p, .dataset-compare p { margin: 8px 0 0; }
+.dataset-compare { background: white; border: 1px solid var(--line); }
+.pipeline-grid { margin: 24px 0; }
+.pipeline-grid article { padding: 25px; }
+.pipeline-grid ol { list-style: none; counter-reset: flow; padding: 0; margin-bottom: 0; display: grid; gap: 10px; }
+.pipeline-grid li { counter-increment: flow; position: relative; display: grid; grid-template-columns: 30px 1fr; align-items: start; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fbfcf8; }
+.pipeline-grid li::before { content: counter(flow, decimal-leading-zero); color: var(--green); font-weight: 800; }
+.pipeline-grid li:not(:last-child)::after { content: "↓"; position: absolute; left: 18px; bottom: -20px; color: var(--green); font-weight: 800; z-index: 1; }
+.chart-pair { margin: 24px 0; }
+.chart-pair article { padding: 24px; min-width: 0; }
+.chart-pair canvas { max-height: 390px; }
+#oulad-results[hidden] { display: none; }
+#ouladConfusion { min-width: 0; }
+#ouladConfusion th, #ouladConfusion td { white-space: normal; font-size: 12px; }
+section[id] { scroll-margin-top: 86px; }
+
+@media (max-width: 760px) {
+    .dataset-card, .pipeline-grid, .chart-pair { grid-template-columns: 1fr; }
+    .dataset-card { padding: 20px; }
+    .chart-pair canvas { max-height: 320px; }
+}
+
 .menu-btn {
     display: none;
     border: 0;
