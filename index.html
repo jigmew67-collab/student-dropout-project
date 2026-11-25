@@ -1,151 +1,512 @@
-```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Team United ICT324 Data Mining project: predicting student dropout and academic success using machine learning." />
-  <title>Student Dropout Prediction | Team United</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An ICT324 research showcase on retrospective student outcome classification using the UCI Portuguese higher-education dataset.">
+  <meta name="theme-color" content="#183c32">
+  <title>Student Dropout Prediction Using Machine Learning in Portuguese Higher Education | UNITED ICT324</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=2">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-  <header class="nav-wrap">
-    <nav class="nav container">
-      <a class="brand" href="#home"><span class="brand-mark">U</span><span>Team United <small>ICT324 · Data Mining</small></span></a>
-      <button class="menu-btn" aria-label="Open menu">☰</button>
-      <div class="nav-links">
-        <a href="#problem">Problem</a><a href="#data">Data</a><a href="#method">Method</a><a href="#progress">Progress</a><a href="#comparison">Compare</a><a href="#results">Results</a><a href="#team">Team</a><a href="#files">Files</a>
-      </div>
-    </nav>
+  <a class="skip-link" href="#main">Skip to research</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Research home">
+        <span class="brand-mark" aria-hidden="true">U</span>
+        <span class="brand-copy"><strong>UNITED / ICT324</strong><small>Rangsit University International College</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="menu-icon" aria-hidden="true"></span><span class="sr-only">Toggle navigation</span>
+      </button>
+      <nav id="primary-nav" class="primary-nav" data-section-nav aria-label="Research chapters">
+        <a href="#question">Question</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#preparation">Preparation</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#modeling">Modeling</a>
+        <a href="#results">Results</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#implications">Implications</a>
+        <a href="#team">Team</a>
+        <a href="#resources">Resources</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section id="home" class="hero container">
-      <div class="hero-copy reveal">
-        <span class="eyebrow"><i></i> CLASSIFICATION · FEATURE ANALYSIS · CLUSTERING</span>
-        <h1>Predicting <em>Student Dropout</em> & Academic Success</h1>
-        <p class="lead">Two separate studies examine student outcomes in Portuguese higher education and online UK learning. We compare classification, feature interpretation and exploratory student profiles without treating the distinct prediction tasks as interchangeable.</p>
-        <div class="hero-actions"><a class="btn primary" href="#results">Explore results <span>→</span></a><a class="btn ghost" href="#method">View methodology</a></div>
-        <div class="team-line"><span>Team United</span><b>Jigme Wangdi</b><b>Sherab Wangchen</b><b>Chencho Nidup</b></div>
-      </div>
-      <aside class="hero-panel reveal">
-        <div class="panel-label">PROJECT SNAPSHOT <span>2 EXPERIMENTS</span></div>
-        <div class="snapshot-grid">
-          <div><strong>2</strong><span>Separate datasets</span></div><div><strong>4,424</strong><span>UCI records</span></div><div><strong>32,593</strong><span>OULAD registrations</span></div><div><strong>3</strong><span>Analysis approaches</span></div>
+  <main id="main">
+    <section class="hero page-shell" id="top" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-rule"></span> ICT324 · RESEARCH SHOWCASE · PORTUGAL</p>
+        <h1 id="page-title">Student Dropout Prediction <em>Using Machine Learning in Portuguese Higher Education</em></h1>
+        <p class="hero-intro">A transparent, reproducible study of recorded student outcomes—designed to show what the available data can support, and where prediction claims must stop.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#results">Read the findings <span aria-hidden="true">↓</span></a>
+          <a class="text-action" href="#preparation">Follow the data preparation <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="mini-chart"><canvas id="classChart"></canvas></div>
-        <div class="updated"><span>Latest analysis</span><strong id="latest-analysis-date">Generated results</strong></div>
+        <p class="scope-note"><strong>Scope, stated plainly</strong> This is retrospective classification of final recorded outcomes, not a prospective early-warning system. Predictive associations do not demonstrate causes.</p>
+      </div>
+      <aside class="snapshot" aria-label="Study at a glance">
+        <div class="snapshot-heading"><span>THE STUDY AT A GLANCE</span><span class="snapshot-dot"></span></div>
+        <p class="snapshot-title">One dataset.<br>Three outcome classes.</p>
+        <div class="snapshot-metrics">
+          <div><strong data-stat="rows">4,424</strong><span>student records</span></div>
+          <div><strong data-stat="features">36</strong><span>input features</span></div>
+          <div><strong data-stat="classes">3</strong><span>recorded outcomes</span></div>
+          <div><strong data-stat="missing">0</strong><span>missing cells</span></div>
+        </div>
+        <div class="snapshot-rule"></div>
+        <p class="snapshot-foot">UCI Machine Learning Repository <span>·</span> Portugal</p>
       </aside>
     </section>
 
-    <section id="problem" class="section container">
-      <div class="section-head reveal"><span class="num">01</span><div><p class="kicker">THE PROBLEM</p><h2>From student records to earlier insight.</h2></div></div>
-      <div class="problem-grid">
-        <div class="statement card reveal"><span class="quote">“</span><h3>Research question</h3><p>How do five model configurations—four classification models and one majority-class baseline—perform within two distinct prediction tasks: final Dropout, Enrolled and Graduate outcomes in the UCI data, and subsequent withdrawal by day 28 in OULAD? Which features and exploratory student profiles are associated with each outcome?</p></div>
-        <div class="why reveal"><h3>Why it matters</h3><p>Student attrition has academic, social and economic consequences. Predictive analytics can help institutions recognize patterns associated with risk and support more timely, targeted intervention—but predictions should support human decision-making rather than replace it.</p><div class="objectives"><div><span>01</span><p>Compare four classifiers and a majority-class baseline separately within each dataset.</p></div><div><span>02</span><p>Evaluate untouched holdouts with class-sensitive metrics, confusion matrices and ROC-AUC where appropriate.</p></div><div><span>03</span><p>Interpret predictors and explore target-free student clusters without claiming causes.</p></div></div></div>
+    <section class="chapter page-shell" id="question">
+      <div class="chapter-heading">
+        <p class="chapter-index">01 <span>/</span> BUSINESS UNDERSTANDING</p>
+        <h2>Make the prediction question precise.</h2>
+        <p class="chapter-deck">The academic value is in a careful, bounded analysis—not in presenting a classifier as a decision-maker.</p>
       </div>
-      <div class="literature reveal">
-        <p class="kicker">RELATED WORK · QUICK SYNTHESIS</p>
-        <div class="lit-grid">
-          <article><span>2022</span><h4>Realinho et al.</h4><p>Introduced the Portuguese higher-education dataset used to study student dropout and academic success as a three-class prediction problem.</p></article>
-          <article><span>2017</span><h4>Kuzilek et al.</h4><p>Presented the Open University Learning Analytics Dataset, providing linked student, assessment and virtual-learning-environment records for learning analytics research.</p></article>
-          <article><span>2020</span><h4>Romero & Ventura</h4><p>Reviewed educational data mining and learning analytics, discussing how data-driven methods can support the analysis of educational processes and student outcomes.</p></article>
+      <div class="question-grid">
+        <article class="question-card">
+          <p class="micro-label">RESEARCH QUESTION</p>
+          <h3>How well can machine-learning models classify the final outcome recorded in the Portuguese student dataset, and which observed features matter most to those predictions?</h3>
+          <p>We compare four classifiers with a most-frequent baseline, assess each outcome separately, and inspect feature importance and target-excluded clusters.</p>
+        </article>
+        <div class="question-side">
+          <div><span class="side-number">A</span><p><strong>Significance</strong>Student attrition carries educational and social consequences; careful analysis can inform questions for future support research.</p></div>
+          <div><span class="side-number">B</span><p><strong>Contribution</strong>A transparent single-dataset workflow, with explicit target timing, leakage controls and class-specific evaluation.</p></div>
+          <div><span class="side-number">C</span><p><strong>Boundary</strong>The dataset contains results from both semesters. This study does not claim to predict dropout early enough to intervene.</p></div>
         </div>
       </div>
     </section>
 
-    <section id="data" class="section section-tint">
-      <div class="container">
-        <div class="section-head reveal"><span class="num">02</span><div><p class="kicker">THE DATA</p><h2>Two education settings. Separate datasets and tasks.</h2><p class="section-intro">Dataset counts describe records, while metrics in Results describe model performance.</p></div></div>
-        <div class="data-grid">
-          <div class="card reveal"><p class="kicker">DATASET PROFILE</p><div class="facts"><div><span>Source</span><strong>UCI Machine Learning Repository</strong></div><div><span>Institution</span><strong>Portuguese higher education</strong></div><div><span>Records</span><strong>4,424</strong></div><div><span>Input features</span><strong>36</strong></div><div><span>Missing values</span><strong>0</strong></div><div><span>Exact duplicates</span><strong>0</strong></div><div><span>License</span><strong>CC BY 4.0</strong></div></div><p class="chart-note">The included UCI file has 4,424 rows and 37 columns including the target; all 36 predictors are complete.</p><a class="text-link" href="https://doi.org/10.24432/C5MC89" target="_blank" rel="noopener">Open official dataset source ↗</a></div>
-          <div class="card reveal"><p class="kicker">TARGET DISTRIBUTION</p><canvas id="distributionChart"></canvas><p class="chart-note">The classes are imbalanced: Graduate is the largest class, while Enrolled is the smallest. This is why we report weighted F1 alongside accuracy.</p></div>
+    <section class="chapter chapter-wash" id="dataset">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">02 <span>/</span> DATA UNDERSTANDING</p>
+          <h2>Know what is in the file before modeling it.</h2>
+          <p class="chapter-deck">The included CSV is the Portuguese higher-education dataset from the UCI Machine Learning Repository. Its original records and target labels are preserved.</p>
         </div>
-        <div class="feature-groups reveal"><div><span>Academic</span><p>Admission grade, previous qualification, curricular units, evaluations, approved units and semester grades.</p></div><div><span>Demographic</span><p>Age at enrollment, gender, nationality, marital status, international and displaced status.</p></div><div><span>Socioeconomic</span><p>Scholarship, debtor status, tuition-fee status, parental qualification and occupation.</p></div><div><span>Macroeconomic</span><p>Unemployment rate, inflation rate and GDP.</p></div></div>
-        <div class="dataset-card card reveal"><div><p class="kicker">EXPERIMENT 2 · UNITED KINGDOM</p><h3>Open University Learning Analytics Dataset (OULAD)</h3><p>Anonymous student, course, assessment and virtual-learning-environment records from seven Open University modules and 22 presentations in 2013–14. The analytic unit is a student–module–presentation registration; a student may therefore contribute more than one record.</p><div class="facts"><div><span>Source registrations</span><strong>32,593</strong></div><div><span>Source distinct students</span><strong>28,785</strong></div><div><span>Eligible day-28 registrations</span><strong>27,515</strong></div><div><span>Eligible distinct students</span><strong>24,826</strong></div><div><span>Tables</span><strong>7 linked CSV tables</strong></div><div><span>Target</span><strong>Withdrawn vs. all other outcomes</strong></div><div><span>Prediction point</span><strong>End of day 28</strong></div></div><p class="chart-note">The eligible cohort excludes registrations that began after day 28 and registrations already unregistered by the day-28 landmark. Source totals and eligible analysis totals therefore describe different populations.</p><a class="text-link" href="https://analyse.kmi.open.ac.uk/open_dataset" target="_blank" rel="noopener">Open official dataset page ↗</a> · <a href="https://doi.org/10.6084/m9.figshare.5081998.v1" target="_blank" rel="noopener">Original Figshare record</a></div><div class="dataset-note"><strong>Data quality and preparation</strong><p id="oulad-data-quality-summary">The raw OULAD tables and day-28 analysis are audited separately. The included UCI file has no missing values. OULAD missing values are measured from the generated analysis output.</p><p>OULAD missing values are not all the same: some are unavailable assessment measurements, some are absent demographic categories, and some raw-table nulls are structural or outside the model feature set. Assessment means are median-imputed and categorical gaps are represented as Unknown within training-fold pipelines; no missing value is automatically replaced by zero. Zero VLE click aggregates denote no qualifying recorded clicks; the early count is the number of non-missing scores.</p><p>Available predictors cover demographics, enrollment, module and presentation design, early assessment score/count signals and VLE click totals by activity type. Final outcomes, student IDs, unregistration dates and post-cutoff activity are excluded from predictors. Fail is not treated as dropout; only later Withdrawn records are positive. Student identifiers group every registration for the same student in model evaluation.</p><div class="card"><p class="kicker">OULAD ANALYTICAL MISSINGNESS BY FEATURE</p><canvas id="ouladMissingnessChart"></canvas><p id="oulad-missingness-caption" class="chart-note">Bars show each model predictor's missing-record percentage; complete predictors are omitted from this compact view.</p></div><p class="kicker">SOURCE OUTCOME COUNTS</p><canvas id="ouladTargetChart"></canvas><p class="chart-note">This distribution shows the original outcome labels among eligible registrations before binary mapping.</p></div></div>
-        <p class="chart-note reveal">Feature semantics: the OULAD early assessment count records non-missing scores. Six eligible registrations had a submission record but no score, so a zero scored-assessment count does not prove that no submission occurred. Zero VLE click aggregates represent no qualifying recorded clicks.</p>
-        <div class="dataset-note reveal"><strong>Controlled missing-value experiments</strong><p>All variants use the original train/test splits and training-only cross-validation. Numerical values are median-imputed within each fold; categorical gaps are handled as explicit Unknown values for OULAD. The comparison tests whether fitting this handling inside each fold, and adding missingness indicators, changes performance. Holdout metrics are reported but not used to select the preprocessing variant.</p><div class="table-wrap"><table id="ouladImputationTable"><thead><tr><th>Variant</th><th>Selected model</th><th>CV weighted F1</th><th>Holdout accuracy</th><th>Holdout weighted F1</th><th>Holdout macro F1</th><th>Holdout ROC-AUC</th><th>Withdrawn recall</th></tr></thead><tbody><tr><td colspan="8">Generated comparison is loading.</td></tr></tbody></table></div><p id="oulad-imputation-selection" class="chart-note"></p><p class="chart-note">For UCI, the included CSV has no missing predictors, so the three preprocessing variants should not change its estimates. OULAD interpretation remains limited by the day-28 cohort, unavailable assessment outcomes, and this single historical dataset.</p></div>
-        <div class="dataset-compare reveal"><h3>Why the datasets stay separate</h3><p>UCI predicts three end-of-study labels using 36 institutional features. OULAD predicts subsequent withdrawal using day-28 online learning and enrollment signals. Different countries, populations, feature timing and label definitions mean the scores are descriptive within each experiment, not a direct country-level comparison.</p><p>OULAD has no duplicate registration keys; seven rows share identical predictors after anonymized student identifiers are excluded.</p></div>
-        <div class="cleaning reveal"><div><p class="kicker">DATA PREPARATION DIARY</p><h3>What the verified code does</h3></div><div class="steps"><div><b>01</b><span><strong>Structure and quality</strong>Checks 4,424 rows, 36 predictors, missing values and exact duplicate rows; both quality counts are zero.</span></div><div><b>02</b><span><strong>Target labels</strong>Retains the three outcomes—Dropout, Enrolled and Graduate—as readable string labels.</span></div><div><b>03</b><span><strong>Feature preprocessing</strong>One-hot encodes 17 integer-coded categorical fields so arbitrary category codes are not treated as continuous distances.</span></div><div><b>04</b><span><strong>Stratified split</strong>Creates 3,539 training records and an untouched 885-record test set with class proportions preserved.</span></div><div><b>05</b><span><strong>Fold-safe transformations</strong>Fits encoding inside every training fold; continuous inputs are additionally standardized inside the Logistic Regression pipeline.</span></div><div><b>06</b><span><strong>Model selection</strong>Compares models using five stratified folds on training data only, then evaluates the selected model once on the holdout.</span></div></div></div>
-      </div>
-    </section>
-
-    <section id="method" class="section container">
-      <div class="section-head reveal"><span class="num">03</span><div><p class="kicker">METHOD</p><h2>CRISP-DM guided the experiment.</h2></div></div>
-      <div class="crisp reveal"><div><b>01</b><span>Business<br>Understanding</span></div><i>→</i><div><b>02</b><span>Data<br>Understanding</span></div><i>→</i><div><b>03</b><span>Data<br>Preparation</span></div><i>→</i><div><b>04</b><span>Modeling</span></div><i>→</i><div><b>05</b><span>Evaluation</span></div><i>→</i><div><b>06</b><span>Deployment</span></div></div>
-      <div class="models-grid reveal"><article><span class="tag baseline">BASELINE</span><h3>Most Frequent</h3><p>Always predicts the majority class. It establishes the minimum performance that useful models should beat.</p></article><article><span class="tag">LINEAR</span><h3>Logistic Regression</h3><p>An interpretable linear classifier with one-hot encoded categories and standardized numeric inputs.</p></article><article><span class="tag">TREE</span><h3>Decision Tree</h3><p>Creates decision rules and captures nonlinear relationships.</p></article><article><span class="tag">ENSEMBLE</span><h3>Random Forest</h3><p>Combines many decision trees to improve robustness and reduce single-tree variance.</p></article><article><span class="tag best">BOOSTING</span><h3>Histogram Gradient Boosting</h3><p>Sequentially improves weak learners; it achieved the strongest training-CV weighted F1.</p></article></div>
-      <div class="evaluation card reveal"><div><p class="kicker">EVALUATION PLAN</p><h3>Training-only 5-fold stratified cross-validation</h3><p>All models use the same training folds. Weighted F1 selects the model; the untouched stratified 20% holdout is then used once for final accuracy, per-class scores, confusion matrix and macro one-vs-rest ROC-AUC.</p></div><div class="metric-pills"><span>Accuracy</span><span>Precision</span><span>Recall</span><span>Weighted F1</span><span>Macro F1</span><span>Confusion Matrix</span><span>Macro OvR ROC-AUC</span></div></div>
-      <div class="pipeline-grid reveal"><article class="card"><p class="kicker">PIPELINE 1 · DATA ACQUISITION</p><h3>Two-source preparation</h3><ol><li>Read UCI CSV and original OULAD tables</li><li>Validate keys, labels, missingness and duplicates</li><li>UCI: preserve all 36 features; encode 17 categories inside model pipeline</li><li>OULAD: join tables; aggregate activity and eligible assessment signals through day 28</li><li>Drop IDs and final outcome fields from predictors; impute and encode in-fold</li></ol></article><article class="card"><p class="kicker">PIPELINE 2 · TRAINING & EVALUATION</p><h3>Independent experiments</h3><ol><li>UCI: stratified 80/20 holdout; five-fold stratified CV on training records</li><li>OULAD: five-fold stratified-group split; student IDs cannot cross partitions</li><li>Compare baseline and four fixed classifiers; select on CV weighted F1</li><li>Evaluate selected model once on holdout; report per-class scores and confusion matrix</li><li>Rank predictors by holdout permutation importance; cluster without target features</li></ol></article></div>
-      <div class="dataset-note reveal"><strong>Prediction timing and interpretation</strong><p>UCI includes first- and second-semester results and is therefore a retrospective final-outcome classification experiment, not an early-warning model. OULAD is a day-28 withdrawal experiment. Feature importance describes predictive association; clustering is exploratory and neither proves causation.</p></div>
-      <div class="metric-guide reveal"><article><h3>Accuracy</h3><p>The share of all predictions that are correct.</p></article><article><h3>Precision</h3><p>Of the students predicted as a class, the share actually in that class.</p></article><article><h3>Recall</h3><p>Of the students truly in a class, the share the model identifies.</p></article><article><h3>Weighted F1</h3><p>Balances precision and recall, then weights each class by its size.</p></article><article><h3>Confusion matrix</h3><p>Shows exactly which true classes are confused with which predictions.</p></article><article><h3>Macro OvR ROC-AUC</h3><p>Measures probability ranking for each class versus the rest, then averages all three classes equally.</p></article></div>
-    </section>
-
-    <section id="progress" class="section section-dark">
-      <div class="container"><div class="section-head reveal"><span class="num">04</span><div><p class="kicker">PROGRESS LOG</p><h2>What we did, what challenged us, what comes next.</h2></div></div>
-        <div class="timeline reveal"><article><time>25 NOV 2026</time><h3>Missing-value audit and controlled comparisons completed</h3><p><b>Completed:</b> Audited source-table and analytical missingness for UCI and OULAD, distinguished absent early submissions from missing scores, and compared the existing preprocessing with fold-contained imputation and missingness indicators using the same evaluation splits.</p><p><b>Not undertaken:</b> External or prospective validation and deployment. The generated metrics remain offline research results.</p></article></div>
-      </div>
-    </section>
-
-    <section id="comparison" class="section section-tint"><div class="container"><div class="section-head reveal"><span class="num">05</span><div><p class="kicker">COMPARATIVE ANALYSIS</p><h2>Interpret each experiment in its own context.</h2></div></div><div class="table-wrap reveal"><table><thead><tr><th>Dimension</th><th>UCI Portugal</th><th>OULAD United Kingdom</th></tr></thead><tbody><tr><td>Unit</td><td>Student record</td><td>Student–module–presentation registration</td></tr><tr><td>Outcome</td><td>Dropout / Enrolled / Graduate</td><td>Withdrawn vs. Fail, Pass or Distinction</td></tr><tr><td>Predictor timing</td><td>Published features include both semesters</td><td>Only data observable through day 28</td></tr><tr><td>Split design</td><td>Stratified random holdout</td><td>Grouped by student across registrations; zero overlap</td></tr><tr><td>Holdout results</td><td>Accuracy 75.37%; weighted F1 74.75%; macro F1 68.61%; macro AUC 87.94%</td><td>Accuracy 81.68%; weighted F1 75.03%; macro F1 49.98%; AUC 70.94%</td></tr><tr><td>Leading signals</td><td>Second-semester approved units; tuition-fee status</td><td>Early assessment mean; module length; quiz/forum/URL clicks</td></tr><tr><td>Exploratory clusters</td><td>k=3; silhouette 0.231; one cluster had 82.2% Dropout outcomes</td><td>k=2; silhouette 0.365; higher-click cluster: 13.0% Withdrawn vs. 19.6%</td></tr><tr><td>Learning context</td><td>Portuguese higher education</td><td>UK distance learning, 7 modules and 22 presentations</td></tr></tbody></table></div><p class="chart-note">Differences in measured performance can reflect label definitions, timing, feature availability, population and split strategy. They do not show that students in one country are more likely to leave education.</p></div></section>
-
-    <section id="results" class="section container">
-      <div class="section-head reveal"><span class="num">06</span><div><p class="kicker">RESULTS</p><h2>Histogram Gradient Boosting leads on weighted F1.</h2></div></div>
-      <div class="winner reveal"><div><span>TRAINING-CV WEIGHTED F1</span><strong>76.97<sup>%</sup></strong><p>Histogram Gradient Boosting · ± 1.28 pp</p></div><div><span>UNTOUCHED HOLDOUT ACCURACY</span><strong>75.37<sup>%</sup></strong><p>667 of 885 predictions correct</p></div><div class="winner-note"><span>HOLDOUT MACRO OVR ROC-AUC</span><h3>87.94%</h3><p>One-vs-rest AUC averaged equally across all three classes.</p></div></div>
-      <div class="results-grid"><div class="card reveal"><p class="kicker">MODEL COMPARISON · TRAINING-ONLY 5-FOLD CV</p><canvas id="modelChart"></canvas><p class="chart-note">Bars show mean training cross-validation performance. Standard deviations and additional metrics appear below.</p></div><div class="card reveal"><p class="kicker">UNTOUCHED HOLDOUT CONFUSION MATRIX</p><h3 id="uci-selected-model">Selected model</h3><div class="table-wrap"><table id="uciConfusion"><tbody></tbody></table></div><p class="chart-note">Rows are actual outcomes; columns are predictions on the stratified 20% holdout set.</p><div class="table-wrap"><table id="uciClassReport"><thead><tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th></tr></thead><tbody></tbody></table></div></div></div>
-      <div class="table-wrap reveal"><table><thead><tr><th>Model configuration</th><th>Accuracy mean ± std</th><th>Weighted F1 mean ± std</th><th>Macro F1 mean ± std</th><th>Macro OvR AUC mean ± std</th></tr></thead><tbody><tr><td>Majority-class baseline (Most Frequent)</td><td>49.93% ± 0.06%</td><td>33.25% ± 0.07%</td><td>22.20% ± 0.02%</td><td>50.00% ± 0.00%</td></tr><tr><td>Logistic Regression</td><td>77.62% ± 0.79%</td><td>76.38% ± 0.89%</td><td>70.17% ± 1.42%</td><td>88.84% ± 0.88%</td></tr><tr><td>Decision Tree</td><td>68.01% ± 0.64%</td><td>68.29% ± 1.08%</td><td>61.83% ± 1.43%</td><td>72.77% ± 1.04%</td></tr><tr><td>Random Forest</td><td>77.39% ± 0.68%</td><td>75.30% ± 1.02%</td><td>68.19% ± 1.57%</td><td>88.66% ± 0.83%</td></tr><tr class="highlight"><td>Histogram Gradient Boosting ★</td><td>77.82% ± 1.16%</td><td>76.97% ± 1.28%</td><td>71.10% ± 1.68%</td><td>88.91% ± 1.09%</td></tr></tbody></table><p class="chart-note">Five model configurations: four classification models and one majority-class baseline.</p></div>
-      <div class="class-results reveal"><div><p class="kicker">PER-CLASS PERFORMANCE · UNTOUCHED HOLDOUT</p><h3>Performance differs substantially by student outcome.</h3></div><div class="table-wrap"><table><thead><tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th><th>OvR ROC-AUC</th></tr></thead><tbody><tr><td>Dropout</td><td>77.07%</td><td>72.18%</td><td>74.55%</td><td>284</td><td>90.41%</td></tr><tr class="enrolled-row"><td>Enrolled</td><td>50.00%</td><td>42.77%</td><td>46.10%</td><td>159</td><td>81.17%</td></tr><tr><td>Graduate</td><td>81.57%</td><td>89.14%</td><td>85.19%</td><td>442</td><td>92.25%</td></tr></tbody></table></div></div>
-      <div class="interpret reveal"><div><p class="kicker">WHAT THE RESULTS MEAN</p><h3>The useful signal is mostly academic—but prediction is not intervention.</h3><p>All four trained models beat the majority-class baseline. Histogram Gradient Boosting achieved the highest mean training-CV weighted F1. On the untouched holdout, <strong>Enrolled</strong> remained the hardest class: only 68 of 159 cases were identified, while 41 were predicted as Dropout and 50 as Graduate. Its 42.77% recall is much lower than Dropout at 72.18% and Graduate at 89.14%.</p><p>The Enrolled group is also the smallest class, and its observed outcomes overlap with both non-completion and graduation patterns. This is a plausible interpretation of the confusion pattern, not a causal finding; class-weighting and timing experiments are needed to test it.</p><p class="caution">These associations should not be treated as causal explanations or automatic decisions about individual students. A real early-warning system should be validated on local data and used with human oversight.</p></div><div class="importance"><p class="kicker">FEATURE IMPORTANCE APPROACHES</p><h3>Random Forest importance</h3><p>Random Forests can expose model-internal impurity-based feature importance, but the project does not publish a separate Random Forest importance ranking.</p><h3>Permutation importance</h3><p>The charts show holdout permutation importance from a separately fitted 300-tree Random Forest. It measures the decrease in weighted F1 when one feature is shuffled; larger values indicate greater predictive reliance on that feature.</p></div></div>
-    </section>
-
-    <section id="extended-results" class="section section-tint">
-      <div class="container"><div class="section-head reveal"><span class="num">07</span><div><p class="kicker">SECOND EXPERIMENT · OULAD</p><h2>Day-28 withdrawal analysis.</h2><p class="section-intro">This experiment predicts subsequent withdrawal for OULAD registrations still represented at the day-28 landmark. It does not predict UCI's three final outcomes.</p></div></div>
-        <div id="oulad-result-status" class="dataset-note"></div>
-        <div id="oulad-results"><div class="winner reveal"><div><span>HOLDOUT ACCURACY</span><strong id="oulad-accuracy">81.68%</strong><p>Student-grouped holdout records</p></div><div><span>HOLDOUT WEIGHTED F1</span><strong id="oulad-f1">75.03%</strong><p id="oulad-model">Histogram Gradient Boosting</p></div><div class="winner-note"><span>HOLDOUT ROC-AUC</span><h3 id="oulad-auc">70.94%</h3><p>Binary withdrawal discrimination</p></div></div>
-          <div class="results-grid"><div class="card"><p class="kicker">OULAD TRAINING-ONLY CV</p><canvas id="ouladModelChart"></canvas></div><div class="card"><p class="kicker">GROUPED HOLDOUT CONFUSION MATRIX</p><div class="table-wrap"><table id="ouladConfusion"><tbody></tbody></table></div><p class="chart-note">All registrations for a student remain together in one partition.</p><div class="table-wrap"><table id="ouladClassReport"><thead><tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th></tr></thead><tbody></tbody></table></div></div></div>
-          <div class="chart-pair"><article class="card"><p class="kicker">HOLDOUT PERMUTATION IMPORTANCE</p><canvas id="ouladImportanceChart"></canvas><p class="chart-note">Feature shuffling measures the change in weighted F1, not causal effect.</p></article><article class="card"><p class="kicker">EXPLORATORY STUDENT CLUSTERS</p><canvas id="ouladClusterChart"></canvas><p class="chart-note">PCA displays a sample in two dimensions; clusters were fit without outcome labels.</p><div id="ouladClusterText"></div></article></div>
+        <div class="data-overview">
+          <div class="data-facts">
+            <p class="micro-label">SOURCE & STRUCTURE</p>
+            <dl>
+              <div><dt>Source</dt><dd><a href="https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success" target="_blank" rel="noopener noreferrer">UCI Machine Learning Repository ↗</a></dd></div>
+              <div><dt>Setting</dt><dd>Portuguese higher education</dd></div>
+              <div><dt>Observations</dt><dd>4,424 student records</dd></div>
+              <div><dt>Predictors</dt><dd>36 columns</dd></div>
+              <div><dt>Target</dt><dd>Dropout · Enrolled · Graduate</dd></div>
+              <div><dt>File format</dt><dd>Semicolon-delimited CSV</dd></div>
+              <div><dt>Data licence</dt><dd>CC BY 4.0, as stated by UCI</dd></div>
+            </dl>
+            <p class="data-note">“Dropout” here is a recorded dataset outcome. It is not a forecast made at enrolment, and it should not be read as a causal label.</p>
+          </div>
+          <div class="chart-card">
+            <div class="chart-heading"><div><p class="micro-label">OUTCOME COUNTS</p><h3>Class distribution</h3></div><span id="class-total" class="chart-kicker">Loading total…</span></div>
+            <div id="class-distribution" class="chart-area" aria-live="polite"><p class="loading">Loading verified results…</p></div>
+            <p class="chart-caption">Graduate is the largest class; Enrolled is the smallest. The imbalance makes per-class metrics important.</p>
+          </div>
+        </div>
+        <div class="feature-taxonomy">
+          <div><span class="taxonomy-number">17</span><p><strong>Coded categorical features</strong>For example, application mode, course, previous qualification, scholarship holder and tuition-fee status.</p></div>
+          <div><span class="taxonomy-number">19</span><p><strong>Numerical features</strong>For example, application order, admission grade, age at enrolment, semester unit counts and grades, plus macroeconomic indicators.</p></div>
+          <div><span class="taxonomy-number">02</span><p><strong>Academic periods represented</strong>First- and second-semester features appear in the same released dataset.</p></div>
         </div>
       </div>
     </section>
 
-    <section id="uci-interpretation" class="section container"><div class="section-head reveal"><span class="num">08</span><div><p class="kicker">FEATURE IMPORTANCE & CLUSTERING · UCI</p><h2>Signals and profiles are descriptive.</h2></div></div><div id="uci-result-status" class="dataset-note"></div><div class="chart-pair"><article class="card reveal"><p class="kicker">HOLDOUT PERMUTATION IMPORTANCE</p><canvas id="uciImportanceChart"></canvas><p class="chart-note">Predictors with higher values produced a larger drop in weighted F1 when shuffled. Importance does not establish cause.</p></article><article class="card reveal"><p class="kicker">EXPLORATORY STUDENT PROFILES</p><canvas id="uciClusterChart"></canvas><p class="chart-note">PCA view of a reproducible sample; K-Means did not use the outcome column.</p><div id="uciClusterText"></div></article></div></section>
+    <section class="chapter preparation" id="preparation">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">03 <span>/</span> DATA PREPARATION</p>
+          <h2>From raw rows to model-ready features.</h2>
+          <p class="chapter-deck">Every transformation is visible here. No synthetic examples, undocumented cleaning or invented early-warning features are added.</p>
+        </div>
+        <div class="prep-audit">
+          <div class="audit-intro"><p class="micro-label">QUALITY CHECKS · INCLUDED CSV</p><h3>Clean counts are still worth reporting.</h3><p>We inspect the file before fitting any estimator. In this copy, every predictor and target cell is populated and there are no exact duplicate records.</p></div>
+          <div class="audit-number"><strong id="missing-cells">0</strong><span>missing cells</span></div>
+          <div class="audit-number"><strong id="duplicate-rows">0</strong><span>exact duplicate rows</span></div>
+        </div>
+        <ol class="prep-flow" aria-label="Data preparation sequence">
+          <li class="prep-step">
+            <span class="step-index">01</span><div><h3>Load and verify the original file</h3><p><code>analysis.py</code> reads <code>data.csv</code> with <code>sep=";"</code>, cleans a possible BOM and surrounding whitespace from column names, then checks the expected target and feature columns. The source rows and labels remain unchanged.</p></div>
+          </li>
+          <li class="prep-step">
+            <span class="step-index">02</span><div><h3>Check data quality</h3><p>The script counts missing cells and exact duplicate rows before modeling. This copy has 0 missing cells and 0 exact duplicate rows, so no rows are dropped and no values are imputed in the reported analysis.</p></div>
+          </li>
+          <li class="prep-step">
+            <span class="step-index">03</span><div><h3>Inspect features and separate the target</h3><p><code>X</code> holds 36 predictors and <code>y</code> keeps the string labels Dropout, Enrolled and Graduate. The analysis declares 17 coded categorical fields; the remaining 19 predictors are numeric. The target is never passed into feature encoding.</p></div>
+          </li>
+          <li class="prep-step">
+            <span class="step-index">04</span><div><h3>Reserve the holdout before fitting</h3><p>A stratified split with <code>test_size=0.20</code> and <code>random_state=42</code> assigns 3,539 records to training and 885 to the untouched holdout. Five-fold stratified cross-validation runs within training only.</p></div>
+          </li>
+          <li class="prep-step">
+            <span class="step-index">05</span><div><h3>Encode categories and prepare numeric inputs</h3><p>Model pipelines use most-frequent imputation followed by one-hot encoding for the 17 categorical fields, with unseen categories ignored. Numeric fields have median imputation defined; standardization is enabled for Logistic Regression and passed through for the tree models.</p></div>
+          </li>
+          <li class="prep-step">
+            <span class="step-index">06</span><div><h3>Fit fold-safe, model-ready inputs</h3><p>Each pipeline model fits preprocessing on its fold's training records, then transforms validation records; the most-frequent baseline needs no feature transforms. After weighted-F1 selection, the selected estimator is fit on all training records and evaluated once on the untouched holdout.</p></div>
+          </li>
+        </ol>
+        <div class="prep-examples">
+          <article class="example-card">
+            <p class="micro-label">FEATURE-TYPE EXAMPLES</p>
+            <div class="example-row"><code>Application mode</code><span class="arrow" aria-hidden="true">→</span><span>one-hot categorical input</span></div>
+            <div class="example-row"><code>Tuition fees up to date</code><span class="arrow" aria-hidden="true">→</span><span>one-hot categorical input</span></div>
+            <div class="example-row"><code>Admission grade</code><span class="arrow" aria-hidden="true">→</span><span>numeric input</span></div>
+            <div class="example-row"><code>Curricular units 2nd sem (approved)</code><span class="arrow" aria-hidden="true">→</span><span>numeric input</span></div>
+            <p class="example-foot">Category codes are treated as labels; the project does not assign meaning to a particular code value.</p>
+          </article>
+          <article class="code-card">
+            <div class="code-top"><span>ANALYSIS.PY · DATA PREPARATION</span><span>PYTHON</span></div>
+            <pre><code>dataset = pd.read_csv(ROOT / "data.csv", sep=";")
+dataset.columns = [column.replace("\ufeff", "").strip()
+                   for column in dataset.columns]
+X = dataset.drop(columns="Target")
+y = dataset["Target"].astype(str)
 
-    <section id="limitations" class="section section-tint">
-      <div class="container"><div class="section-head reveal"><span class="num">09</span><div><p class="kicker">LIMITATIONS & FUTURE IMPROVEMENTS</p><h2>Useful evidence, with clear boundaries.</h2></div></div>
-        <div class="limits-grid reveal"><article class="card"><span>01</span><h3>Class imbalance</h3><p>Both tasks are imbalanced. UCI Enrolled recall is 42.77%, and OULAD Withdrawn recall is 5.58% at the default threshold. Accuracy alone is insufficient; future threshold and class-sensitive experiments should select settings using training data only.</p></article><article class="card"><span>02</span><h3>Generalizability</h3><p>UCI represents one Portuguese institution; OULAD represents seven historical UK online modules. Neither result guarantees performance at other institutions, courses, or future cohorts.</p></article><article class="card"><span>03</span><h3>Prediction timing</h3><p>UCI includes both semesters and is retrospective. OULAD predicts subsequent withdrawal only among registrations active at day 28. These are different prediction times and cannot be interpreted as a direct country comparison.</p></article><article class="card"><span>04</span><h3>Responsible improvement</h3><p>Future work should use nested tuning when optimizing models, evaluate probability calibration and fairness, and test intervention value with human oversight rather than treating predictions as decisions.</p></article></div>
+train_idx, test_idx = train_test_split(
+    np.arange(len(X)),
+    test_size=0.20,
+    random_state=42,
+    stratify=y,
+)</code></pre>
+            <p>These are the operations used by the reproducible analysis; <code>test_idx</code> remains untouched during model selection.</p>
+          </article>
+        </div>
+        <aside class="timing-callout"><span class="callout-mark" aria-hidden="true">!</span><p><strong>Why timing matters</strong>The feature set includes second-semester academic results, while the target is the final recorded outcome. Those predictors may be unavailable much earlier in a student's study. Treat the results as retrospective classification—not prospective dropout risk or an early intervention claim.</p></aside>
       </div>
     </section>
 
-    <section id="team" class="section container">
-      <div class="section-head reveal"><span class="num">10</span><div><p class="kicker">TEAM CONTRIBUTIONS</p><h2>Team United.</h2><p class="section-intro">Intended responsibility areas for the research project.</p></div></div>
-      <div class="team-grid reveal"><article class="card"><span>JW</span><h3>Jigme Wangdi</h3><p>Responsible for the intended machine-learning and evaluation area, including model implementation, comparative assessment and interpretation of generated results.</p></article><article class="card"><span>SW</span><h3>Sherab Wangchen</h3><p>Responsible for the intended research and documentation area, including project narrative, methodology writing and presentation of findings.</p></article><article class="card"><span>CN</span><h3>Chencho Nidup</h3><p>Responsible for the intended data analysis and preparation area, including dataset understanding, cleaning considerations and analysis support.</p></article></div>
+    <section class="chapter methodology" id="methodology">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">04 <span>/</span> METHODOLOGY</p>
+          <h2>A bounded experiment, with validation before interpretation.</h2>
+          <p class="chapter-deck">CRISP-DM organizes the study from a defined question through preparation, modeling and evaluation. Since no model is deployed, the final phase is treated as research implications.</p>
+        </div>
+        <section class="crisp-journey" id="crisp-journey" aria-labelledby="crisp-journey-title">
+          <div class="crisp-journey-heading">
+            <div><p class="micro-label">CRISP-DM RESEARCH JOURNEY</p><h3 id="crisp-journey-title">Six phases, connected to the study.</h3></div>
+            <p>The final Deployment phase is represented by research implications. This project evaluates models but does not deploy one.</p>
+          </div>
+          <ol class="crisp-stages" aria-label="CRISP-DM research phases">
+            <li><a class="crisp-stage-link" data-crisp-stage="question" href="#question"><span class="crisp-stage-number">01</span><span class="crisp-stage-copy"><span class="crisp-stage-state" aria-hidden="true">CURRENT PHASE</span><strong class="crisp-stage-name">Business Understanding</strong><span class="crisp-stage-detail">Define the final-outcome question and the limits of a retrospective study.</span><span class="crisp-stage-action">Open chapter <span aria-hidden="true">→</span></span></span></a></li>
+            <li><a class="crisp-stage-link" data-crisp-stage="dataset" href="#dataset"><span class="crisp-stage-number">02</span><span class="crisp-stage-copy"><span class="crisp-stage-state" aria-hidden="true">CURRENT PHASE</span><strong class="crisp-stage-name">Data Understanding</strong><span class="crisp-stage-detail">Inspect 4,424 Portuguese student records, predictors and outcomes.</span><span class="crisp-stage-action">Open chapter <span aria-hidden="true">→</span></span></span></a></li>
+            <li><a class="crisp-stage-link" data-crisp-stage="preparation" href="#preparation"><span class="crisp-stage-number">03</span><span class="crisp-stage-copy"><span class="crisp-stage-state" aria-hidden="true">CURRENT PHASE</span><strong class="crisp-stage-name">Data Preparation</strong><span class="crisp-stage-detail">Check quality, type the features and fit transforms inside pipelines.</span><span class="crisp-stage-action">Open chapter <span aria-hidden="true">→</span></span></span></a></li>
+            <li><a class="crisp-stage-link" data-crisp-stage="modeling" href="#modeling"><span class="crisp-stage-number">04</span><span class="crisp-stage-copy"><span class="crisp-stage-state" aria-hidden="true">CURRENT PHASE</span><strong class="crisp-stage-name">Modeling</strong><span class="crisp-stage-detail">Compare four classifiers with a most-frequent baseline.</span><span class="crisp-stage-action">Open chapter <span aria-hidden="true">→</span></span></span></a></li>
+            <li><a class="crisp-stage-link" data-crisp-stage="evaluation" href="#evaluation"><span class="crisp-stage-number">05</span><span class="crisp-stage-copy"><span class="crisp-stage-state" aria-hidden="true">CURRENT PHASE</span><strong class="crisp-stage-name">Evaluation</strong><span class="crisp-stage-detail">Interpret cross-validation, holdout metrics and class-specific errors.</span><span class="crisp-stage-action">Open chapter <span aria-hidden="true">→</span></span></span></a></li>
+            <li><a class="crisp-stage-link" data-crisp-stage="implications" href="#implications"><span class="crisp-stage-number">06</span><span class="crisp-stage-copy"><span class="crisp-stage-state" aria-hidden="true">CURRENT PHASE</span><strong class="crisp-stage-name">Deployment</strong><span class="crisp-stage-detail">No deployment is performed; implications set out responsible next research.</span><span class="crisp-stage-action">Open chapter <span aria-hidden="true">→</span></span></span></a></li>
+          </ol>
+        </section>
+        <div class="methodology-grid">
+          <article class="method-card method-framework">
+            <p class="micro-label">RESEARCH DESIGN</p>
+            <h3>Retrospective, quantitative classification.</h3>
+            <p>The study classifies the final recorded outcome in one Portuguese higher-education dataset. It evaluates prediction on a held-out portion of this dataset; it does not test prospective intervention or causal effects.</p>
+            <a href="https://www.ibm.com/docs/en/SS3RA7_19.0.0/pdf/ModelerCRISPDM.pdf" target="_blank" rel="noopener noreferrer">IBM SPSS Modeler CRISP-DM guide ↗</a>
+          </article>
+          <article class="method-card">
+            <p class="micro-label">EXPERIMENTAL WORKFLOW</p>
+            <h3>Split, compare, then evaluate once.</h3>
+            <p>A stratified 80/20 split reserves 885 records as holdout and leaves 3,539 for training. Five-fold stratified cross-validation runs only on training records. Pipelines fit their preprocessing within each fold; the holdout is not used for model selection.</p>
+          </article>
+          <article class="method-card">
+            <p class="micro-label">MODEL SELECTION</p>
+            <h3>Weighted F1 chooses the candidate.</h3>
+            <p>Five configurations share the same training partition and folds. The highest mean training-only cross-validation weighted F1 selects the model. No resampling, threshold search or holdout-based tuning is performed.</p>
+          </article>
+          <article class="method-card">
+            <p class="micro-label">EVALUATION APPROACH</p>
+            <h3>Keep cross-validation and holdout distinct.</h3>
+            <p>Cross-validation reports fold means and standard deviations for accuracy, weighted F1, macro F1 and macro one-vs-rest ROC-AUC. The selected model’s untouched holdout reports accuracy, weighted precision and recall, weighted and macro F1, macro OvR ROC-AUC, per-class scores and a confusion matrix.</p>
+          </article>
+          <article class="method-card">
+            <p class="micro-label">SUPPLEMENTARY ANALYSES</p>
+            <h3>Interpretation remains descriptive.</h3>
+            <p>A separate 300-tree Random Forest estimates five-repeat permutation importance on the holdout. K-Means excludes the target and compares k=2–6 with silhouette scores. Neither analysis establishes causes or validated student types.</p>
+          </article>
+          <article class="method-card">
+            <p class="micro-label">REPRODUCIBILITY</p>
+            <h3>One script regenerates the outputs.</h3>
+            <p><code>analysis.py</code> uses random state 42 and the pinned environment in <code>requirements.txt</code>. It writes the JSON used by the website, the local-file data companion and a text report. Detailed transformations remain in <a href="#preparation">Preparation</a>.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="files" class="section section-tint">
-      <div class="container"><div class="section-head reveal"><span class="num">11</span><div><p class="kicker">FILES & REFERENCES</p><h2>Reproducible project resources.</h2></div></div>
-        <div class="file-grid reveal"><a href="data.csv" download><span>CSV</span><div><h3>UCI dataset</h3><p>4,424 records</p></div><b>↓</b></a><a href="analysis.py" download><span>PY</span><div><h3>Analysis code</h3><p>Both reproducible experiments</p></div><b>↓</b></a><a href="results/analysis.json" download><span>JSON</span><div><h3>Generated metrics</h3><p>Aggregate charts and tables</p></div><b>↓</b></a><a href="results.txt" download><span>TXT</span><div><h3>Run summary</h3><p>Current generated results</p></div><b>↓</b></a><a href="RESEARCH_PAPER.md"><span>MD</span><div><h3>Research paper</h3><p>Methods, results and references</p></div><b>↗</b></a><a href="README.md"><span>DOC</span><div><h3>Reproduction guide</h3><p>Download and run instructions</p></div><b>↗</b></a><a href="https://doi.org/10.6084/m9.figshare.5081998.v1" target="_blank" rel="noopener"><span>DATA</span><div><h3>Original OULAD files</h3><p>Public source and documentation</p></div><b>↗</b></a><a href="requirements.txt" download><span>REQ</span><div><h3>Dependencies</h3><p>Pinned versions</p></div><b>↓</b></a></div>
-        <div class="references reveal"><p class="kicker">RESEARCH AND DATA REFERENCES</p><ol>
-          <li>Chapman, P. et al. (2000). <a href="https://www.kde.cs.uni-kassel.de/lehre/ws2012-13/kdd/files/CRISPWP-0800.pdf" target="_blank" rel="noopener">CRISP-DM 1.0: Step-by-step data mining guide.</a> SPSS.</li>
-          <li>Fisher, A., Rudin, C., &amp; Dominici, F. (2019). <a href="https://jmlr.org/papers/v20/18-760.html" target="_blank" rel="noopener">All models are wrong, but many are useful: Learning a variable's importance by studying an entire class of prediction models simultaneously.</a> <em>Journal of Machine Learning Research, 20</em>(177), 1-81.</li>
-          <li>Kuzilek, J., Hlosta, M., &amp; Zdrahal, Z. (2017). <a href="https://doi.org/10.1038/sdata.2017.171" target="_blank" rel="noopener">Open University Learning Analytics dataset.</a> <em>Scientific Data, 4</em>, 170171.</li>
-          <li>Kuzilek, J., Hlosta, M., &amp; Zdrahal, Z. (2017). <a href="https://doi.org/10.6084/m9.figshare.5081998.v1" target="_blank" rel="noopener">Open University Learning Analytics Dataset [Data set].</a> Figshare.</li>
-          <li>MacQueen, J. (1967). Some methods for classification and analysis of multivariate observations. <em>Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability, 1</em>, 281-297.</li>
-          <li>Realinho, V., Machado, J., Baptista, L., &amp; Martins, M. V. (2022). <a href="https://doi.org/10.3390/data7110146" target="_blank" rel="noopener">Predicting student dropout and academic success.</a> <em>Data, 7</em>(11), 146.</li>
-          <li>Rousseeuw, P. J. (1987). <a href="https://doi.org/10.1016/0377-0427(87)90125-7" target="_blank" rel="noopener">Silhouettes: A graphical aid to the interpretation and validation of cluster analysis.</a> <em>Journal of Computational and Applied Mathematics, 20</em>, 53-65.</li>
-          <li>Romero, C., &amp; Ventura, S. (2020). <a href="https://doi.org/10.1002/widm.1355" target="_blank" rel="noopener">Educational data mining and learning analytics: An updated survey.</a> <em>WIREs Data Mining and Knowledge Discovery, 10</em>(3), e1355.</li>
-          <li>UCI Machine Learning Repository. <a href="https://doi.org/10.24432/C5MC89" target="_blank" rel="noopener">Predict Students' Dropout and Academic Success [Data set].</a></li>
-          <li>Open University. <a href="https://analyse.kmi.open.ac.uk/open_dataset" target="_blank" rel="noopener">Open University Learning Analytics Dataset.</a></li>
-        </ol></div>
-        <div class="submission-check reveal"><span>SUBMISSION CHECK</span><b>✓ Public-page ready</b><b>✓ No login required</b><b>✓ Team contributions shown</b><b>✓ Dated progress</b><b>✓ Dataset + code + results linked</b><b>✓ 10+ references</b></div>
+    <section class="chapter chapter-wash" id="modeling">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">05 <span>/</span> MODELING</p>
+          <h2>Compare a baseline before celebrating a model.</h2>
+          <p class="chapter-deck">Five model configurations provide the reference point for the experiment. The Results section reports how they performed.</p>
+        </div>
+        <div class="model-cards">
+          <article><span class="model-kind">REFERENCE</span><h3>Most Frequent</h3><p>A simple baseline that predicts the most common training class.</p></article>
+          <article><span class="model-kind">LINEAR</span><h3>Logistic Regression</h3><p>One-hot categories and standardized numeric features in a fold-fitted pipeline.</p></article>
+          <article><span class="model-kind">TREE</span><h3>Decision Tree</h3><p>A single tree captures nonlinear splits without numeric scaling.</p></article>
+          <article><span class="model-kind">ENSEMBLE</span><h3>Random Forest</h3><p>300 trees; also used separately for holdout permutation importance.</p></article>
+          <article><span class="model-kind">BOOSTING</span><h3>Histogram Gradient Boosting</h3><p>Sequential histogram-based trees model nonlinear feature relationships.</p></article>
+        </div>
       </div>
+    </section>
+
+    <section class="chapter results" id="results">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">06 <span>/</span> RESULTS</p>
+          <h2>What the experiment measured.</h2>
+          <p class="chapter-deck">Training-only cross-validation compares the five model configurations. The selected model is then evaluated once on the untouched holdout.</p>
+        </div>
+        <div class="result-headline" aria-label="Headline result">
+          <div><p class="micro-label">SELECTED MODEL</p><strong id="result-model">Loading results…</strong></div>
+          <div><p class="micro-label">MEAN TRAINING-CV WEIGHTED F1</p><strong id="training-cv-score">—</strong><small id="training-cv-variation">Five training-only folds; ± standard deviation</small></div>
+        </div>
+        <div class="holdout-heading"><p class="micro-label">UNTOUCHED 20% HOLDOUT · SELECTED MODEL ONLY</p><p>Final estimates from the reserved 885-record test partition.</p></div>
+        <div class="result-summary" aria-label="Selected model holdout performance">
+          <div><span>ACCURACY</span><strong id="holdout-accuracy">—</strong><small id="holdout-correct">Correctly classified records</small></div>
+          <div><span>WEIGHTED PRECISION</span><strong id="holdout-precision">—</strong><small>Weighted by class support</small></div>
+          <div><span>WEIGHTED RECALL</span><strong id="holdout-recall">—</strong><small>Weighted by class support</small></div>
+          <div><span>WEIGHTED F1</span><strong id="holdout-weighted-f1">—</strong><small>Weighted by class support</small></div>
+          <div><span>MACRO F1</span><strong id="holdout-macro-f1">—</strong><small>Equal weight per outcome</small></div>
+          <div><span>MACRO OvR ROC-AUC</span><strong id="holdout-auc">—</strong><small>Holdout one-vs-rest ranking</small></div>
+        </div>
+        <div class="results-grid">
+          <article class="chart-card">
+            <div class="chart-heading"><div><p class="micro-label">FIVE-FOLD CROSS-VALIDATION · TRAINING PARTITION ONLY</p><h3>Compare model performance</h3></div></div>
+            <div class="metric-switch" role="group" aria-label="Choose cross-validation metric">
+              <button type="button" data-metric="weighted_f1" aria-pressed="true">Weighted F1</button>
+              <button type="button" data-metric="accuracy" aria-pressed="false">Accuracy</button>
+              <button type="button" data-metric="macro_f1" aria-pressed="false">Macro F1</button>
+              <button type="button" data-metric="roc_auc" aria-pressed="false">Macro OvR ROC-AUC</button>
+            </div>
+            <div id="model-comparison" class="chart-area" aria-live="polite"><p class="loading">Loading verified results…</p></div>
+            <p id="metric-caption" class="chart-caption">Bars show the mean across five training-only folds. The value beneath each mean is ± one fold standard deviation in percentage points; it is not a confidence interval.</p>
+          </article>
+          <article class="report-card">
+            <p class="micro-label">UNTOUCHED HOLDOUT · SELECTED MODEL</p><h3>Class-level performance</h3>
+            <div class="table-scroll"><table id="class-report"><caption class="sr-only">Holdout precision, recall, F1 and support for each outcome</caption><thead><tr><th scope="col">Outcome</th><th scope="col">Precision</th><th scope="col">Recall</th><th scope="col">F1</th><th scope="col">Support</th></tr></thead><tbody><tr><td colspan="5">Loading verified results…</td></tr></tbody></table></div>
+            <p class="chart-caption">Recall is the share of actual members of a class that the selected model identifies.</p>
+          </article>
+        </div>
+        <article class="confusion-card">
+          <div class="confusion-copy"><p class="micro-label">UNTOUCHED HOLDOUT</p><h3>Confusion matrix</h3><p>Rows are actual outcomes; columns are predictions from the selected model. The diagonal is correct classification, and off-diagonal cells show the mix-ups.</p><p class="matrix-key"><span></span> Correct <span></span> Misclassified</p></div>
+          <div id="confusion-matrix" class="table-scroll"><p class="loading">Loading verified results…</p></div>
+        </article>
+        <div class="results-grid results-detail-grid">
+          <article class="chart-card">
+            <div class="chart-heading"><div><p class="micro-label">HOLDOUT · SEPARATE RANDOM FOREST</p><h3>Permutation feature importance</h3></div></div>
+            <p class="chart-explainer">Change in weighted F1 when a feature is shuffled. Scores describe predictive reliance for this fitted model and holdout, not causal effects. The default view shows the top six.</p>
+            <div id="feature-importance" class="chart-area" aria-live="polite"><p class="loading">Loading verified results…</p></div>
+            <button id="importance-toggle" class="expand-toggle" type="button" aria-expanded="false" aria-controls="feature-importance" hidden>Show all features</button>
+          </article>
+          <article class="chart-card cluster-results">
+            <div class="chart-heading"><div><p class="micro-label">TARGET-EXCLUDED EXPLORATION</p><h3>Cluster outcomes and separation</h3></div></div>
+            <p class="chart-explainer">K-Means uses encoded predictors only. Outcome labels are summarized after clustering; these groups are not validated student types.</p>
+            <div id="cluster-outcomes" class="cluster-area" aria-live="polite"><p class="loading">Loading verified results…</p></div>
+            <p id="cluster-summary" class="chart-caption"></p>
+            <div class="silhouette-heading"><p class="micro-label">CANDIDATE CLUSTER COUNTS</p><h4>Silhouette scores for k = 2–6</h4></div>
+            <div id="silhouette-comparison" class="chart-area" aria-live="polite"><p class="loading">Loading verified results…</p></div>
+            <p class="chart-caption">Scores range from −1 to 1; higher values indicate clearer separation under this encoding. The selected k is chosen by the highest sampled score.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter evaluation chapter-wash" id="evaluation">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">07 <span>/</span> EVALUATION</p>
+          <h2>Interpret the scores in the context of their errors.</h2>
+          <p class="chapter-deck">Evaluation explains what the results support, how model behavior differs across outcomes, and where this experiment cannot generalize.</p>
+        </div>
+        <div class="discussion-grid">
+          <article>
+            <p class="micro-label">MODEL STRENGTHS AND WEAKNESSES</p>
+            <h3>Compare against the baseline and each other.</h3>
+            <p id="model-interpretation">Model comparisons are calculated from training-only cross-validation.</p>
+          </article>
+          <article>
+            <p class="micro-label">WEIGHTED AND MACRO METRICS</p>
+            <h3>Class balance changes the summary.</h3>
+            <p id="metric-interpretation">Weighted metrics reflect class support; macro F1 gives each outcome equal weight.</p>
+          </article>
+          <article>
+            <p class="micro-label">CLASS-SPECIFIC ERRORS</p>
+            <h3>Overall performance hides uneven recall.</h3>
+            <p id="error-interpretation">Read the per-class report and confusion matrix together to see which outcomes are most often confused.</p>
+          </article>
+          <article>
+            <p class="micro-label">IMPORTANCE AND CLUSTERING</p>
+            <h3>Descriptive evidence is not explanation.</h3>
+            <p>Permutation importance measures reliance of one fitted Random Forest and can shift when predictors are correlated. K-Means outcome shares describe groups after an unsupervised fit; neither analysis establishes why a student leaves or proves natural student types.</p>
+          </article>
+        </div>
+        <aside class="evaluation-limitations">
+          <p class="micro-label">LIMITATIONS AND RELIABILITY</p>
+          <p>This is a random stratified holdout from one historical dataset, not a later cohort, external institution or prospective study. Second-semester features make the task retrospective. The experiment does not establish calibration, fairness, intervention value or deployment readiness; performance may change across time and populations.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="chapter chapter-wash" id="implications">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">08 <span>/</span> IMPLICATIONS</p>
+          <h2>Translate evidence into responsible next research.</h2>
+          <p class="chapter-deck">This is not an operational model or prospective evaluation. Any future support use requires new validation, explicit timing and human oversight.</p>
+        </div>
+        <div class="implication-grid">
+          <article><span class="implication-index">01</span><h3>Define the prediction time.</h3><p>Future early-warning research should set a prediction landmark and exclude information recorded after it.</p></article>
+          <article><span class="implication-index">02</span><h3>Test beyond this cohort.</h3><p>Validate on later and external student cohorts before considering use in another institution or time period.</p></article>
+          <article><span class="implication-index">03</span><h3>Study support outcomes.</h3><p>Work with students and educators to assess calibration, fairness and whether an intervention helps.</p></article>
+          <article><span class="implication-index">04</span><h3>Keep people accountable.</h3><p>Any future predictions should support human-reviewed services and never restrict educational opportunity.</p></article>
+        </div>
+        <div class="grading">
+          <div class="grading-heading"><p class="micro-label">ICT324 ASSESSMENT ALIGNMENT</p><h3>Research criteria made visible</h3><p>These weights are the supplied course criteria, not a self-awarded grade.</p></div>
+          <div class="grading-list">
+            <div><strong>20%</strong><span>Problem significance, novelty & research question</span><a href="#question">Question ↗</a></div>
+            <div><strong>20%</strong><span>Data quality, sourcing & preparation</span><a href="#preparation">Preparation ↗</a></div>
+            <div><strong>30%</strong><span>Methodology, techniques & evaluation</span><a href="#methodology">Methods ↗</a></div>
+            <div><strong>20%</strong><span>Results, insights & discussion</span><a href="#results">Results ↗</a></div>
+            <div><strong>10%</strong><span>Academic writing & presentation</span><a href="RESEARCH_PAPER.md">Paper ↗</a></div>
+          </div>
+        </div>
+        <div class="next-work">
+          <p class="micro-label">RESPONSIBLE NEXT RESEARCH STEPS</p>
+          <ul>
+            <li>Define a prospective prediction time and remove features recorded after it.</li>
+            <li>Validate on a later or external student cohort; report per-class error and uncertainty.</li>
+            <li>Assess calibration, fairness and the value of support interventions with educators and students.</li>
+            <li>Keep predictions advisory and human-reviewed; do not use them to deny educational opportunities.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter team-section" id="team">
+      <div class="page-shell">
+        <div class="chapter-heading">
+          <p class="chapter-index">09 <span>/</span> TEAM</p>
+          <h2>UNITED, with defined research responsibilities.</h2>
+          <p class="chapter-deck">The project roles follow the team's original work allocation.</p>
+        </div>
+        <div class="team-grid">
+          <article class="team-card">
+            <p class="team-member-label">UNITED MEMBER 01</p>
+            <h3>Jigme Wangdi</h3>
+            <p class="team-role">Machine Learning / Modeling and Evaluation</p>
+            <div class="team-responsibilities"><span class="micro-label">RESPONSIBILITIES</span><p>Model development, algorithm implementation, model evaluation and interpretation of results.</p></div>
+          </article>
+          <article class="team-card">
+            <p class="team-member-label">UNITED MEMBER 02</p>
+            <h3>Sherab Wangchen</h3>
+            <p class="team-role">Research and Documentation</p>
+            <div class="team-responsibilities"><span class="micro-label">RESPONSIBILITIES</span><p>Research background, literature review, academic documentation and presentation materials.</p></div>
+          </article>
+          <article class="team-card">
+            <p class="team-member-label">UNITED MEMBER 03</p>
+            <h3>Chencho Nidup</h3>
+            <p class="team-role">Data Preparation and Analysis</p>
+            <div class="team-responsibilities"><span class="micro-label">RESPONSIBILITIES</span><p>Dataset preparation, data exploration, preprocessing and supporting analysis.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sources page-shell" id="resources">
+      <div class="sources-heading">
+        <div>
+          <p class="chapter-index">10 <span>/</span> RESOURCES</p>
+          <h2>Reproduce the analysis and consult its sources.</h2>
+          <p class="resource-intro">Project files and references for the Portuguese higher-education study.</p>
+        </div>
+      </div>
+      <div class="resource-links">
+        <article class="resource-card">
+          <span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></svg></span>
+          <div class="resource-copy"><p class="resource-kind">STUDY · MARKDOWN</p><h3>Research paper</h3><p>Research question, methods, results, evaluation and references.</p></div>
+          <a class="resource-action" href="RESEARCH_PAPER.md" download>Download paper <span aria-hidden="true">↓</span></a>
+        </article>
+        <article class="resource-card">
+          <span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="1"/><path d="M3.5 9.5h17M9 4.5v15M15 4.5v15"/></svg></span>
+          <div class="resource-copy"><p class="resource-kind">SOURCE DATA · UCI</p><h3>Original UCI dataset</h3><p>Included Portuguese source file with 4,424 student records, plus its official dataset record.</p></div>
+          <div class="resource-actions"><a class="resource-action" href="data.csv" download>Download dataset <span aria-hidden="true">↓</span></a><a class="resource-action" href="https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success" target="_blank" rel="noopener noreferrer">UCI record <span aria-hidden="true">↗</span></a></div>
+        </article>
+        <article class="resource-card">
+          <span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
+          <div class="resource-copy"><p class="resource-kind">SOURCE CODE · PYTHON</p><h3>Analysis script</h3><p>Reproducible loading, preprocessing, modeling and result generation.</p></div>
+          <a class="resource-action" href="analysis.py" download>Download source <span aria-hidden="true">↓</span></a>
+        </article>
+        <article class="resource-card">
+          <span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h10a4 4 0 0 1 4 4v11H9a4 4 0 0 0-4 0z"/><path d="M5 4.5v15M9 8h6M9 11.5h6"/></svg></span>
+          <div class="resource-copy"><p class="resource-kind">PROJECT GUIDE · README</p><h3>Analysis documentation</h3><p>Environment setup, reproduction commands and project scope.</p></div>
+          <a class="resource-action" href="README.md" download>Download guide <span aria-hidden="true">↓</span></a>
+        </article>
+        <article class="resource-card">
+          <span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19.5h16M6 16v-5h3v5M11 16V6h3v10M16 16V9h3v7"/></svg></span>
+          <div class="resource-copy"><p class="resource-kind">GENERATED OUTPUT · JSON</p><h3>Experimental results</h3><p>Metrics and chart values rendered by this website.</p></div>
+          <a class="resource-action" href="results/analysis.json" download>Download results <span aria-hidden="true">↓</span></a>
+        </article>
+        <article class="resource-card">
+          <span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4.5h13v16H6a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2z"/><path d="M4 17.5a2 2 0 0 1 2-2h13M8 8h7M8 11h7"/></svg></span>
+          <div class="resource-copy"><p class="resource-kind">CITATIONS · RESEARCH LIBRARY</p><h3>Academic references</h3><p>Sources grouped by education, data, machine learning and CRISP-DM.</p></div>
+          <a class="resource-action" href="#reference-library">Browse references <span aria-hidden="true">↓</span></a>
+        </article>
+      </div>
+      <section class="reference-library" id="reference-library" aria-labelledby="reference-library-title">
+        <div class="reference-library-heading">
+          <div><p class="micro-label">RESEARCH LIBRARY</p><h3 id="reference-library-title">Sources behind this study</h3></div>
+          <p>References cited in the paper, grouped by their role in the project.</p>
+        </div>
+        <div class="reference-categories">
+          <section class="reference-category">
+            <header><span class="reference-category-index">01</span><h4>Student outcomes and educational research</h4></header>
+            <ol class="reference-list" start="1">
+              <li><p class="reference-citation">Realinho, V., Machado, J., Baptista, L., &amp; Martins, M. V. (2022). Predicting student dropout and academic success. <em>Data, 7</em>(11), 146.</p><a class="reference-link" href="https://doi.org/10.3390/data7110146" target="_blank" rel="noopener noreferrer">DOI: 10.3390/data7110146 ↗</a></li>
+              <li><p class="reference-citation">Romero, C., &amp; Ventura, S. (2020). Educational data mining and learning analytics: An updated survey. <em>WIREs Data Mining and Knowledge Discovery, 10</em>(3), e1355.</p><a class="reference-link" href="https://doi.org/10.1002/widm.1355" target="_blank" rel="noopener noreferrer">DOI: 10.1002/widm.1355 ↗</a></li>
+            </ol>
+          </section>
+          <section class="reference-category">
+            <header><span class="reference-category-index">02</span><h4>Dataset and data provenance</h4></header>
+            <ol class="reference-list" start="3">
+              <li><p class="reference-citation">Realinho, V., Vieira Martins, M., Machado, J., &amp; Baptista, L. (2021). <em>Predict Students' Dropout and Academic Success</em> [Dataset]. UCI Machine Learning Repository.</p><a class="reference-link" href="https://doi.org/10.24432/C5MC89" target="_blank" rel="noopener noreferrer">Dataset DOI: 10.24432/C5MC89 ↗</a></li>
+            </ol>
+          </section>
+          <section class="reference-category">
+            <header><span class="reference-category-index">03</span><h4>Machine learning, clustering and interpretation</h4></header>
+            <ol class="reference-list" start="4">
+              <li><p class="reference-citation">Fisher, A., Rudin, C., &amp; Dominici, F. (2019). All models are wrong, but many are useful: Learning a variable's importance by studying an entire class of prediction models simultaneously. <em>Journal of Machine Learning Research, 20</em>(177), 1–81.</p><a class="reference-link" href="https://jmlr.org/papers/v20/18-760.html" target="_blank" rel="noopener noreferrer">JMLR paper ↗</a></li>
+              <li><p class="reference-citation">MacQueen, J. (1967). Some methods for classification and analysis of multivariate observations. In <em>Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability</em> (Vol. 1, pp. 281–297).</p><a class="reference-link" href="https://digicoll.lib.berkeley.edu/record/113015?v=pdf" target="_blank" rel="noopener noreferrer">UC Berkeley article record ↗</a></li>
+              <li><p class="reference-citation">Rousseeuw, P. J. (1987). Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. <em>Journal of Computational and Applied Mathematics, 20</em>, 53–65.</p><a class="reference-link" href="https://doi.org/10.1016/0377-0427(87)90125-7" target="_blank" rel="noopener noreferrer">DOI: 10.1016/0377-0427(87)90125-7 ↗</a></li>
+            </ol>
+          </section>
+          <section class="reference-category">
+            <header><span class="reference-category-index">04</span><h4>CRISP-DM and research methodology</h4></header>
+            <ol class="reference-list" start="7">
+              <li><p class="reference-citation">Chapman, P., Clinton, J., Kerber, R., Khabaza, T., Reinartz, T., Shearer, C., &amp; Wirth, R. (2000). <em>CRISP-DM 1.0: Step-by-step data mining guide</em>. SPSS.</p><a class="reference-link" href="https://www.ibm.com/docs/en/SS3RA7_19.0.0/pdf/ModelerCRISPDM.pdf" target="_blank" rel="noopener noreferrer">IBM SPSS Modeler guide ↗</a></li>
+            </ol>
+          </section>
+        </div>
+      </section>
     </section>
   </main>
-  <footer><div class="container"><div><strong>Team United</strong><p>ICT324 · Data Mining Research Project</p></div><p>Jigme Wangdi · Sherab Wangchen · Chencho Nidup</p><a href="#home">Back to top ↑</a></div></footer>
-  <script src="script.js?v=20261125"></script>
+    <footer class="site-footer">
+    <div class="page-shell footer-layout">
+      <div class="footer-identity">
+        <a class="footer-brand" href="#top" aria-label="UNITED research home"><span class="brand-mark" aria-hidden="true">U</span><span><strong>UNITED</strong><small>ICT324 · Rangsit University International College</small></span></a>
+        <span class="footer-year">Academic Year 2026</span>
+        <span class="footer-team">Jigme Wangdi · Sherab Wangchen · Chencho Nidup</span>
+      </div>
+      <nav class="footer-nav" data-section-nav aria-label="Footer research navigation">
+        <a href="#question">Question</a><a href="#dataset">Dataset</a><a href="#preparation">Preparation</a>
+        <a href="#methodology">Methodology</a><a href="#modeling">Modeling</a><a href="#results">Results</a>
+        <a href="#evaluation">Evaluation</a><a href="#implications">Implications</a><a href="#team">Team</a><a href="#resources">Resources</a>
+      </nav>
+      <a class="footer-top" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
 </body>
 </html>
-```

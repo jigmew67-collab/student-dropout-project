@@ -1,1084 +1,531 @@
-
-// =========================================================
-// COLORS
-// =========================================================
-
-const green = '#2c7a57';
-const lime = '#b9e86b';
-const ink = '#10251e';
-const muted = '#dbe4dd';
-
-
-// =========================================================
-// CHART DEFAULT SETTINGS
-// =========================================================
-
-if (typeof Chart !== 'undefined') {
-    Chart.defaults.font.family = 'Manrope';
-    Chart.defaults.color = '#66766f';
-}
-
-const makeChart = (canvasId, config) => {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return null;
-    if (typeof Chart === 'undefined') return null;
-
-    if (Chart.getChart(canvas)) {
-        Chart.getChart(canvas).destroy();
-    }
-
-    return new Chart(canvas, config);
+const palette = {
+  Dropout: "#bd6944",
+  Enrolled: "#829e77",
+  Graduate: "#2f6d58"
 };
-
-
-// =========================================================
-// STATIC CHART FALLBACKS
-// =========================================================
-
-makeChart('classChart', {
-    type: 'doughnut',
-    data: {
-        labels: ['Graduate', 'Dropout', 'Enrolled'],
-        datasets: [{
-            data: [2209, 1421, 794],
-            backgroundColor: [lime, '#57a77c', '#dce5df'],
-            borderWidth: 0
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '72%',
-        plugins: {
-            legend: {
-                position: 'right',
-                labels: {
-                    color: '#c5d2cc',
-                    boxWidth: 8,
-                    usePointStyle: true,
-                    font: { size: 9 }
-                }
-            }
-        }
-    }
-});
-
-makeChart('distributionChart', {
-    type: 'bar',
-    data: {
-        labels: ['Graduate', 'Dropout', 'Enrolled'],
-        datasets: [{
-            data: [2209, 1421, 794],
-            backgroundColor: [green, '#75ad91', '#bdd2c5'],
-            borderRadius: 8,
-            borderSkipped: false
-        }]
-    },
-    options: {
-        plugins: { legend: { display: false } },
-        scales: {
-            y: {
-                beginAtZero: true,
-                grid: { color: '#edf0ec' }
-            },
-            x: { grid: { display: false } }
-        }
-    }
-});
-
-makeChart('modelChart', {
-    type: 'bar',
-    data: {
-        labels: [
-            'Baseline',
-            'Logistic Reg.',
-            'Decision Tree',
-            'Random Forest',
-            'Histogram Gradient Boosting'
-        ],
-        datasets: [
-            {
-                label: 'Accuracy %',
-                data: [49.93, 77.62, 68.01, 77.39, 77.82],
-                backgroundColor: green,
-                borderRadius: 6
-            },
-            {
-                label: 'Weighted F1 %',
-                data: [33.25, 76.38, 68.29, 75.30, 76.97],
-                backgroundColor: lime,
-                borderRadius: 6
-            }
-        ]
-    },
-    options: {
-        indexAxis: 'y',
-        plugins: {
-            legend: {
-                labels: {
-                    boxWidth: 9,
-                    usePointStyle: true,
-                    font: { size: 9 }
-                }
-            }
-        },
-        scales: {
-            x: {
-                min: 0,
-                max: 100,
-                grid: { color: '#edf0ec' }
-            },
-            y: { grid: { display: false } }
-        }
-    }
-});
-
-makeChart('ouladTargetChart', {
-    type: 'bar',
-    data: {
-        labels: ['Pass', 'Fail', 'Withdrawn', 'Distinction'],
-        datasets: [{
-            label: 'Eligible registrations',
-            data: [12355, 7032, 5105, 3023],
-            backgroundColor: ['#2c7a57', '#b9e86b', '#7bb6a0', '#7692a5'],
-            borderRadius: 5
-        }]
-    },
-    options: {
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } }
-    }
-});
-
-makeChart('ouladModelChart', {
-    type: 'bar',
-    data: {
-        labels: [
-            'Baseline',
-            'Logistic Reg.',
-            'Decision Tree',
-            'Random Forest',
-            'Histogram Gradient Boosting'
-        ],
-        datasets: [
-            {
-                label: 'Accuracy',
-                data: [81.45, 81.46, 71.17, 81.53, 81.76],
-                backgroundColor: green
-            },
-            {
-                label: 'Weighted F1',
-                data: [73.12, 73.86, 71.74, 74.07, 75.60],
-                backgroundColor: lime
-            }
-        ]
-    },
-    options: {
-        indexAxis: 'y',
-        scales: { x: { min: 0, max: 100 } }
-    }
-});
-
-makeChart('ouladImportanceChart', {
-    type: 'bar',
-    data: {
-        labels: [
-            'early_assessment_mean_score',
-            'module_presentation_length',
-            'clicks_quiz',
-            'clicks_forumng',
-            'clicks_url'
-        ],
-        datasets: [{
-            label: 'Weighted F1 decrease after shuffling',
-            data: [
-                0.0081416467,
-                0.0032633238,
-                0.0031755827,
-                0.0018620410,
-                0.0016982953
-            ],
-            backgroundColor: green,
-            borderRadius: 5
-        }]
-    },
-    options: {
-        indexAxis: 'y',
-        plugins: { legend: { display: false } },
-        scales: {
-            x: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Permutation importance'
-                }
-            },
-            y: { grid: { display: false } }
-        }
-    }
-});
-
-makeChart('uciImportanceChart', {
-    type: 'bar',
-    data: {
-        labels: [
-            'Tuition fees up to date',
-            'Curricular units 2nd sem (approved)',
-            'Curricular units 2nd sem (grade)',
-            'Curricular units 1st sem (approved)',
-            'Curricular units 2nd sem (evaluations)'
-        ],
-        datasets: [{
-            label: 'Weighted F1 decrease after shuffling',
-            data: [
-                0.0423245890,
-                0.0420098459,
-                0.0112158882,
-                0.0098498019,
-                0.0074703988
-            ],
-            backgroundColor: green,
-            borderRadius: 5
-        }]
-    },
-    options: {
-        indexAxis: 'y',
-        plugins: { legend: { display: false } },
-        scales: {
-            x: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Permutation importance'
-                }
-            },
-            y: { grid: { display: false } }
-        }
-    }
-});
-
-
-// =========================================================
-// SCROLL REVEAL ANIMATION
-// =========================================================
-
-const observer = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    },
-    {
-        threshold: 0.08
-    }
+const classOrder = ["Dropout", "Enrolled", "Graduate"];
+const resultsUrl = new URL(
+  "results/analysis.json",
+  document.currentScript?.src || document.baseURI
 );
+const localResultsScriptUrl = new URL("analysis-data.js", resultsUrl);
+const metricCaptions = {
+  weighted_f1: "Mean training-only cross-validation score; weighted F1 is the model-selection metric.",
+  accuracy: "Mean training-only cross-validation accuracy; model selection still uses weighted F1.",
+  macro_f1: "Mean training-only cross-validation macro F1; model selection still uses weighted F1.",
+  roc_auc: "Mean macro one-vs-rest ROC-AUC across five training-only folds; the holdout AUC is reported separately above."
+};
+let experiment;
+let showAllImportance = false;
 
-document.querySelectorAll('.reveal').forEach((element) => {
-    observer.observe(element);
-});
-
-
-// =========================================================
-// MOBILE NAVIGATION MENU
-// =========================================================
-
-const btn = document.querySelector('.menu-btn');
-const links = document.querySelector('.nav-links');
-
-if (btn && links) {
-    btn.addEventListener('click', () => {
-        links.classList.toggle('open');
-    });
-}
-
-document.querySelectorAll('.nav-links a').forEach((link) => {
-    link.addEventListener('click', () => {
-        if (links) {
-            links.classList.remove('open');
-        }
-    });
-});
-
-
-// =========================================================
-// GENERATED EXPERIMENT OUTPUTS
-// =========================================================
-
-const palette = [
-    '#2c7a57',
-    '#b9e86b',
-    '#7bb6a0',
-    '#7692a5',
-    '#d69c59',
-    '#a788b5'
-];
-
+const byId = id => document.getElementById(id);
 const percent = value => `${(value * 100).toFixed(2)}%`;
+const formatNumber = value => Number(value).toLocaleString("en-US");
 
-function setText(id, text) {
-    const element = document.getElementById(id);
-    if (element) element.textContent = text;
+function setText(id, value) {
+  const element = byId(id);
+  if (element) element.textContent = value;
 }
 
-function showError(containerId, message) {
-    const container = document.getElementById(containerId);
-    if (container) container.textContent = message;
+function showMessage(id, message) {
+  const container = byId(id);
+  if (!container) return;
+  const paragraph = document.createElement("p");
+  paragraph.className = "loading";
+  paragraph.textContent = message;
+  container.replaceChildren(paragraph);
 }
 
-
-// =========================================================
-// UNAVAILABLE RESULT HANDLING
-// =========================================================
-
-function markOuladUnavailable() {
-    const resultIds = [
-        'oulad-accuracy',
-        'oulad-f1',
-        'oulad-auc',
-        'oulad-model'
-    ];
-
-    resultIds.forEach(id => {
-        setText(id, 'Unavailable');
+function renderBars(containerId, rows, { maxValue, format = value => value.toFixed(2), label }) {
+  const container = byId(containerId);
+  if (!container) return;
+  if (!rows.length) {
+    showMessage(containerId, "No values are available in the generated results.");
+    return;
+  }
+  const maximum = maxValue || Math.max(...rows.map(row => row.value), 0.00001);
+  const currentRows = Array.from(container.querySelectorAll(".bar-row"));
+  const canUpdateInPlace = currentRows.length === rows.length && rows.every((row, index) =>
+    currentRows[index].dataset.barName === row.name
+  );
+  if (canUpdateInPlace) {
+    rows.forEach((row, index) => {
+      const item = currentRows[index];
+      const fill = item.querySelector(".bar-fill");
+      const value = item.querySelector(".bar-value");
+      if (!fill || !value) return;
+      const formatted = format(row.value);
+      fill.style.width = `${Math.max(0, Math.min(100, row.value / maximum * 100))}%`;
+      fill.title = `${row.name}: ${formatted}${label || ""}${row.detail ? `; ${row.detail}` : ""}`;
+      let mainValue = value.querySelector(".bar-value-main");
+      if (!mainValue) {
+        value.replaceChildren();
+        mainValue = document.createElement("span");
+        mainValue.className = "bar-value-main";
+        value.append(mainValue);
+      }
+      mainValue.textContent = formatted;
+      let variation = value.querySelector(".bar-variation");
+      if (row.variation) {
+        if (!variation) {
+          variation = document.createElement("small");
+          variation.className = "bar-variation";
+          value.append(variation);
+        }
+        variation.textContent = row.variation;
+      } else {
+        variation?.remove();
+      }
+      if (row.detail) {
+        item.tabIndex = 0;
+        item.setAttribute("aria-label", `${row.name}: ${formatted}${label || ""}; ${row.detail}`);
+      } else {
+        item.removeAttribute("tabindex");
+        item.removeAttribute("aria-label");
+      }
     });
+    return;
+  }
 
-    const resultBox = document.getElementById('oulad-results');
-
-    if (resultBox) {
-        resultBox.hidden = true;
+  const chart = document.createElement("div");
+  chart.className = "bar-chart";
+  chart.setAttribute("role", "list");
+  rows.forEach(row => {
+    const item = document.createElement("div");
+    item.className = "bar-row";
+    item.dataset.barName = row.name;
+    item.setAttribute("role", "listitem");
+    if (row.detail) {
+      item.tabIndex = 0;
+      item.setAttribute("aria-label", `${row.name}: ${format(row.value)}${label || ""}; ${row.detail}`);
     }
-
-    showError(
-        'oulad-result-status',
-        'OULAD generated results are unavailable because the analysis JSON could not be loaded.'
-    );
+    const name = document.createElement("span");
+    name.className = "bar-label";
+    name.textContent = row.name;
+    const track = document.createElement("span");
+    track.className = "bar-track";
+    const fill = document.createElement("span");
+    fill.className = "bar-fill";
+    fill.style.width = `${Math.max(0, Math.min(100, row.value / maximum * 100))}%`;
+    fill.title = `${row.name}: ${format(row.value)}${label || ""}${row.detail ? `; ${row.detail}` : ""}`;
+    track.append(fill);
+    const value = document.createElement("span");
+    value.className = "bar-value";
+    const mainValue = document.createElement("span");
+    mainValue.className = "bar-value-main";
+    mainValue.textContent = format(row.value);
+    value.append(mainValue);
+    if (row.variation) {
+      const variation = document.createElement("small");
+      variation.className = "bar-variation";
+      variation.textContent = row.variation;
+      value.append(variation);
+    }
+    item.append(name, track, value);
+    chart.append(item);
+  });
+  container.replaceChildren(chart);
 }
-
-
-// =========================================================
-// UCI DISTRIBUTION CHARTS
-// =========================================================
 
 function renderDistribution(data) {
-    const canvas = document.getElementById('distributionChart');
+  const labels = classOrder;
+  renderBars("class-distribution", labels.map(name => ({
+    name,
+    value: data.dataset.class_distribution[name],
+    detail: `${percent(data.dataset.class_distribution[name] / data.dataset.rows)} of all records`
+  })), {
+    maxValue: Math.max(...labels.map(name => data.dataset.class_distribution[name])),
+    format: formatNumber,
+    label: " students"
+  });
+}
 
-    if (!canvas || !data?.class_distribution) return;
+function renderModelComparison(metric) {
+  const rows = Object.entries(experiment.cv).map(([name, scores]) => ({
+    name,
+    value: scores[metric][0],
+    deviation: scores[metric][1]
+  }));
+  renderBars("model-comparison", rows.map(row => ({
+    name: row.name,
+    value: row.value * 100,
+    variation: `±${(row.deviation * 100).toFixed(2)} pp`,
+    detail: `mean across five training-only folds; standard deviation ${(row.deviation * 100).toFixed(2)} percentage points`
+  })), {
+    maxValue: 100,
+    format: value => `${value.toFixed(2)}%`
+  });
+  setText("metric-caption", metricCaptions[metric]);
+}
 
-    const labels = data.classes || Object.keys(data.class_distribution);
+function renderClassReport(data) {
+  const body = byId("class-report")?.querySelector("tbody");
+  if (!body) return;
+  body.replaceChildren();
+  data.classes.forEach(label => {
+    const scores = data.holdout.classification_report[label];
+    const row = document.createElement("tr");
+    [label, percent(scores.precision), percent(scores.recall), percent(scores["f1-score"]), formatNumber(scores.support)]
+      .forEach(value => {
+        const cell = document.createElement("td");
+        cell.textContent = value;
+        row.append(cell);
+      });
+    body.append(row);
+  });
+}
 
-    makeChart('distributionChart', {
-        type: 'bar',
-        data: {
-            labels,
-            datasets: [{
-                data: labels.map(label => data.class_distribution[label]),
-                backgroundColor: [green, '#75ad91', '#bdd2c5'],
-                borderRadius: 8,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            plugins: { legend: { display: false } },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: '#edf0ec' }
-                },
-                x: { grid: { display: false } }
-            }
-        }
+function renderConfusionMatrix(data) {
+  const container = byId("confusion-matrix");
+  if (!container) return;
+  const table = document.createElement("table");
+  table.className = "confusion-table";
+  const caption = document.createElement("caption");
+  caption.className = "sr-only";
+  caption.textContent = "Confusion matrix. Rows are actual classes; columns are predicted classes.";
+  table.append(caption);
+  const head = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  ["Actual / Predicted", ...data.classes].forEach(label => {
+    const cell = document.createElement("th");
+    cell.scope = "col";
+    cell.textContent = label;
+    headerRow.append(cell);
+  });
+  head.append(headerRow);
+  table.append(head);
+  const body = document.createElement("tbody");
+  data.holdout.confusion_matrix.forEach((values, rowIndex) => {
+    const row = document.createElement("tr");
+    const heading = document.createElement("th");
+    heading.scope = "row";
+    heading.textContent = data.classes[rowIndex];
+    row.append(heading);
+    values.forEach((value, columnIndex) => {
+      const cell = document.createElement("td");
+      cell.textContent = formatNumber(value);
+      cell.className = rowIndex === columnIndex ? "diagonal" : "off-diagonal";
+      cell.setAttribute("aria-label", `${value} ${data.classes[rowIndex]} records predicted as ${data.classes[columnIndex]}`);
+      row.append(cell);
     });
+    body.append(row);
+  });
+  table.append(body);
+  container.replaceChildren(table);
 }
 
-function renderHeroDistribution(data) {
-    const canvas = document.getElementById('classChart');
+function renderImportance(data) {
+  const entries = data.feature_importance || [];
+  const visible = showAllImportance ? entries : entries.slice(0, 6);
+  renderBars("feature-importance", visible.map(item => ({
+    name: item.feature,
+    value: item.importance,
+    detail: `standard deviation across five permutations: ${Number(item.std).toFixed(4)}`
+  })), {
+    maxValue: Math.max(...visible.map(item => item.importance)),
+    format: value => value.toFixed(3),
+    label: " weighted F1 decrease"
+  });
+  const toggle = byId("importance-toggle");
+  if (toggle) {
+    toggle.hidden = entries.length <= 6;
+    toggle.setAttribute("aria-expanded", String(showAllImportance));
+    toggle.textContent = showAllImportance ? "Show top six" : `Show all ${entries.length} features`;
+  }
+}
 
-    if (!canvas || !data?.class_distribution) return;
+function renderSilhouetteComparison(data) {
+  const candidates = data.clustering.candidates || [];
+  renderBars("silhouette-comparison", candidates.map(candidate => ({
+    name: `k = ${candidate.k}`,
+    value: candidate.silhouette,
+    detail: candidate.k === data.clustering.selected_k ? "selected candidate: highest sampled silhouette score" : "candidate silhouette score"
+  })), {
+    format: value => value.toFixed(3),
+    label: " silhouette score"
+  });
+}
 
-    const labels = data.classes || Object.keys(data.class_distribution);
+function renderEvaluation(data) {
+  const modelScores = Object.entries(data.cv);
+  const ranked = [...modelScores].sort((a, b) => b[1].weighted_f1[0] - a[1].weighted_f1[0]);
+  const baseline = modelScores.find(([name]) => /most.?frequent|baseline/i.test(name));
+  const selected = data.cv[data.selected_model];
+  const runnerUp = ranked.find(([name]) => name !== data.selected_model);
+  const runnerUpGap = runnerUp ? selected.weighted_f1[0] - runnerUp[1].weighted_f1[0] : 0;
+  const foldSpread = runnerUp ? Math.max(selected.weighted_f1[1], runnerUp[1].weighted_f1[1]) : 0;
+  const rankingContext = runnerUpGap <= foldSpread
+    ? "The lead over its closest comparator is small relative to fold-to-fold spread, so read it as an edge rather than a clearly separated winner."
+    : "Its lead over the closest comparator is larger than the observed fold-to-fold spread, though this remains internal validation on one dataset. ";
+  const baselineContext = baseline
+    ? ` ${baseline[0]} provides a simple reference point and performs much less strongly than the leading fitted models.`
+    : "";
+  setText("model-interpretation", `${data.selected_model} ranked first on training-only cross-validation weighted F1, with ${runnerUp?.[0] || "the other models"} as the closest comparator. ${rankingContext}${baselineContext} Fold standard deviations are shown in Results.`);
 
-    makeChart('classChart', {
-        type: 'doughnut',
-        data: {
-            labels,
-            datasets: [{
-                data: labels.map(label => data.class_distribution[label]),
-                backgroundColor: [lime, '#57a77c', '#dce5df'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '72%',
-            plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        color: '#c5d2cc',
-                        boxWidth: 8,
-                        usePointStyle: true,
-                        font: { size: 9 }
-                    }
-                }
-            }
-        }
+  const distribution = data.dataset.class_distribution;
+  const largest = Object.entries(distribution).sort((a, b) => b[1] - a[1])[0];
+  const smallest = Object.entries(distribution).sort((a, b) => a[1] - b[1])[0];
+  const weighted = data.holdout.weighted_f1;
+  const macro = data.holdout.macro_f1;
+  const weightedContext = weighted >= macro
+    ? "The support-weighted summary is more optimistic than the equal-class summary."
+    : "The equal-class summary is more optimistic than the support-weighted summary.";
+  setText("metric-interpretation", `Weighted F1 follows class support, while macro F1 gives each outcome equal weight. ${weightedContext} ${largest[0]} is the largest class and ${smallest[0]} the smallest, so weighted scores can understate weaker performance on less common outcomes.`);
+
+  const report = data.holdout.classification_report;
+  const lowestRecall = data.classes
+    .map((label, index) => ({ label, index, recall: report[label].recall }))
+    .sort((a, b) => a.recall - b.recall)[0];
+  const confusions = data.holdout.confusion_matrix[lowestRecall.index]
+    .map((count, index) => ({ label: data.classes[index], count, index }))
+    .filter(item => item.index !== lowestRecall.index)
+    .sort((a, b) => b.count - a.count);
+  const mostFrequentConfusion = confusions[0];
+  setText("error-interpretation", `${lowestRecall.label} had the weakest holdout recall. Its largest off-diagonal confusion was prediction as ${mostFrequentConfusion.label}. The confusion matrix and class report in Results show the full pattern.`);
+}
+
+function renderClusters(data) {
+  const container = byId("cluster-outcomes");
+  if (!container) return;
+  const list = document.createElement("div");
+  list.className = "cluster-list";
+  const legend = document.createElement("div");
+  legend.className = "stacked-legend";
+  classOrder.forEach(label => {
+    const item = document.createElement("span");
+    item.className = "legend-item";
+    const swatch = document.createElement("span");
+    swatch.className = "legend-swatch";
+    swatch.style.backgroundColor = palette[label];
+    const text = document.createElement("span");
+    text.textContent = label;
+    item.append(swatch, text);
+    legend.append(item);
+  });
+  data.clusters.forEach(cluster => {
+    const item = document.createElement("div");
+    item.className = "cluster-item";
+    const title = document.createElement("div");
+    title.className = "cluster-title";
+    const name = document.createElement("span");
+    name.textContent = `Cluster ${cluster.cluster + 1}`;
+    const size = document.createElement("span");
+    size.textContent = `${formatNumber(cluster.size)} records`;
+    title.append(name, size);
+    const bar = document.createElement("div");
+    bar.className = "stacked-bar";
+    bar.setAttribute("role", "img");
+    bar.setAttribute("aria-label", `Cluster ${cluster.cluster + 1} outcome shares`);
+    classOrder.forEach(label => {
+      const share = cluster.outcome_share[label] || 0;
+      const segment = document.createElement("span");
+      segment.className = "stacked-segment";
+      segment.style.width = `${share * 100}%`;
+      segment.style.backgroundColor = palette[label];
+      segment.title = `${label}: ${percent(share)}`;
+      bar.append(segment);
     });
-}
-
-
-// =========================================================
-// MODEL COMPARISON
-// =========================================================
-
-function renderModelComparison(canvasId, cv) {
-    const canvas = document.getElementById(canvasId);
-
-    if (!canvas || !cv) return;
-
-    const labels = Object.keys(cv);
-
-    makeChart(canvasId, {
-        type: 'bar',
-        data: {
-            labels: labels.map(label =>
-                label === 'Baseline (Most Frequent)' ? 'Baseline' : label
-            ),
-            datasets: [
-                {
-                    label: 'Accuracy %',
-                    data: labels.map(label => cv[label].accuracy[0] * 100),
-                    backgroundColor: green,
-                    borderRadius: 6
-                },
-                {
-                    label: 'Weighted F1 %',
-                    data: labels.map(label => cv[label].weighted_f1[0] * 100),
-                    backgroundColor: lime,
-                    borderRadius: 6
-                }
-            ]
-        },
-        options: {
-            indexAxis: 'y',
-            plugins: {
-                legend: {
-                    labels: {
-                        boxWidth: 9,
-                        usePointStyle: true,
-                        font: { size: 9 }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    min: 0,
-                    max: 100,
-                    grid: { color: '#edf0ec' }
-                },
-                y: { grid: { display: false } }
-            }
-        }
-    });
-}
-
-
-// =========================================================
-// UCI CONFUSION MATRIX AND CLASSIFICATION REPORT
-// =========================================================
-
-function renderConfusionAndReport(data) {
-    const confusion = document.getElementById('uciConfusion');
-    const report = document.getElementById('uciClassReport');
-
-    if (!confusion || !data?.holdout?.confusion_matrix) return;
-
-    const classes = data.classes;
-    const matrix = data.holdout.confusion_matrix;
-
-    confusion.innerHTML =
-        `<tr><th>Actual \\ Predicted</th>${classes.map(label =>
-            `<th>Pred. ${label}</th>`
-        ).join('')}</tr>` +
-        classes.map((label, i) =>
-            `<tr><th>True ${label}</th>${matrix[i].map(value =>
-                `<td>${value}</td>`
-            ).join('')}</tr>`
-        ).join('');
-
-    if (report) {
-        report.innerHTML = classes.map(label => {
-            const row = data.holdout.classification_report[label];
-
-            return `<tr>
-                <th>${label}</th>
-                <td>${percent(row.precision)}</td>
-                <td>${percent(row.recall)}</td>
-                <td>${percent(row['f1-score'])}</td>
-                <td>${row.support.toLocaleString()}</td>
-            </tr>`;
-        }).join('');
-    }
-
-    setText('uci-selected-model', data.selected_model || 'Selected model');
-}
-
-
-// =========================================================
-// FEATURE IMPORTANCE
-// =========================================================
-
-function renderImportance(canvasId, rows) {
-    const canvas = document.getElementById(canvasId);
-
-    if (!canvas) return;
-
-    if (!rows?.length) {
-        showError(
-            `${canvasId}-status`,
-            'Permutation-importance results are unavailable.'
-        );
-        return;
-    }
-
-    makeChart(canvasId, {
-        type: 'bar',
-        data: {
-            labels: rows.map(row => row.feature),
-            datasets: [{
-                label: 'Weighted F1 decrease after shuffling',
-                data: rows.map(row => row.importance),
-                backgroundColor: green,
-                borderRadius: 5
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            plugins: { legend: { display: false } },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Permutation importance'
-                    }
-                },
-                y: { grid: { display: false } }
-            }
-        }
-    });
-}
-
-
-// =========================================================
-// CLUSTERING
-// =========================================================
-
-function renderClusters(canvasId, textId, clustering) {
-    const canvas = document.getElementById(canvasId);
-
-    if (!canvas) return;
-
-    if (!clustering?.pca_points) {
-        showError(textId, 'Clustering results are unavailable.');
-        return;
-    }
-
-    const points = clustering.pca_points;
-
-    const clusters = [
-        ...new Set(points.map(point => point.cluster))
-    ].sort((a, b) => a - b);
-
-    makeChart(canvasId, {
-        type: 'scatter',
-        data: {
-            datasets: clusters.map(cluster => ({
-                label: `Cluster ${cluster + 1}`,
-                data: points
-                    .filter(point => point.cluster === cluster)
-                    .map(point => ({
-                        x: point.x,
-                        y: point.y,
-                        outcome: point.outcome
-                    })),
-                backgroundColor: palette[cluster % palette.length],
-                pointRadius: 2,
-                pointHoverRadius: 4
-            }))
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: item =>
-                            `${item.dataset.label}: ${item.raw.outcome}`
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'PCA component 1'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'PCA component 2'
-                    }
-                }
-            }
-        }
-    });
-
-    const text = document.getElementById(textId);
-
-    if (text) {
-        text.innerHTML = `<p class="chart-note">
-            Selected k = ${clustering.selected_k};
-            silhouette = ${clustering.silhouette.toFixed(3)}.
-            ${clustering.clusters.map(item => {
-                const distribution = Object.entries(item.outcome_share)
-                    .map(([label, share]) =>
-                        `${label} ${(share * 100).toFixed(1)}%`
-                    )
-                    .join(', ');
-
-                const numeric = Object.entries(
-                    item.profile?.numeric_median || {}
-                ).map(([key, value]) =>
-                    `${key} median ${Number(value).toFixed(1)}`
-                );
-
-                const categorical = Object.entries(
-                    item.profile?.categorical_mode || {}
-                ).map(([key, value]) =>
-                    `${key} most common ${value}`
-                );
-
-                const profile = [...numeric, ...categorical].join('; ');
-
-                return `Cluster ${item.cluster + 1}
-                    (n=${item.size.toLocaleString()}):
-                    ${distribution}. Profile: ${profile}`;
-            }).join(' · ')}
-        </p>`;
-    }
-}
-
-
-// =========================================================
-// OULAD MISSINGNESS CHART
-// =========================================================
-
-function renderMissingnessChart(audit) {
-    const canvas = document.getElementById('ouladMissingnessChart');
-    const caption = document.getElementById('oulad-missingness-caption');
-
-    if (!canvas) return;
-
-    const missingFeatures =
-        audit?.by_feature?.filter(item => item.missing_cells > 0) || [];
-
-    if (!missingFeatures.length) {
-        if (caption) {
-            caption.textContent =
-                'No missing predictor values were reported for OULAD.';
-        }
-        return;
-    }
-
-    const displayNames = {
-        imd_band: 'IMD band',
-        early_assessment_mean_score: 'Early assessment mean'
-    };
-
-    makeChart('ouladMissingnessChart', {
-        type: 'bar',
-        data: {
-            labels: missingFeatures.map(item =>
-                displayNames[item.feature] || item.feature
-            ),
-            datasets: [{
-                label: 'Records missing (%)',
-                data: missingFeatures.map(item => item.missing_percent),
-                missingCells: missingFeatures.map(item => item.missing_cells),
-                backgroundColor: [green, lime],
-                borderRadius: 5
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        title: items =>
-                            missingFeatures[items[0].dataIndex].feature,
-                        label: item =>
-                            `${item.parsed.x.toFixed(2)}% missing
-                            (${item.dataset.missingCells[item.dataIndex].toLocaleString()} records)`
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Eligible registrations missing (%)'
-                    }
-                },
-                y: { grid: { display: false } }
-            }
-        }
-    });
-
-    if (caption) {
-        caption.textContent =
-            'Only predictors with missing cells are shown. Hover for the missing-record count; all other model predictors are complete.';
-    }
-}
-
-
-// =========================================================
-// PREPROCESSING COMPARISON
-// =========================================================
-
-function renderPreprocessingComparison(comparison, classes) {
-    const table = document.querySelector('#ouladImputationTable tbody');
-    const selection = document.getElementById('oulad-imputation-selection');
-
-    if (!table || !comparison?.variants) {
-        if (selection) {
-            selection.textContent =
-                'Generated preprocessing comparison is unavailable.';
-        }
-        return;
-    }
-
-    const labels = {
-        A_existing: 'A · Existing handling',
-        B_fold_unknown: 'B · Fold-fitted imputation',
-        C_fold_unknown_indicator: 'C · Imputation + indicators'
-    };
-
-    table.innerHTML = Object.entries(comparison.variants)
-        .map(([name, result]) => {
-            const cv = result.cv[result.selected_model];
-            const holdout = result.holdout;
-
-            const withdrawn = classes.includes('Withdrawn')
-                ? holdout.classification_report.Withdrawn.recall
-                : null;
-
-            return `<tr>
-                <th>${labels[name] || name}</th>
-                <td>${result.selected_model}</td>
-                <td>${percent(cv.weighted_f1[0])}</td>
-                <td>${percent(holdout.accuracy)}</td>
-                <td>${percent(holdout.weighted_f1)}</td>
-                <td>${percent(holdout.macro_f1)}</td>
-                <td>${holdout.roc_auc_ovr_macro == null
-                    ? 'N/A'
-                    : percent(holdout.roc_auc_ovr_macro)}</td>
-                <td>${withdrawn == null
-                    ? 'N/A'
-                    : percent(withdrawn)}</td>
-            </tr>`;
-        }).join('');
-
-    const selected =
-        labels[comparison.selected_variant] || comparison.selected_variant;
-
-    if (selection) {
-        selection.textContent =
-            `Selected using training-only CV weighted F1: ${selected}. Holdout metrics were not used for selection.`;
-    }
-}
-
-
-// =========================================================
-// OULAD RESULTS
-// =========================================================
-
-function renderOulad(exp, preprocessingComparison) {
-    const status = document.getElementById('oulad-result-status');
-
-    if (!exp || exp.status === 'not_run') {
-        if (status) {
-            status.textContent =
-                'OULAD experiment has no generated results in this build.';
-        }
-        return;
-    }
-
-    const data = exp;
-    const quality = data.data_quality;
-
-    if (!quality || !data.holdout || !data.cv) {
-        if (status) {
-            status.textContent =
-                'OULAD generated results are incomplete. Missing data-quality or holdout metrics.';
-        }
-        return;
-    }
-
-    const resultBox = document.getElementById('oulad-results');
-
-    if (resultBox) {
-        resultBox.hidden = false;
-    }
-
-    if (status) {
-        status.textContent =
-            `${quality.registrations.toLocaleString()} eligible registrations from ${quality.unique_students.toLocaleString()} unique students; ${quality.excluded_not_registered_or_already_unregistered_by_day_28.toLocaleString()} registrations excluded because they were not in the day-28 risk set.`;
-    }
-
-    const missingness = quality.missingness;
-
-    if (
-        missingness?.rows != null &&
-        missingness.total_missing_cells != null &&
-        Array.isArray(missingness.source_tables)
-    ) {
-        const moduleMissingness =
-            missingness.early_assessment_mean_missing_by_group?.code_module || [];
-
-        const highestMissingModules = [...moduleMissingness]
-            .sort((left, right) =>
-                right.missing_percent - left.missing_percent
-            )
-            .slice(0, 2)
-            .map(item =>
-                `${item.group} (${item.missing_percent.toFixed(2)}%)`
-            )
-            .join(' and ');
-
-        const outcomeMissingness =
-            missingness.early_assessment_mean_missing_by_outcome || {};
-
-        const outcomeSummary = Object.entries(outcomeMissingness)
-            .map(([label, item]) =>
-                `${label} ${item.missing_percent.toFixed(2)}%`
-            )
-            .join('; ');
-
-        setText(
-            'oulad-data-quality-summary',
-            `The day-28 analytical table has ${missingness.rows.toLocaleString()} registrations, ${missingness.predictor_columns} predictors and one target. It contains ${missingness.total_missing_cells.toLocaleString()} missing predictor cells (${missingness.predictor_missing_percent.toFixed(2)}% of predictor cells; ${missingness.overall_missing_percent.toFixed(2)}% of all cells). The seven raw source tables contain ${missingness.raw_source_total_missing_cells.toLocaleString()} nulls among ${missingness.raw_source_total_cells.toLocaleString()} cells (${missingness.raw_source_overall_missing_percent.toFixed(4)}%); many are structural or outside the model predictors. Early-score missingness is highest in modules ${highestMissingModules}; by outcome it is ${outcomeSummary}. These are descriptive associations, not causes.`
-        );
-
-        renderMissingnessChart(missingness);
+    const profile = document.createElement("div");
+    profile.className = "cluster-profiles";
+    const shares = document.createElement("span");
+    shares.textContent = classOrder
+      .map(label => `${label} ${percent(cluster.outcome_share[label] || 0)}`)
+      .join(" · ");
+    const numeric = cluster.profile.numeric_median || {};
+    const medianEntry = Object.entries(numeric)[0];
+    if (medianEntry) {
+      const median = document.createElement("span");
+      median.textContent = `Profile median — ${medianEntry[0]}: ${Number(medianEntry[1]).toFixed(1)}`;
+      profile.append(shares, median);
     } else {
-        showError(
-            'oulad-data-quality-summary',
-            'Generated missing-value audit is unavailable.'
-        );
+      profile.append(shares);
     }
-
-    renderPreprocessingComparison(
-        preprocessingComparison,
-        data.classes
-    );
-
-    const targetCanvas = document.getElementById('ouladTargetChart');
-
-    if (targetCanvas) {
-        const targetLabels = Object.keys(quality.target_counts);
-
-        makeChart('ouladTargetChart', {
-            type: 'bar',
-            data: {
-                labels: targetLabels,
-                datasets: [{
-                    label: 'Eligible registrations',
-                    data: targetLabels.map(label =>
-                        quality.target_counts[label]
-                    ),
-                    backgroundColor: targetLabels.map(
-                        (_, i) => palette[i % palette.length]
-                    ),
-                    borderRadius: 5
-                }]
-            },
-            options: {
-                plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true } }
-            }
-        });
-    }
-
-    setText('oulad-accuracy', percent(data.holdout.accuracy));
-    setText('oulad-f1', percent(data.holdout.weighted_f1));
-
-    setText(
-        'oulad-auc',
-        data.holdout.roc_auc_ovr_macro == null
-            ? 'N/A'
-            : percent(data.holdout.roc_auc_ovr_macro)
-    );
-
-    setText('oulad-model', data.selected_model);
-
-    const classes = data.classes;
-    const matrix = data.holdout.confusion_matrix;
-
-    const confusionTable =
-        document.querySelector('#ouladConfusion tbody');
-
-    if (confusionTable) {
-        confusionTable.innerHTML =
-            `<tr><th>Actual \\ Predicted</th>${classes.map(label =>
-                `<th>${label}</th>`
-            ).join('')}</tr>` +
-            classes.map((label, i) =>
-                `<tr><th>${label}</th>${matrix[i].map(value =>
-                    `<td>${value}</td>`
-                ).join('')}</tr>`
-            ).join('');
-    }
-
-    const reportTable =
-        document.querySelector('#ouladClassReport tbody');
-
-    if (reportTable) {
-        reportTable.innerHTML = classes.map(label => {
-            const row = data.holdout.classification_report[label];
-
-            return `<tr>
-                <th>${label}</th>
-                <td>${percent(row.precision)}</td>
-                <td>${percent(row.recall)}</td>
-                <td>${percent(row['f1-score'])}</td>
-                <td>${row.support.toLocaleString()}</td>
-            </tr>`;
-        }).join('');
-    }
-
-    const modelLabels = Object.keys(data.cv);
-
-    makeChart('ouladModelChart', {
-        type: 'bar',
-        data: {
-            labels: modelLabels,
-            datasets: [
-                {
-                    label: 'Accuracy',
-                    data: modelLabels.map(label =>
-                        data.cv[label].accuracy[0] * 100
-                    ),
-                    backgroundColor: green
-                },
-                {
-                    label: 'Weighted F1',
-                    data: modelLabels.map(label =>
-                        data.cv[label].weighted_f1[0] * 100
-                    ),
-                    backgroundColor: lime
-                }
-            ]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: { x: { min: 0, max: 100 } }
-        }
-    });
-
-    renderImportance(
-        'ouladImportanceChart',
-        data.feature_importance
-    );
-
-    renderClusters(
-        'ouladClusterChart',
-        'ouladClusterText',
-        data.clustering
-    );
+    item.append(title, bar, profile);
+    list.append(item);
+  });
+  list.append(legend);
+  container.replaceChildren(list);
+  setText("cluster-summary", `Selected k = ${data.selected_k}; best candidate silhouette = ${data.silhouette.toFixed(3)} (candidate k = 2–6). The silhouette suggests modest separation, not proof of natural student groups.`);
 }
 
+function renderResults(results) {
+  const data = results.experiments.uci;
+  experiment = data;
+  const holdout = data.holdout;
+  const cv = data.cv[data.selected_model];
+  const correct = holdout.confusion_matrix.reduce((sum, row, index) => sum + row[index], 0);
+  setText("result-model", data.selected_model);
+  setText("training-cv-score", percent(cv.weighted_f1[0]));
+  setText("training-cv-variation", `±${(cv.weighted_f1[1] * 100).toFixed(2)} percentage points SD across five training-only folds`);
+  setText("holdout-accuracy", percent(holdout.accuracy));
+  setText("holdout-precision", percent(holdout.precision_weighted));
+  setText("holdout-recall", percent(holdout.recall_weighted));
+  setText("holdout-weighted-f1", percent(holdout.weighted_f1));
+  setText("holdout-macro-f1", percent(holdout.macro_f1));
+  setText("holdout-auc", percent(holdout.roc_auc_ovr_macro));
+  setText("holdout-correct", `${formatNumber(correct)} of ${formatNumber(data.split.test_records)} records correctly classified`);
+  setText("missing-cells", formatNumber(data.dataset.missing_cells));
+  setText("duplicate-rows", formatNumber(data.dataset.exact_duplicate_rows));
+  setText("data-stat-rows", formatNumber(data.dataset.rows));
+  setText("class-total", `n = ${formatNumber(data.dataset.rows)}`);
+  document.querySelectorAll("[data-stat='rows']").forEach(node => node.textContent = formatNumber(data.dataset.rows));
+  document.querySelectorAll("[data-stat='features']").forEach(node => node.textContent = formatNumber(data.dataset.predictor_columns));
+  document.querySelectorAll("[data-stat='classes']").forEach(node => node.textContent = String(data.classes.length));
+  document.querySelectorAll("[data-stat='missing']").forEach(node => node.textContent = formatNumber(data.dataset.missing_cells));
+  renderDistribution(data);
+  renderModelComparison("weighted_f1");
+  renderClassReport(data);
+  renderConfusionMatrix(data);
+  renderImportance(data);
+  renderClusters(data.clustering);
+  renderSilhouetteComparison(data);
+  renderEvaluation(data);
+}
 
-// =========================================================
-// LOAD GENERATED RESULTS
-// =========================================================
+function showResultsMessage(message) {
+  [
+    "class-distribution",
+    "model-comparison",
+    "feature-importance",
+    "silhouette-comparison",
+    "cluster-outcomes",
+    "confusion-matrix"
+  ].forEach(id => showMessage(id, message));
+  const body = byId("class-report")?.querySelector("tbody");
+  if (body) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 5;
+    cell.textContent = message;
+    row.append(cell);
+    body.replaceChildren(row);
+  }
+}
 
-fetch('results/analysis.json', { cache: 'no-cache' })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
+function validateResults(results) {
+  const data = results?.experiments?.uci;
+  if (!data?.holdout || !data.cv || !data.dataset) {
+    throw new Error("The generated result file is missing required Portuguese experiment metrics.");
+  }
 
-        return response.json();
-    })
-    .then(results => {
-        const uci = results.experiments.uci;
+  const distribution = data.dataset.class_distribution;
+  const counts = classOrder.map(label => distribution?.[label]);
+  if (!Number.isInteger(data.dataset.rows) || counts.some(count => !Number.isInteger(count) || count < 0)) {
+    throw new Error("The generated result file has an invalid class distribution.");
+  }
+  if (counts.reduce((total, count) => total + count, 0) !== data.dataset.rows) {
+    throw new Error("The class counts do not add up to the dataset row count.");
+  }
+  return results;
+}
 
-        if (!uci) {
-            throw new Error('UCI experiment data is missing');
-        }
+function loadLocalResults() {
+  return new Promise((resolve, reject) => {
+    const dataScript = document.createElement("script");
+    dataScript.src = localResultsScriptUrl.href;
+    dataScript.addEventListener("load", () => {
+      if (!window.studentDropoutAnalysis) {
+        reject(new Error("The local generated-results script did not provide analysis data."));
+        return;
+      }
+      resolve(window.studentDropoutAnalysis);
+    }, { once: true });
+    dataScript.addEventListener("error", () => {
+      reject(new Error("Could not load results/analysis-data.js for the local file preview."));
+    }, { once: true });
+    document.head.append(dataScript);
+  });
+}
 
-        if (results.generated_at) {
-            const date = new Date(
-                `${results.generated_at}T00:00:00Z`
-            );
+async function loadResults() {
+  let results;
+  try {
+    if (window.location.protocol === "file:") {
+      results = validateResults(await loadLocalResults());
+    } else {
+      const response = await fetch(resultsUrl, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Result request failed with status ${response.status}`);
+      results = validateResults(await response.json());
+    }
+  } catch (error) {
+    console.error(`Could not load generated research results from ${resultsUrl.href}.`, error);
+    const message = window.location.protocol === "file:"
+      ? "Could not load the generated local results. Run python analysis.py to regenerate results/analysis-data.js, then reload this page."
+      : `Generated results could not be loaded from results/analysis.json. Check that the file is deployed at this project path. ${error.message}`;
+    showResultsMessage(message);
+    return;
+  }
 
-            setText(
-                'latest-analysis-date',
-                date.toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric',
-                    timeZone: 'UTC'
-                })
-            );
-        }
+  try {
+    renderResults(results);
+  } catch (error) {
+    console.error("The generated results loaded, but the page could not render them.", error);
+    showResultsMessage("Generated results loaded, but could not be displayed. Check the browser console for details.");
+  }
+}
 
-        renderHeroDistribution(uci);
-        renderDistribution(uci);
-        renderModelComparison('modelChart', uci.cv);
-        renderConfusionAndReport(uci);
-        renderImportance('uciImportanceChart', uci.feature_importance);
+const menuButton = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".primary-nav");
+if (menuButton && nav) {
+  menuButton.addEventListener("click", () => {
+    const open = menuButton.getAttribute("aria-expanded") !== "true";
+    menuButton.setAttribute("aria-expanded", String(open));
+    nav.classList.toggle("is-open", open);
+  });
+  nav.addEventListener("click", event => {
+    if (event.target instanceof HTMLAnchorElement) {
+      menuButton.setAttribute("aria-expanded", "false");
+      nav.classList.remove("is-open");
+    }
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      menuButton.setAttribute("aria-expanded", "false");
+      nav.classList.remove("is-open");
+      menuButton.focus();
+    }
+  });
+}
 
-        renderClusters(
-            'uciClusterChart',
-            'uciClusterText',
-            uci.clustering
-        );
+function updateActiveNavigation() {
+  const links = [...document.querySelectorAll("[data-section-nav] a[href^='#']")];
+  const sections = [...new Set(links.map(link => document.getElementById(link.hash.slice(1))).filter(Boolean))];
+  const threshold = Math.min(240, window.innerHeight * 0.32);
+  let active = sections[0];
+  sections.forEach(section => {
+    if (section.getBoundingClientRect().top <= threshold) active = section;
+  });
+  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) active = sections.at(-1) || active;
+  links.forEach(link => {
+    if (active && link.hash === `#${active.id}`) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+  const currentStage = active?.id === "results" ? "evaluation" : active?.id;
+  document.querySelectorAll("[data-crisp-stage]").forEach(link => {
+    if (link.dataset.crispStage === currentStage) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+}
+window.addEventListener("scroll", updateActiveNavigation, { passive: true });
+window.addEventListener("resize", updateActiveNavigation);
+updateActiveNavigation();
 
-        if (results.experiments.oulad) {
-            renderOulad(
-                results.experiments.oulad,
-                results.preprocessing_comparison?.oulad
-            );
-        } else {
-            markOuladUnavailable();
-        }
+const importanceToggle = byId("importance-toggle");
+if (importanceToggle) {
+  importanceToggle.addEventListener("click", () => {
+    showAllImportance = !showAllImportance;
+    if (experiment) renderImportance(experiment);
+  });
+}
 
-        if (typeof Chart === 'undefined') {
-            const message =
-                'Chart.js did not load, so charts are unavailable. Generated result tables are still available.';
-
-            setText('uci-result-status', message);
-            setText('oulad-result-status', message);
-        }
-    })
-    .catch(error => {
-        showError(
-            'uci-result-status',
-            `Generated UCI results could not be loaded (${error.message}).`
-        );
-
-        markOuladUnavailable();
-
-        console.error(
-            'Unable to load generated experiment results:',
-            error
-        );
+document.querySelectorAll("[data-metric]").forEach(button => {
+  button.addEventListener("click", () => {
+    if (!experiment) return;
+    document.querySelectorAll("[data-metric]").forEach(option => {
+      option.setAttribute("aria-pressed", String(option === button));
     });
+    renderModelComparison(button.dataset.metric);
+  });
+});
+
+loadResults();
