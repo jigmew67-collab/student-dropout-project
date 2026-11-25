@@ -533,9 +533,12 @@ async function loadResults() {
   } catch (error) {
     console.error(`Could not load generated research results from ${resultsUrl.href}.`, error);
     const filePreview = window.location.protocol === "file:";
+    const invalidResults = error.message.startsWith("Invalid generated results:");
     const nextStep = filePreview
       ? "Open a terminal in the project root, run `python -m http.server 8000`, and visit http://localhost:8000."
-      : "Confirm results/analysis.json exists at this project path and was included in the deployment.";
+      : invalidResults
+        ? "The JSON was fetched but has an outdated or invalid structure. Run `python analysis.py` from this project root and deploy the regenerated results/analysis.json with the current site."
+        : "Confirm results/analysis.json exists at this project path and was included in the deployment.";
     const message = `Could not load or validate the generated results at ${resultsUrl.pathname}. ${nextStep} Details: ${error.message}`;
     showResultsMessage(message);
     return;
