@@ -1,0 +1,406 @@
+{
+  "generated_at": "2026-11-26",
+  "environment": {
+    "python": "3.11.9",
+    "pandas": "3.1.1",
+    "numpy": "2.4.6",
+    "scikit_learn": "1.9.1",
+    "random_state": 42
+  },
+  "protocol": {
+    "holdout_fraction": 0.2,
+    "cross_validation": "5-fold stratified; training partition only",
+    "selection_metric": "mean cross-validation weighted F1",
+    "categorical_encoding": "One-hot encoding inside each model pipeline",
+    "numeric_handling": "Median imputation inside each pipeline; standardization for Logistic Regression only",
+    "missingness": "The included dataset has no missing cells; imputers are fitted within training folds and do not alter this dataset.",
+    "feature_importance": "300-tree Random Forest; holdout permutation importance; five repeats; weighted F1 scoring",
+    "clustering": "K-Means on standardized/one-hot encoded predictors; target excluded; k=2..6 selected by sampled silhouette score"
+  },
+  "experiments": {
+    "uci": {
+      "selected_model": "Histogram Gradient Boosting",
+      "classes": [
+        "Dropout",
+        "Enrolled",
+        "Graduate"
+      ],
+      "cv": {
+        "Baseline (Most Frequent)": {
+          "accuracy": [
+            0.4992935855328874,
+            0.0006316577471323342
+          ],
+          "weighted_f1": [
+            0.3325489609993252,
+            0.0007013128333433266
+          ],
+          "macro_f1": [
+            0.22201273668881658,
+            0.00018733422779423448
+          ],
+          "roc_auc": [
+            0.5,
+            0.0
+          ]
+        },
+        "Logistic Regression": {
+          "accuracy": [
+            0.7759219747640623,
+            0.008020135511235463
+          ],
+          "weighted_f1": [
+            0.7635047049779582,
+            0.009018562319692867
+          ],
+          "macro_f1": [
+            0.7014250309250206,
+            0.014425526824188758
+          ],
+          "roc_auc": [
+            0.8884132088041647,
+            0.008784870634956657
+          ]
+        },
+        "Decision Tree": {
+          "accuracy": [
+            0.6801376868921759,
+            0.006438639981014653
+          ],
+          "weighted_f1": [
+            0.6829153911737836,
+            0.010775414993929658
+          ],
+          "macro_f1": [
+            0.6183024108379856,
+            0.014266622628847349
+          ],
+          "roc_auc": [
+            0.72773403331014,
+            0.010444687503893598
+          ]
+        },
+        "Random Forest": {
+          "accuracy": [
+            0.7739469709682834,
+            0.006758941139264841
+          ],
+          "weighted_f1": [
+            0.7530166392245325,
+            0.010192827089309818
+          ],
+          "macro_f1": [
+            0.6819486518807485,
+            0.01565429678538607
+          ],
+          "roc_auc": [
+            0.8865586104780843,
+            0.008293332835360108
+          ]
+        },
+        "Histogram Gradient Boosting": {
+          "accuracy": [
+            0.7781854577709588,
+            0.011552375734436059
+          ],
+          "weighted_f1": [
+            0.7697138766324828,
+            0.012817073117785622
+          ],
+          "macro_f1": [
+            0.7109870241520431,
+            0.01680382070385006
+          ],
+          "roc_auc": [
+            0.889065618738621,
+            0.010860186471594986
+          ]
+        }
+      },
+      "holdout": {
+        "accuracy": 0.7536723163841808,
+        "precision_weighted": 0.7445503343226648,
+        "recall_weighted": 0.7536723163841808,
+        "weighted_f1": 0.7475107367689958,
+        "macro_f1": 0.6861211288329931,
+        "roc_auc_ovr_macro": 0.8794191886207393,
+        "confusion_matrix": [
+          [
+            205,
+            40,
+            39
+          ],
+          [
+            41,
+            68,
+            50
+          ],
+          [
+            20,
+            28,
+            394
+          ]
+        ],
+        "classification_report": {
+          "Dropout": {
+            "precision": 0.7706766917293233,
+            "recall": 0.721830985915493,
+            "f1-score": 0.7454545454545455,
+            "support": 284.0
+          },
+          "Enrolled": {
+            "precision": 0.5,
+            "recall": 0.4276729559748428,
+            "f1-score": 0.4610169491525424,
+            "support": 159.0
+          },
+          "Graduate": {
+            "precision": 0.8157349896480331,
+            "recall": 0.8914027149321267,
+            "f1-score": 0.8518918918918919,
+            "support": 442.0
+          }
+        }
+      },
+      "split": {
+        "train_records": 3539,
+        "test_records": 885,
+        "stratified": true,
+        "grouped_by_student": false
+      },
+      "dataset": {
+        "source": "UCI Machine Learning Repository",
+        "title": "Predict Students' Dropout and Academic Success",
+        "rows": 4424,
+        "predictor_columns": 36,
+        "target_column": "Target",
+        "class_distribution": {
+          "Dropout": 1421,
+          "Enrolled": 794,
+          "Graduate": 2209
+        },
+        "missing_cells": 0,
+        "exact_duplicate_rows": 0,
+        "duplicate_feature_rows": 0,
+        "features": {
+          "categorical": [
+            "Marital status",
+            "Application mode",
+            "Course",
+            "Daytime/evening attendance",
+            "Previous qualification",
+            "Nacionality",
+            "Mother's qualification",
+            "Father's qualification",
+            "Mother's occupation",
+            "Father's occupation",
+            "Displaced",
+            "Educational special needs",
+            "Debtor",
+            "Tuition fees up to date",
+            "Gender",
+            "Scholarship holder",
+            "International"
+          ],
+          "numeric": [
+            "Application order",
+            "Previous qualification (grade)",
+            "Admission grade",
+            "Age at enrollment",
+            "Curricular units 1st sem (credited)",
+            "Curricular units 1st sem (enrolled)",
+            "Curricular units 1st sem (evaluations)",
+            "Curricular units 1st sem (approved)",
+            "Curricular units 1st sem (grade)",
+            "Curricular units 1st sem (without evaluations)",
+            "Curricular units 2nd sem (credited)",
+            "Curricular units 2nd sem (enrolled)",
+            "Curricular units 2nd sem (evaluations)",
+            "Curricular units 2nd sem (approved)",
+            "Curricular units 2nd sem (grade)",
+            "Curricular units 2nd sem (without evaluations)",
+            "Unemployment rate",
+            "Inflation rate",
+            "GDP"
+          ]
+        }
+      },
+      "feature_importance": [
+        {
+          "feature": "Curricular units 2nd sem (approved)",
+          "importance": 0.050258191468661326,
+          "std": 0.00437628979777822
+        },
+        {
+          "feature": "Tuition fees up to date",
+          "importance": 0.043123748227947,
+          "std": 0.005642367255780722
+        },
+        {
+          "feature": "Curricular units 1st sem (approved)",
+          "importance": 0.015463601956593109,
+          "std": 0.0036044910191987594
+        },
+        {
+          "feature": "Curricular units 2nd sem (evaluations)",
+          "importance": 0.011910642372923252,
+          "std": 0.004533173869847983
+        },
+        {
+          "feature": "Curricular units 2nd sem (grade)",
+          "importance": 0.011832190309396728,
+          "std": 0.006203121857788811
+        },
+        {
+          "feature": "Application mode",
+          "importance": 0.004153229291828509,
+          "std": 0.005336924963708421
+        },
+        {
+          "feature": "Age at enrollment",
+          "importance": 0.004047876096759673,
+          "std": 0.0043702267452448
+        },
+        {
+          "feature": "Previous qualification",
+          "importance": 0.0027151672510270287,
+          "std": 0.0014980893795221082
+        },
+        {
+          "feature": "Previous qualification (grade)",
+          "importance": 0.0019168843199522945,
+          "std": 0.004214000844789341
+        },
+        {
+          "feature": "Unemployment rate",
+          "importance": 0.0017061407058826862,
+          "std": 0.0032898181336437175
+        },
+        {
+          "feature": "Daytime/evening attendance",
+          "importance": 0.001458785121501127,
+          "std": 0.0013512512218138333
+        },
+        {
+          "feature": "Admission grade",
+          "importance": 0.0011097056641807823,
+          "std": 0.0032387599697098366
+        },
+        {
+          "feature": "Curricular units 1st sem (evaluations)",
+          "importance": 0.0010048735393145547,
+          "std": 0.0016123334775603427
+        },
+        {
+          "feature": "Educational special needs",
+          "importance": 0.0009084342343698149,
+          "std": 0.0005459088755669577
+        },
+        {
+          "feature": "Curricular units 1st sem (credited)",
+          "importance": 0.000660996225037902,
+          "std": 0.0015774633284295987
+        }
+      ],
+      "clustering": {
+        "selection_metric": "silhouette score",
+        "candidates": [
+          {
+            "k": 2,
+            "silhouette": 0.20835725185139445
+          },
+          {
+            "k": 3,
+            "silhouette": 0.23061625915255865
+          },
+          {
+            "k": 4,
+            "silhouette": 0.15659190244455623
+          },
+          {
+            "k": 5,
+            "silhouette": 0.09438845183485245
+          },
+          {
+            "k": 6,
+            "silhouette": 0.08605009579838094
+          }
+        ],
+        "selected_k": 3,
+        "silhouette": 0.23061625915255865,
+        "sample_size": 2000,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 273,
+            "outcome_share": {
+              "Graduate": 0.63003663003663,
+              "Dropout": 0.23809523809523808,
+              "Enrolled": 0.13186813186813187
+            },
+            "profile": {
+              "numeric_median": {
+                "Admission grade": 130.0,
+                "Previous qualification (grade)": 130.0,
+                "Age at enrollment": 26.0,
+                "Curricular units 2nd sem (grade)": 12.555555555555555
+              },
+              "categorical_mode": {
+                "Marital status": "1",
+                "Daytime/evening attendance": "1",
+                "Displaced": "0",
+                "Educational special needs": "0"
+              }
+            }
+          },
+          {
+            "cluster": 1,
+            "size": 3297,
+            "outcome_share": {
+              "Graduate": 0.59478313618441,
+              "Enrolled": 0.20685471640885653,
+              "Dropout": 0.19836214740673339
+            },
+            "profile": {
+              "numeric_median": {
+                "Admission grade": 126.0,
+                "Previous qualification (grade)": 133.0,
+                "Age at enrollment": 19.0,
+                "Curricular units 2nd sem (grade)": 12.666666666666666
+              },
+              "categorical_mode": {
+                "Marital status": "1",
+                "Daytime/evening attendance": "1",
+                "Displaced": "1",
+                "Educational special needs": "0"
+              }
+            }
+          },
+          {
+            "cluster": 2,
+            "size": 854,
+            "outcome_share": {
+              "Dropout": 0.8220140515222483,
+              "Graduate": 0.08899297423887588,
+              "Enrolled": 0.08899297423887588
+            },
+            "profile": {
+              "numeric_median": {
+                "Admission grade": 125.65,
+                "Previous qualification (grade)": 133.1,
+                "Age at enrollment": 23.0,
+                "Curricular units 2nd sem (grade)": 0.0
+              },
+              "categorical_mode": {
+                "Marital status": "1",
+                "Daytime/evening attendance": "1",
+                "Displaced": "0",
+                "Educational special needs": "0"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
