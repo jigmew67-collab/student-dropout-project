@@ -374,6 +374,10 @@ section[id] { scroll-margin-top: 86px; }
     font-weight: 800;
 }
 
+.num[aria-hidden="true"] {
+    visibility: hidden;
+}
+
 .section-head p {
     margin: 0;
 }
@@ -1830,5 +1834,213 @@ footer a {
 
     .references {
         margin-top: 32px;
+    }
+}
+
+.roadmap-grid,
+.question-grid,
+.decision-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.roadmap-card,
+.question-grid article,
+.decision-grid article {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #fff;
+}
+
+.roadmap-card > span,
+.question-grid article > span {
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+}
+
+.roadmap-card h3,
+.decision-grid h3,
+.lesson-callout h3 {
+    margin: 10px 0;
+    font-family: var(--serif);
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.roadmap-card p,
+.question-grid article p,
+.decision-grid p,
+.lesson-callout p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.roadmap-card a,
+.question-grid article a {
+    display: inline-block;
+    margin: 8px 12px 0 0;
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.research-questions,
+.training-workflow,
+.decision-grid,
+.lesson-callout {
+    margin-top: 30px;
+}
+
+.question-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.training-workflow {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: #fff;
+}
+
+.training-workflow ol {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    padding: 0;
+    margin: 16px 0 0;
+    list-style: none;
+}
+
+.training-workflow li {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 14px;
+    border-radius: 12px;
+    background: var(--cream);
+    font-size: 11px;
+}
+
+.training-workflow li b {
+    color: var(--green);
+    font-size: 10px;
+}
+
+.training-workflow li span {
+    color: var(--muted);
+}
+
+.decision-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.lesson-callout {
+    padding: 28px;
+    border-radius: 20px;
+    background: var(--dark);
+    color: #fff;
+}
+
+.lesson-callout .kicker {
+    color: var(--lime);
+}
+
+.lesson-callout h3 {
+    font-size: 30px;
+}
+
+.lesson-callout p {
+    max-width: 880px;
+    color: #c3d0ca;
+}
+
+.lesson-callout strong {
+    color: var(--lime);
+}
+
+.importance {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #fff;
+}
+
+.importance h3 {
+    margin: 10px 0 6px;
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.importance p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.chart-pair table {
+    min-width: 460px;
+}
+
+.chart-pair th,
+.chart-pair td {
+    padding: 10px 12px;
+}
+
+.class-results .card canvas {
+    max-height: 340px;
+}
+
+.results-grid > * {
+    min-width: 0;
+}
+
+.results-grid canvas {
+    max-width: 100%;
+}
+
+.hero > * {
+    min-width: 0;
+}
+
+.dataset-card > *,
+.data-grid > *,
+.pipeline-grid > * {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    .question-grid,
+    .decision-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .training-workflow ol {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .roadmap-grid,
+    .question-grid,
+    .decision-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .training-workflow ol {
+        grid-template-columns: 1fr;
+    }
+
+    .roadmap-card,
+    .question-grid article,
+    .decision-grid article,
+    .training-workflow,
+    .lesson-callout,
+    .importance {
+        padding: 20px;
     }
 }
