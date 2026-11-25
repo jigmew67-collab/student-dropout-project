@@ -4,11 +4,11 @@ const palette = {
   Graduate: "#2f6d58"
 };
 const classOrder = ["Dropout", "Enrolled", "Graduate"];
+// Resolve beside script.js so a GitHub Pages repository subpath is retained.
 const resultsUrl = new URL(
   "results/analysis.json",
   document.currentScript?.src || document.baseURI
 );
-const localResultsScriptUrl = new URL("analysis-data.js", resultsUrl);
 const metricCaptions = {
   weighted_f1: "Mean training-only cross-validation score; weighted F1 is the model-selection metric.",
   accuracy: "Mean training-only cross-validation accuracy; model selection still uses weighted F1.",
@@ -402,56 +402,141 @@ function showResultsMessage(message) {
   }
 }
 
-function validateResults(results) {
-  const data = results?.experiments?.uci;
-  if (!data?.holdout || !data.cv || !data.dataset) {
-    throw new Error("The generated result file is missing required Portuguese experiment metrics.");
+function requireObject(value, path) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(`Invalid generated results: ${path} must be an object.`);
   }
-
-  const distribution = data.dataset.class_distribution;
-  const counts = classOrder.map(label => distribution?.[label]);
-  if (!Number.isInteger(data.dataset.rows) || counts.some(count => !Number.isInteger(count) || count < 0)) {
-    throw new Error("The generated result file has an invalid class distribution.");
-  }
-  if (counts.reduce((total, count) => total + count, 0) !== data.dataset.rows) {
-    throw new Error("The class counts do not add up to the dataset row count.");
-  }
-  return results;
+  return value;
 }
 
-function loadLocalResults() {
-  return new Promise((resolve, reject) => {
-    const dataScript = document.createElement("script");
-    dataScript.src = localResultsScriptUrl.href;
-    dataScript.addEventListener("load", () => {
-      if (!window.studentDropoutAnalysis) {
-        reject(new Error("The local generated-results script did not provide analysis data."));
-        return;
+function requireNumber(value, path, { minimum = -Infinity, maximum = Infinity, integer = false } = {}) {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < minimum || value > maximum || (integer && !Number.isInteger(value))) {
+    const kind = integer ? "whole number" : "finite number";
+    const bounds = minimum > -Infinity && maximum < Infinity
+      ? ` from ${minimum} to ${maximum}`
+      : minimum > -Infinity
+        ? ` greater than or equal to ${minimum}`
+        : maximum < Infinity
+          ? ` less than or equal to ${maximum}`
+          : "";
+    throw new Error(`Invalid generated results: ${path} must be a ${kind}${bounds}.`);
+  }
+  return value;
+}
+
+function validateResults(results) {
+  const data = requireObject(results?.experiments?.uci, "experiments.uci");
+  if (!Array.isArray(data.classes) || data.classes.length !== classOrder.length || data.classes.some((label, index) => label !== classOrder[index])) {
+    throw new Error(`Invalid generated results: classes must be ordered as ${classOrder.join(", ")}.`);
+  }
+
+  const dataset = requireObject(data.dataset, "dataset");
+  const distribution = requireObject(dataset.class_distribution, "dataset.class_distribution");
+  requireNumber(dataset.rows, "dataset.rows", { minimum: 1, integer: true });
+  const counts = classOrder.map(label => requireNumber(distribution[label], `dataset.class_distribution.${label}`, { minimum: 0, integer: true }));
+  if (counts.reduce((total, count) => total + count, 0) !== dataset.rows) {
+    throw new Error("Invalid generated results: class counts do not add up to dataset.rows.");
+  }
+  ["predictor_columns", "missing_cells", "exact_duplicate_rows"].forEach(key =>
+    requireNumber(dataset[key], `dataset.${key}`, { minimum: 0, integer: true })
+  );
+
+  const cv = requireObject(data.cv, "cv");
+  const metricNames = ["accuracy", "weighted_f1", "macro_f1", "roc_auc"];
+  if (Object.keys(cv).length === 0 || !Object.hasOwn(cv, data.selected_model)) {
+    throw new Error("Invalid generated results: cv must contain models and the selected_model.");
+  }
+  Object.entries(cv).forEach(([model, scores]) => {
+    requireObject(scores, `cv.${model}`);
+    metricNames.forEach(metric => {
+      const pair = scores[metric];
+      if (!Array.isArray(pair) || pair.length !== 2) {
+        throw new Error(`Invalid generated results: cv.${model}.${metric} must contain a mean and standard deviation.`);
       }
-      resolve(window.studentDropoutAnalysis);
-    }, { once: true });
-    dataScript.addEventListener("error", () => {
-      reject(new Error("Could not load results/analysis-data.js for the local file preview."));
-    }, { once: true });
-    document.head.append(dataScript);
+      requireNumber(pair[0], `cv.${model}.${metric}[0]`, { minimum: 0, maximum: 1 });
+      requireNumber(pair[1], `cv.${model}.${metric}[1]`, { minimum: 0, maximum: 1 });
+    });
   });
+
+  const holdout = requireObject(data.holdout, "holdout");
+  ["accuracy", "precision_weighted", "recall_weighted", "weighted_f1", "macro_f1", "roc_auc_ovr_macro"].forEach(metric =>
+    requireNumber(holdout[metric], `holdout.${metric}`, { minimum: 0, maximum: 1 })
+  );
+  const report = requireObject(holdout.classification_report, "holdout.classification_report");
+  classOrder.forEach(label => {
+    const scores = requireObject(report[label], `holdout.classification_report.${label}`);
+    ["precision", "recall", "f1-score"].forEach(metric =>
+      requireNumber(scores[metric], `holdout.classification_report.${label}.${metric}`, { minimum: 0, maximum: 1 })
+    );
+    requireNumber(scores.support, `holdout.classification_report.${label}.support`, { minimum: 0, integer: true });
+  });
+  if (!Array.isArray(holdout.confusion_matrix) || holdout.confusion_matrix.length !== classOrder.length) {
+    throw new Error("Invalid generated results: holdout.confusion_matrix must be a square class-by-class matrix.");
+  }
+  holdout.confusion_matrix.forEach((row, index) => {
+    if (!Array.isArray(row) || row.length !== classOrder.length) {
+      throw new Error("Invalid generated results: holdout.confusion_matrix must be a square class-by-class matrix.");
+    }
+    row.forEach((value, column) => requireNumber(value, `holdout.confusion_matrix[${index}][${column}]`, { minimum: 0, integer: true }));
+  });
+
+  const split = requireObject(data.split, "split");
+  requireNumber(split.test_records, "split.test_records", { minimum: 1, integer: true });
+  if (!Array.isArray(data.feature_importance) || data.feature_importance.length === 0) {
+    throw new Error("Invalid generated results: feature_importance must contain at least one feature.");
+  }
+  data.feature_importance.forEach((item, index) => {
+    requireObject(item, `feature_importance[${index}]`);
+    if (typeof item.feature !== "string" || item.feature.length === 0) {
+      throw new Error(`Invalid generated results: feature_importance[${index}].feature must be a non-empty string.`);
+    }
+    requireNumber(item.importance, `feature_importance[${index}].importance`);
+    requireNumber(item.std, `feature_importance[${index}].std`, { minimum: 0 });
+  });
+
+  const clustering = requireObject(data.clustering, "clustering");
+  if (!Array.isArray(clustering.candidates) || clustering.candidates.length === 0) {
+    throw new Error("Invalid generated results: clustering.candidates must contain silhouette scores.");
+  }
+  clustering.candidates.forEach((candidate, index) => {
+    requireObject(candidate, `clustering.candidates[${index}]`);
+    requireNumber(candidate.k, `clustering.candidates[${index}].k`, { minimum: 2, integer: true });
+    requireNumber(candidate.silhouette, `clustering.candidates[${index}].silhouette`, { minimum: -1, maximum: 1 });
+  });
+  if (!clustering.candidates.some(candidate => candidate.k === clustering.selected_k)) {
+    throw new Error("Invalid generated results: clustering.selected_k is not in the candidate scores.");
+  }
+  requireNumber(clustering.silhouette, "clustering.silhouette", { minimum: -1, maximum: 1 });
+  requireNumber(clustering.sample_size, "clustering.sample_size", { minimum: 1, integer: true });
+  if (!Array.isArray(clustering.clusters) || clustering.clusters.length === 0) {
+    throw new Error("Invalid generated results: clustering.clusters must contain at least one cluster.");
+  }
+  clustering.clusters.forEach((cluster, index) => {
+    requireObject(cluster, `clustering.clusters[${index}]`);
+    requireNumber(cluster.cluster, `clustering.clusters[${index}].cluster`, { minimum: 0, integer: true });
+    requireNumber(cluster.size, `clustering.clusters[${index}].size`, { minimum: 1, integer: true });
+    const shares = requireObject(cluster.outcome_share, `clustering.clusters[${index}].outcome_share`);
+    classOrder.forEach(label => requireNumber(shares[label], `clustering.clusters[${index}].outcome_share.${label}`, { minimum: 0, maximum: 1 }));
+  });
+  return results;
 }
 
 async function loadResults() {
   let results;
   try {
     if (window.location.protocol === "file:") {
-      results = validateResults(await loadLocalResults());
-    } else {
-      const response = await fetch(resultsUrl, { cache: "no-store" });
-      if (!response.ok) throw new Error(`Result request failed with status ${response.status}`);
-      results = validateResults(await response.json());
+      throw new Error("This page was opened directly from disk; JSON data can only be loaded when the site is served over HTTP.");
     }
+    const response = await fetch(resultsUrl, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Result request failed with HTTP ${response.status}.`);
+    results = validateResults(await response.json());
   } catch (error) {
     console.error(`Could not load generated research results from ${resultsUrl.href}.`, error);
-    const message = window.location.protocol === "file:"
-      ? "Could not load the generated local results. Run python analysis.py to regenerate results/analysis-data.js, then reload this page."
-      : `Generated results could not be loaded from results/analysis.json. Check that the file is deployed at this project path. ${error.message}`;
+    const filePreview = window.location.protocol === "file:";
+    const nextStep = filePreview
+      ? "Open a terminal in the project root, run `python -m http.server 8000`, and visit http://localhost:8000."
+      : "Confirm results/analysis.json exists at this project path and was included in the deployment.";
+    const message = `Could not load or validate the generated results at ${resultsUrl.pathname}. ${nextStep} Details: ${error.message}`;
     showResultsMessage(message);
     return;
   }

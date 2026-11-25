@@ -446,11 +446,6 @@ def main():
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    browser_payload = json.dumps(payload, ensure_ascii=True, separators=(",", ":"))
-    (ROOT / "results" / "analysis-data.js").write_text(
-        f"window.studentDropoutAnalysis = {browser_payload};\n",
-        encoding="utf-8",
-    )
     (ROOT / "results.txt").write_text("\n".join(report) + "\n", encoding="utf-8")
     print("\n".join(report))
 
